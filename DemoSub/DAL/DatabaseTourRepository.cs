@@ -10,7 +10,31 @@ namespace Tourplanner.DAL
 {
     class DatabaseTourRepository : ITourRepository
     {
-        private const string CreateTableCommand = @""; //TODO
+        private const string CreateTableCommand = @"create table if not exists tours
+                                                    (
+                                                        tour_id         uuid           not null
+                                                            constraint tours_pk
+                                                                primary key,
+                                                        name            text           not null,
+                                                        description     text           not null,
+                                                        ""from""          text           not null,
+                                                        ""to""            text           not null,
+                                                        ""transportMode"" transporttype  not null,
+                                                        distance        real           not null,
+                                                        time            integer        not null,
+                                                        picpath         text           not null,
+                                                        popularity      popularityenum not null,
+                                                        childfriendly   boolean        not null
+                                                    );
+
+                                                    alter table tours
+                                                        owner to postgres;
+
+                                                    create unique index if not exists tours_picpath_uindex
+                                                        on tours (picpath);
+
+                                                    create unique index if not exists tours_tour_id_uindex
+                                                        on tours (tour_id);";
 
         private const string InsertTourCommand = "INSERT INTO tours(name, description, from, to, transportMode, distance, time, picpath, popularity, childfriendly) VALUES (@name, @description, @from, @to, @transportMode, @distance, @time, @picpath, @popularity, @childfriendly)";
         private const string SelectAllToursCommand = "SELECT * FROM tours";

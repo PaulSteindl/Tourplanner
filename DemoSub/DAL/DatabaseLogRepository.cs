@@ -10,7 +10,28 @@ namespace Tourplanner.DAL
 {
     class DatabaseLogRepository : ILogRepository
     {
-        private const string CreateTableCommand = @""; //TODO
+        private const string CreateTableCommand = @"create table if not exists logs
+                                                    (
+                                                        log_id     uuid           not null
+                                                            constraint table_name_pk
+                                                                primary key,
+                                                        tour_id    uuid           not null
+                                                            constraint logs_tours_tour_id_fk
+                                                                references tours
+                                                                on update cascade on delete cascade
+                                                                deferrable,
+                                                        date       date           not null,
+                                                        comment    text,
+                                                        difficulty difficultyenum not null,
+                                                        totaltime  integer        not null,
+                                                        rating     popularityenum not null
+                                                    );
+
+                                                    alter table logs
+                                                        owner to postgres;
+
+                                                    create unique index if not exists table_name_log_id_uindex
+                                                        on logs (log_id);";
 
         private const string InsertLogCommand = "INSERT INTO logs(date, comment, difficulty, time, rating) VALUES (@date, @comment, @difficulty, @time, @rating)";
         private const string SelectLogsByTourIdCommand = "SELECT * FROM logs WHERE tour_id = @tour_id";
