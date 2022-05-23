@@ -1,5 +1,6 @@
 ﻿using DemoSub.Search;
 using DemoSub.ViewModels;
+using Tourplanner.DAL.Database;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,6 +18,7 @@ namespace DemoSub
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            var dataBase = new Database("Host=localhost;Port=5432;Username=postgres;Password=123;Database=swe2tourdb");
             var searchEngine = new StandardSearchEngine();
             var searchBarViewModel = new SearchBarViewModel();
             var resultViewModel = new ResultViewModel();

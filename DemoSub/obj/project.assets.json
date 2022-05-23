@@ -121,23 +121,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Gerhard\\.nuget\\packages\\": {},
+    "C:\\Users\\PaulS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gerhard\\Downloads\\DemoSub\\DemoSub\\Tourplanner.csproj",
+      "projectUniqueName": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj",
       "projectName": "Tourplanner",
-      "projectPath": "C:\\Users\\Gerhard\\Downloads\\DemoSub\\DemoSub\\Tourplanner.csproj",
-      "packagesPath": "C:\\Users\\Gerhard\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gerhard\\Downloads\\DemoSub\\DemoSub\\obj\\",
+      "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+      "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Gerhard\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PaulS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -191,7 +191,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

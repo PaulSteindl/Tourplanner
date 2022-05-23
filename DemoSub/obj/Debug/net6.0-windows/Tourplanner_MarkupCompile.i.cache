@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Gerhard\Downloads\DemoSub\DemoSub\obj\Debug\net6.0-windows\
+C:\Users\PaulS\Source\Repos\PaulSteindl\Tourplanner\DemoSub\obj\Debug\net6.0-windows\
 Tourplanner
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\Gerhard\Downloads\DemoSub\DemoSub\App.xaml
+C:\Users\PaulS\Source\Repos\PaulSteindl\Tourplanner\DemoSub\App.xaml
 31174207375
 
 25-733631321
-196761727117
+196897325014
 MainWindow.xaml;Views\ResultView.xaml;Views\SearchBar.xaml;
 
-False
+True
 
