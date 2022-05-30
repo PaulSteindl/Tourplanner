@@ -1,11 +1,14 @@
 ﻿using Tourplanner.Models;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace Tourplanner.DAL
 {
     public interface ITourRepository
     {
+        Task<Route> GetRoute(string from, string to);
+
         /// <summary>
         /// Fügt eine neue Tour hinzu
         /// </summary>
