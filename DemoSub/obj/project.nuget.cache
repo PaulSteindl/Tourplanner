@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Am863Fnmmp7Q9dSabwPM6W/hs1DYwG/tW2JOu6Bh46ouUQcn+s+mYgIo5v3Kc9qrrHNPm9OL7ZyYTvCh9ZI+Vw==",
+  "dgSpecHash": "KMhL3Fd+Mk+MkTucXkxTe7BEbyB8CawtYzdKYvDwZ6DQT8uhymA44y/LPEHTjFeFBIQ+RZcI9TjaaEGzULigFg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+  "projectFilePath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\PaulS\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\PaulS\\.nuget\\packages\\npgsql\\6.0.4\\npgsql.6.0.4.nupkg.sha512",
-    "C:\\Users\\PaulS\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "C:\\Users\\kailu\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\kailu\\.nuget\\packages\\npgsql\\6.0.4\\npgsql.6.0.4.nupkg.sha512",
+    "C:\\Users\\kailu\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }
