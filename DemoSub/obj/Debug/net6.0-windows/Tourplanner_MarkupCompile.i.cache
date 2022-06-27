@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 E:\GoogleDrive\FH_TU_Wien\Semester04\SWEN2\TourPlanner_if20b232\Tourplanner\DemoSub\App.xaml
-3-185308583
+4-981141924
 
-232028813428
+24-753638902
 196-1717117663
-Views\MainWindow.xaml;Views\SingleTourView.xaml;Views\TourManagerView.xaml;
+Views\AllToursView.xaml;Views\MainWindowView.xaml;Views\SingleTourView.xaml;Views\TourManagerView.xaml;
 
 True
 
