@@ -11,7 +11,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "Npgsql/6.0.4": {
+      "Npgsql/6.0.5": {
         "type": "package",
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
@@ -65,10 +65,10 @@
         "packageIcon.png"
       ]
     },
-    "Npgsql/6.0.4": {
-      "sha512": "SJMlOmFHr32oOzVXeHmarGaBKkhi0wHVN/rzuu2tUSJ4Qx2AkHCpr9R/DhLWwDiklqgzFU++9wkFyGJxbx/zzg==",
+    "Npgsql/6.0.5": {
+      "sha512": "a11H5/b5yNTuFN0Ycjvb920oI6vQHadt6KhEMmcC7DfvsSHH8Z3wBam+CHmyWcfDxJJaxamcdBb8XA3BvqS4Kw==",
       "type": "package",
-      "path": "npgsql/6.0.4",
+      "path": "npgsql/6.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -83,7 +83,7 @@
         "lib/netstandard2.0/Npgsql.xml",
         "lib/netstandard2.1/Npgsql.dll",
         "lib/netstandard2.1/Npgsql.xml",
-        "npgsql.6.0.4.nupkg.sha512",
+        "npgsql.6.0.5.nupkg.sha512",
         "npgsql.nuspec",
         "postgresql.png"
       ]
@@ -117,27 +117,27 @@
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "Newtonsoft.Json >= 13.0.1",
-      "Npgsql >= 6.0.4"
+      "Npgsql >= 6.0.5"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kailu\\.nuget\\packages\\": {},
+    "C:\\Users\\PaulS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+      "projectUniqueName": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj",
       "projectName": "Tourplanner",
-      "projectPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
-      "packagesPath": "C:\\Users\\kailu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\obj\\",
+      "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+      "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kailu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PaulS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -170,7 +170,7 @@
           },
           "Npgsql": {
             "target": "Package",
-            "version": "[6.0.4, )"
+            "version": "[6.0.5, )"
           }
         },
         "imports": [
@@ -191,7 +191,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

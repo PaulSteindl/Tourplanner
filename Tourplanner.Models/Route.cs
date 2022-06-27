@@ -16,5 +16,12 @@ namespace Tourplanner.Models
 
         public string? EndLocation { get; init; }
 
+        public double? ul_lng { get; init; }
+
+        public double? ul_lat { get; init; }
+
+        public double? lr_lng { get; init; }
+
+        public double? lr_lat { get; init; }
     }
 }
