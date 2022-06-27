@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\kailu\Google Drive\FH_TU_Wien\Semester04\SWEN2\TourPlanner_if20b232\Tourplanner\DemoSub\obj\Debug\net6.0-windows\
+E:\GoogleDrive\FH_TU_Wien\Semester04\SWEN2\TourPlanner_if20b232\Tourplanner\DemoSub\obj\Debug\net6.0-windows\
 Tourplanner
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\kailu\Google Drive\FH_TU_Wien\Semester04\SWEN2\TourPlanner_if20b232\Tourplanner\DemoSub\App.xaml
-31174207375
+E:\GoogleDrive\FH_TU_Wien\Semester04\SWEN2\TourPlanner_if20b232\Tourplanner\DemoSub\App.xaml
+3-185308583
 
-251035491510
-196-843753669
-MainWindow.xaml;Views\ResultView.xaml;Views\SearchBar.xaml;
+232028813428
+196-1717117663
+Views\MainWindow.xaml;Views\SingleTourView.xaml;Views\TourManagerView.xaml;
 
-False
+True
 

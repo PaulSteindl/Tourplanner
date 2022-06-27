@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DemoSub.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DemoSub.Views
+namespace Tourplanner.Views
 {
     /// <summary>
-    /// Interaction logic for ResultView.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ResultView : UserControl
+    public partial class MainWindow : Window
     {
-        public ResultView()
+        public MainWindow()
         {
             InitializeComponent();
+
         }
     }
 }

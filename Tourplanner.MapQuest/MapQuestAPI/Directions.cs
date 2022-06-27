@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Tourplanner.Exceptions;
 using System.Net.Http.Json;
+using Tourplanner.Models;
 
 namespace Tourplanner.BusinessLayer
 {
@@ -44,5 +45,34 @@ namespace Tourplanner.BusinessLayer
         }
 
         // @TODO: GET images from mapquest
+        public async Task<List<RouteSteps>> GetIconsAsync(Route route)
+        {
+            try
+            {
+                CheckIfDirectoryExists(IconImagePath);
+
+                var newRouteStep = new List<RouteSteps>();
+                // TODO
+            }
+            catch
+            {
+
+            }
+        }
+
+        internal static void CheckIfDirectoryExists(string path)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FetchDataException("An error occured while creating a directory: " + path, ex);
+            }
+        }
     }
 }

@@ -10,7 +10,6 @@ namespace DemoSub.ViewModels
 {
     internal class MainViewModel : BaseViewModel
     {
-        private readonly ISearchEngine searchEngine;
         private readonly ResultViewModel resultViewModel;
 
         private string? _resultText;
@@ -25,9 +24,8 @@ namespace DemoSub.ViewModels
             }
         }
 
-        public MainViewModel(ISearchEngine searchEngine, SearchBarViewModel searchBarViewModel, ResultViewModel resultViewModel)
+        public MainViewModel(SearchBarViewModel searchBarViewModel, ResultViewModel resultViewModel)
         {
-            this.searchEngine = searchEngine;
             this.resultViewModel = resultViewModel;
             searchBarViewModel.SearchTextChanged += (_, searchText) =>
             {
@@ -37,8 +35,7 @@ namespace DemoSub.ViewModels
 
         private void Search(string? searchText)
         {
-            var results = String.Join("\n", this.searchEngine.SearchFor(searchText));
-            resultViewModel.DisplayResults(results);
+            
         }
     }
 }

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DemoSub.Views
+namespace Tourplanner.Views
 {
     /// <summary>
-    /// Interaction logic for SearchBar.xaml
+    /// Interaction logic for SingleTourView.xaml
     /// </summary>
-    public partial class SearchBar : UserControl
+    public partial class SingleTourView : Window
     {
-        public SearchBar()
+        public SingleTourView()
         {
             InitializeComponent();
         }
