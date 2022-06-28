@@ -121,23 +121,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kailu\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Anwender\\.nuget\\packages\\": {},
+    "E:\\VisualStudio\\VisualStudio_Tools\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+      "projectUniqueName": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
       "projectName": "Tourplanner",
-      "projectPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
-      "packagesPath": "C:\\Users\\kailu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\obj\\",
+      "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+      "packagesPath": "C:\\Users\\Anwender\\.nuget\\packages\\",
+      "outputPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "E:\\VisualStudio\\VisualStudio_Tools\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kailu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Anwender\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -191,7 +191,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

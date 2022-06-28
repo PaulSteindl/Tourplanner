@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DemoSub.Views
+namespace Tourplanner.Views
 {
     /// <summary>
-    /// Interaction logic for ResultView.xaml
+    /// Interaction logic for MainWindowView.xaml
     /// </summary>
-    public partial class ResultView : UserControl
+    public partial class MainWindowView : Window
     {
-        public ResultView()
+        public MainWindowView()
         {
             InitializeComponent();
         }

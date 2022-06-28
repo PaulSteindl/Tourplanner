@@ -12,9 +12,11 @@ namespace Tourplanner.Models
 
         private double? TotalDistance { get; init; }
 
-        public string? StartLocation {  get; init; }
+        public string? StartLocation { get; init; }
 
         public string? EndLocation { get; init; }
+
+        public IReadOnlyList<RouteSteps>? RouteSteps { get; init; }
 
     }
 }
