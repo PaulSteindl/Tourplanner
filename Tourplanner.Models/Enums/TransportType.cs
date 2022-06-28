@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tourplanner.Enums
+﻿namespace Tourplanner.Models
 {
     public enum TransportType
     {

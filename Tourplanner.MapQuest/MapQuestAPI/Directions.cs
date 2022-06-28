@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using Tourplanner.Exceptions;
 using System.Net.Http.Json;
 using Tourplanner.Models;
+using Tourplanner.DataAccessLayer;
 
 namespace Tourplanner.BusinessLayer
 {
-    internal class Directions : MapQuestAPI
+    internal class Directions : MapQuestAPI, IDirections
     {
-        private const string MapQuestDirectionRequest = "http://www.mapquestapi.com/directions/v2/route?key={0}&from={1}&to={2}&outFormat=json&unit=k&locale=de_DE";
+        private const string MapQuestDirectionRequest = "http://www.mapquestapi.com/directions/v2/route?key={0}&from={1}&to={2}&transportMode={3}&outFormat=json&unit=k&locale=de_DE";
         private const string MapQuestMapRequest = "https://www.mapquestapi.com/staticmap/v5/map?key={0}&session={1}&size=640,480&zoom=11&boundingBox={2},{3},{4},{5}";
 
         public Directions(string mapQuestKey, HttpClient httpClient) : base(mapQuestKey, httpClient)
@@ -22,19 +23,11 @@ namespace Tourplanner.BusinessLayer
 
         }
 
-        public async Task<Route> GetRouteAsync(string from, string to) 
-        {
-            var route = await FetchRouteAsync(from, to);
-            var map = await FetchMapAsync(route);
-
-            return route;
-        }
-
-        private async Task<Route> FetchRouteAsync(string from, string to)
+        public async Task<Route> FetchRouteAsync(string from, string to, Models.TransportType transportType)
         {
             try
             {
-                var mapQuestRequestUrl = String.Format(MapQuestDirectionRequest, _mapQuestKey, from, to);
+                var mapQuestRequestUrl = String.Format(MapQuestDirectionRequest, _mapQuestKey, from, to, transportType);
 
                 var route = await _httpClient.GetFromJsonAsync<Route>(mapQuestRequestUrl);
 
@@ -46,7 +39,7 @@ namespace Tourplanner.BusinessLayer
             }
         }
 
-        private async Task<byte[]> FetchMapAsync(Route route)
+        public async Task<byte[]> FetchMapAsync(Route route)
         {
             try
             {

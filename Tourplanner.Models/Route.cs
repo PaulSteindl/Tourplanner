@@ -10,7 +10,9 @@ namespace Tourplanner.Models
     {
         public string? RouteId { get; init; }
 
-        private double? TotalDistance { get; init; }
+        public double? TotalDistance { get; init; }
+
+        public int TotalTime { get; init; }
 
         public string? StartLocation {  get; init; }
 
@@ -23,5 +25,7 @@ namespace Tourplanner.Models
         public double? lr_lng { get; init; }
 
         public double? lr_lat { get; init; }
+
+        public string? picPath { get; set; }
     }
 }

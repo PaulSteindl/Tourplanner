@@ -24,20 +24,5 @@ namespace Tourplanner.DataAccessLayer
         {
             throw new NotImplementedException();
         }
-
-        public string SaveImage(byte[] mapArray, string routeId)
-        {
-            //Check for file
-            string fullPath = $"{Path.GetDirectoryName(Path.GetFullPath($".\\{routeId}.jpeg"))}";
-            if (!Directory.Exists(fullPath))
-            {
-                Directory.CreateDirectory(fullPath);
-                var fs = File.Create($"./{fullPath}");
-                fs.Write(mapArray);
-                fs.Close();
-            }
-
-            return fullPath;
-        }
     }
 }
