@@ -6,13 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tourplanner.Models;
+using AsyncAwaitBestPractices.MVVM;
+
 
 namespace Tourplanner.ViewModels
 {
-    public class MainWindowViewModel : BaseViewModel
+    class MainWindowViewModel : BaseViewModel
     {
         private string _searchText = String.Empty;
         private Tour? _tour;
+        private bool isBusy;
 
         public string SearchText
         {
@@ -23,6 +26,19 @@ namespace Tourplanner.ViewModels
         {
             get => _tour;
             set => _tour = value;
+        }
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                isBusy = value;
+                OnPropertyChanged();
+
+                // Occurs when the CommandManager detects conditions that might change the ability of a command to execute.
+                CommandManager.InvalidateRequerySuggested();
+            }
         }
 
         public ICommand AddTourCommand { get; }
@@ -41,16 +57,16 @@ namespace Tourplanner.ViewModels
 
         public MainWindowViewModel()
         {
-            AddTourCommand = new RelayCommand(AddTour);
+            AddTourCommand = new AsyncCommand(AddTour);
             ModifyTourCommand = new RelayCommand(ModifyTour);
             DeleteTourCommand = new RelayCommand(DeleteTour);
             AddTourLogCommand = new RelayCommand(AddTourLog);
             ModifyTourLogCommand = new RelayCommand(ModifyTourLog);
             DeleteTourLogCommand = new RelayCommand(DeleteTourLog);
-            ImportTourCommand = new RelayCommand(ImportTour);
-            ExportTourCommand = new RelayCommand(ExportTour);
-            TourReportCommand = new RelayCommand(TourReport);
-            SummaryTourReportCommand = new RelayCommand(SummaryTourReport);
+            ImportTourCommand = new AsyncCommand(ImportTour);
+            ExportTourCommand = new AsyncCommand(ExportTour);
+            TourReportCommand = new AsyncCommand(TourReport);
+            SummaryTourReportCommand = new AsyncCommand(SummaryTourReport);
             SearchFieldCommand = new RelayCommand(SearchField);
             ClearSearchFieldCommand = new RelayCommand(ClearSearchField);
             ExitApplicationCommand = new RelayCommand(ExitApplication);
@@ -71,49 +87,34 @@ namespace Tourplanner.ViewModels
             throw new NotImplementedException();
         }
 
-        private void SummaryTourReport(object? obj)
+        private async Task SummaryTourReport()
         {
             throw new NotImplementedException();
         }
 
-        private void TourReport(object? obj)
+        private async Task TourReport()
         {
             throw new NotImplementedException();
         }
 
-        private void ExportTour(object? obj)
+        private async Task ExportTour()
         {
             throw new NotImplementedException();
         }
 
-        private void ImportTour(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void DeleteTourLog(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ModifyTourLog(object? obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void AddTourLog(object? obj)
+        private async Task ImportTour()
         {
             throw new NotImplementedException();
         }
 
         private void DeleteTour(object? obj)
         {
-            throw new NotImplementedException();
+            if (Tour is null) return;
         }
 
         private void ModifyTour(object? obj)
         {
-            throw new NotImplementedException();
+            if (Tour is null) return;
         }
 
         private async Task AddTour()
@@ -124,16 +125,43 @@ namespace Tourplanner.ViewModels
                 CancelButtonCommand = new RelayCommand(CancelButton),
                 SaveButtonCommand = new RelayCommand(SaveButton)
             };
+
+            if (window.ShowDialog() is not true) return;
+
+            // @TODO finish implementing AddTour with MapQuestAPI
+
+            void SaveButton(object? obj)
+            {
+                window.DialogResult = true;
+                window.Close();
+            }
+
+            void CancelButton(object? obj)
+            {
+                window.DialogResult = false;
+                window.Close();
+            }
         }
 
-        private void SaveButton(object? obj)
+        private void AddTourLog(object ?obj)
         {
-            throw new NotImplementedException();
+            if (Tour is null) return;
+
+            // @TODO AddTourLog method
         }
 
-        private void CancelButton(object? obj)
+        private void ModifyTourLog(object? obj)
         {
-            throw new NotImplementedException();
+            if (Tour is null) return;
+
+            // @TODO ModifyTourLog method
+        }
+
+        private void DeleteTourLog(object? obj)
+        {
+            if (Tour is null) return;
+
+            // @TODO DeleteTourLog method
         }
     }
 }
