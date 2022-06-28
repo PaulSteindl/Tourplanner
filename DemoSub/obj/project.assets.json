@@ -34,6 +34,20 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "Tourplanner.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "Npgsql": "6.0.4"
+        },
+        "compile": {
+          "bin/placeholder/Tourplanner.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tourplanner.Models.dll": {}
+        }
       }
     }
   },
@@ -112,12 +126,18 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Tourplanner.Models/1.0.0": {
+      "type": "project",
+      "path": "../Tourplanner.Models/Tourplanner.Models.csproj",
+      "msbuildProject": "../Tourplanner.Models/Tourplanner.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "Newtonsoft.Json >= 13.0.1",
-      "Npgsql >= 6.0.4"
+      "Npgsql >= 6.0.4",
+      "Tourplanner.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -151,7 +171,11 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
+              "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
