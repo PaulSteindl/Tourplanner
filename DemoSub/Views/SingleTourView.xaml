@@ -60,18 +60,18 @@
                     </TabItem>
                 </TabControl>
             </Grid>
-            <!--<Grid Grid.Row="2">
+            <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <DockPanel Grid.Row="0" Margin="2">
-                    <Button DockPanel.Dock="Right" Padding="4" Content="Delete"/>
-                    <Button DockPanel.Dock="Right" Padding="4" Content="Add"/>
-                    <Label DockPanel.Dock="Left" Padding="4" Content="Logs:"/>
+                    <Button DockPanel.Dock="Right" Padding="4" Content="Delete" FontSize="15"/>
+                    <Button DockPanel.Dock="Right" Padding="4" Content="Add" FontSize="15"/>
+                    <Label DockPanel.Dock="Left" Padding="4" Content="Logs:" FontSize="15"/>
                 </DockPanel>
                 
-            </Grid> -->
+            </Grid>
         </Grid>
     </Grid>
 </Window>
