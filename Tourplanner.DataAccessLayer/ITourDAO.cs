@@ -8,5 +8,6 @@ namespace Tourplanner.DataAccessLayer
         Task<Tour> AddTour(Tour tour);
         Task<Tour> ModifyTour(Tour tour);
         Task<Tour> DeleteTour(Tour tour);
+        Task<string> SaveImage(byte[] mapArray, , string routeId);
     }
 }

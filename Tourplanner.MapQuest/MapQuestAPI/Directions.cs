@@ -15,6 +15,7 @@ namespace Tourplanner.BusinessLayer
     internal class Directions : MapQuestAPI
     {
         private const string MapQuestDirectionRequest = "http://www.mapquestapi.com/directions/v2/route?key={0}&from={1}&to={2}&outFormat=json&unit=k&locale=de_DE";
+        private const string MapQuestMapRequest = "https://www.mapquestapi.com/staticmap/v5/map?key={0}&session={1}&size=640,480&zoom=11&boundingBox={2},{3},{4},{5}";
 
         public Directions(string mapQuestKey, HttpClient httpClient) : base(mapQuestKey, httpClient)
         {
@@ -24,6 +25,7 @@ namespace Tourplanner.BusinessLayer
         public async Task<Route> GetRouteAsync(string from, string to) 
         {
             var route = await FetchRouteAsync(from, to);
+            var map = await FetchMapAsync(route);
 
             return route;
         }
@@ -36,7 +38,7 @@ namespace Tourplanner.BusinessLayer
 
                 var route = await _httpClient.GetFromJsonAsync<Route>(mapQuestRequestUrl);
 
-                return route;
+                return route ?? throw new FetchDataException("Route is null");
             }
             catch (Exception ex) when (ex is not FetchDataException)
             {
@@ -44,34 +46,19 @@ namespace Tourplanner.BusinessLayer
             }
         }
 
-        // @TODO: GET images from mapquest
-        public async Task<List<RouteSteps>> GetIconsAsync(Route route)
+        private async Task<byte[]> FetchMapAsync(Route route)
         {
             try
             {
-                CheckIfDirectoryExists(IconImagePath);
+                var mapQuestRequestUrl = String.Format(MapQuestMapRequest, _mapQuestKey, route.RouteId, route.ul_lng, route.ul_lat, route.lr_lng, route.lr_lat);
 
-                var newRouteStep = new List<RouteSteps>();
-                // TODO
-            }
-            catch
-            {
+                var mapArray = await _httpClient.GetByteArrayAsync(mapQuestRequestUrl);
 
+                return mapArray ?? throw new FetchDataException("Route is null");
             }
-        }
-
-        internal static void CheckIfDirectoryExists(string path)
-        {
-            try
+            catch (Exception ex) when (ex is not FetchDataException)
             {
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new FetchDataException("An error occured while creating a directory: " + path, ex);
+                throw new FetchDataException("Error while fetching map data: ", ex);
             }
         }
     }
