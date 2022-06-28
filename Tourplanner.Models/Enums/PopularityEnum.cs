@@ -1,4 +1,4 @@
-﻿namespace Tourplanner.Enums
+﻿namespace Tourplanner.Models
 {
     public enum PopularityEnum
     {
