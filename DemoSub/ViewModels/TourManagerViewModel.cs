@@ -9,7 +9,7 @@ using Tourplanner.Views;
 
 namespace Tourplanner.ViewModels
 {
-    public class TourManagerViewModel : BaseViewModel
+    class TourManagerViewModel : BaseViewModel
     {
         private string _name = String.Empty;
         private string _description = String.Empty;
