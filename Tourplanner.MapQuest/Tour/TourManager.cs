@@ -5,12 +5,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tourplanner.Models;
+using Tourplanner.DataAccessLayer;
 
 namespace Tourplanner.BusinessLayer
 {
     public class TourManager : ITourManager
     { 
         IRouteManager routeManager;
+        ITourDAO tourDAO;
+
+        //TODO Update Tour? Vlt doch nicht RouteId benutzen
 
         public async Task<Tour> newTour(string name, string description, string from, string to, TransportType transportType)
         {
@@ -39,6 +43,8 @@ namespace Tourplanner.BusinessLayer
                     newTour.ChildFriendly = CalculateChildFriendly();
                     newTour.Popularity = PopularityEnum.Bad;
                     newTour.Logs = new List<Log>();
+
+                    tourDAO.InsertTour(newTour);
                 }
             }
             catch (Exception e)
@@ -47,6 +53,11 @@ namespace Tourplanner.BusinessLayer
             }
 
             return newTour;
+        }
+
+        public void DeleteTour(string tourId)
+        {
+            tourDAO.DeleteTour(tourId);
         }
 
         public bool CheckUserInput(string input)

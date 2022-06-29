@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System;
 
-namespace Tourplanner.DAL
+namespace Tourplanner.DataAccessLayer
 {
-    public interface ILogRepository
+    public interface ILogDAO
     {
         /// <summary>
         /// Fügt einen neuen Log hinzu

@@ -5,7 +5,7 @@ namespace Tourplanner.Models
 {
     public class Tour
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = String.Empty;
         public string Name { get; set; } = String.Empty;
         public string? Description { get; set; }
         public string From { get; set; } = String.Empty;
