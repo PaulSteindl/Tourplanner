@@ -2,7 +2,7 @@
 
 namespace Tourplanner.Exceptions
 {
-    class DataAccessFailedException : Exception
+    public class DataAccessFailedException : Exception
     {
         public DataAccessFailedException()
         {

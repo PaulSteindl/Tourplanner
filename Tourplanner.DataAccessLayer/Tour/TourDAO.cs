@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Tourplanner.Models;
 using System.Drawing;
 using Npgsql;
-using Tourplanner.Models;
 using System.Data;
 
 namespace Tourplanner.DataAccessLayer
@@ -25,7 +24,7 @@ namespace Tourplanner.DataAccessLayer
             _connection = connection;
         }
 
-        public async Task<bool> InsertTour(Tour newTour)
+        public bool InsertTour(Tour newTour)
         {
             var affectedRows = 0;
 
@@ -54,7 +53,7 @@ namespace Tourplanner.DataAccessLayer
             return affectedRows > 0;
         }
 
-        public async Task<List<Tour>> SelectAllTours()
+        public List<Tour> SelectAllTours()
         {
             var tours = new List<Tour>();
 
@@ -75,7 +74,7 @@ namespace Tourplanner.DataAccessLayer
             return tours;
         }
 
-        public async Task<bool> UpdateTourById(Tour updatedTour)
+        public bool UpdateTourById(Tour updatedTour)
         {
             var affectedRows = 0;
 
@@ -105,7 +104,7 @@ namespace Tourplanner.DataAccessLayer
             return affectedRows > 0;
         }
 
-        public async Task<bool> DeleteTourById(Guid id)
+        public bool DeleteTourById(Guid id)
         {
             var rowsAffected = 0;
 
@@ -127,7 +126,7 @@ namespace Tourplanner.DataAccessLayer
         {
             var message = new Tour
             {
-                Id = Convert.ToString(record["tour_id"]) ?? String.Empty,
+                Id = record.GetGuid(0),
                 Name = Convert.ToString(record["name"]) ?? String.Empty,
                 Description = Convert.ToString(record["description"]),
                 From = Convert.ToString(record["from"]) ?? String.Empty,

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tourplanner.Models;
 using Tourplanner.DataAccessLayer;
+using Tourplanner.Exceptions;
 
 namespace Tourplanner.BusinessLayer
 {
@@ -13,17 +14,22 @@ namespace Tourplanner.BusinessLayer
     { 
         IRouteManager routeManager;
         ITourDAO tourDAO;
+        ICheckInput checkInput;
+        ICalculateAttributes calcA;
 
-        //TODO Update Tour? Vlt doch nicht RouteId benutzen
+        public TourManager(IRouteManager routeManager, ITourDAO tourDAO, ICheckInput checkInput, ICalculateAttributes calcA)
+        {
+            this.routeManager = routeManager;
+            this.tourDAO = tourDAO;
+            this.checkInput = checkInput;
+            this.calcA = calcA;
+        }
 
         public async Task<Tour> newTour(string name, string description, string from, string to, TransportType transportType)
         {
             Tour newTour = new Tour();
 
-            if (name == null || !CheckUserInput(name)) throw new ArgumentException("Name is invalid");
-            if (name == null || !CheckUserInputWithSymbols(description)) throw new ArgumentException("Description is invalid");
-            if (name == null || !CheckUserInput(from)) throw new ArgumentException("Starting location is invalid");
-            if (name == null || !CheckUserInput(to)) throw new ArgumentException("Ending location is invalid");
+            checkInput.CheckUserInputTour(name, description, from, to, transportType);
 
             try
             {
@@ -31,7 +37,7 @@ namespace Tourplanner.BusinessLayer
 
                 if (route != null)
                 {
-                    newTour.Id = route.RouteId;
+                    newTour.Id = new Guid();
                     newTour.Name = name;
                     newTour.Description = description;
                     newTour.From = from;
@@ -40,11 +46,11 @@ namespace Tourplanner.BusinessLayer
                     newTour.Distance = route.TotalDistance.Value;
                     newTour.Time = route.TotalTime;
                     newTour.PicPath = route.picPath;
-                    newTour.ChildFriendly = CalculateChildFriendly();
+                    newTour.ChildFriendly = false;
                     newTour.Popularity = PopularityEnum.Bad;
                     newTour.Logs = new List<Log>();
 
-                    tourDAO.InsertTour(newTour);
+                    if (!tourDAO.InsertTour(newTour)) throw new DataUpdateFailedException("New Tour couldn't get inserted");
                 }
             }
             catch (Exception e)
@@ -55,33 +61,39 @@ namespace Tourplanner.BusinessLayer
             return newTour;
         }
 
-        public void DeleteTour(string tourId)
+        public async void UpdateTour(string name, string description, string from, string to, TransportType transportType, Tour tour)
         {
-            tourDAO.DeleteTour(tourId);
+            checkInput.CheckUserInputTour(name, description, from, to, transportType);
+
+            try
+            {
+                var route = await routeManager.GetFullRoute(from, to, transportType);
+
+                if (route != null)
+                {
+                    tour.Name = name;
+                    tour.Description = description;
+                    tour.From = from;
+                    tour.To = to;
+                    tour.Transporttype = transportType;
+                    tour.Distance = route.TotalDistance.Value;
+                    tour.Time = route.TotalTime;
+                    tour.PicPath = route.picPath;
+                    tour.ChildFriendly = calcA.CalculateChildFriendly(tour.Id, tour.Distance);
+                    tour.Popularity = calcA.CalculatePopularity(tour.Id);
+
+                    if(!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new NullReferenceException("An error happend while creating a tour -> tour is null: " + e.Message);
+            }
         }
 
-        public bool CheckUserInput(string input)
+        public void DeleteTour(Guid tourId)
         {
-            if(Regex.Match(input, "^[a-zA-Z0-9-,]*$").Success)
-                return true;
-            return false;
-        }
-
-        public bool CheckUserInputWithSymbols(string input)
-        {
-            if (Regex.Match(input, "^[a-zA-Z0-9,.!€$?-]*$").Success)
-                return true;
-            return false;
-        }
-
-        public bool CalculateChildFriendly()
-        {
-            throw new NotImplementedException();
-        }
-
-        public PopularityEnum CalculatePopularity()
-        {
-            throw new NotImplementedException();
+            tourDAO.DeleteTourById(tourId);
         }
     }
 }

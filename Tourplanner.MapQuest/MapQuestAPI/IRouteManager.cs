@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Tourplanner.Models;
 
-interface IRouteManager
+namespace Tourplanner.BusinessLayer
 {
-    public Task<Route> GetFullRoute(string from, string to, TransportType transportType);
+    public interface IRouteManager
+    {
+        public Task<Route> GetFullRoute(string from, string to, TransportType transportType);
+    }
 }
