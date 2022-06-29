@@ -28,5 +28,12 @@ namespace Tourplanner.BusinessLayer
 
             return true;
         }
+
+        public bool CheckUserInputLog(string comment)
+        {
+            if (comment == null || !CheckUserInputWithSymbols(comment)) throw new ArgumentException("Comment is invalid");
+
+            return true;
+        }
     }
 }

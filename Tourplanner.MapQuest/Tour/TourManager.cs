@@ -95,5 +95,10 @@ namespace Tourplanner.BusinessLayer
         {
             tourDAO.DeleteTourById(tourId);
         }
+
+        public List<Tour> GetAllTours()
+        {
+            return tourDAO.SelectAllTours();
+        }
     }
 }
