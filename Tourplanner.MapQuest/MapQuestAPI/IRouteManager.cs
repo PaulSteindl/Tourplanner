@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tourplanner.Models;
 
-interface IRouteManager
+public interface IRouteManager
 {
     public Task<Route> GetFullRoute(string from, string to, TransportType transportType);
 }

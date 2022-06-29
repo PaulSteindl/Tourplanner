@@ -15,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\DemoSub\Tourplanner.csproj" />
 	  <ProjectReference Include="..\Tourplanner.DataAccessLayer\Tourplanner.DataAccessLayer.csproj" />
 	  <ProjectReference Include="..\Tourplanner.Models\Tourplanner.Models.csproj" />
 	</ItemGroup>

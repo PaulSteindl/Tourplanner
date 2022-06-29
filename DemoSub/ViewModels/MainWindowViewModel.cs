@@ -1,4 +1,5 @@
 ﻿using DemoSub.ViewModels;
+using Tourplanner.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tourplanner.Models;
+using Tourplanner.BusinessLayer;
 using AsyncAwaitBestPractices.MVVM;
-
+using System.Windows;
 
 namespace Tourplanner.ViewModels
 {
@@ -15,7 +17,10 @@ namespace Tourplanner.ViewModels
     {
         private string _searchText = String.Empty;
         private Tour? _tour;
+        private TransportType _transportType;
+        private TourManager _tourManager;
         private bool isBusy;
+        private IRouteManager _routeManager;
 
         public string SearchText
         {
@@ -72,6 +77,13 @@ namespace Tourplanner.ViewModels
             ExitApplicationCommand = new RelayCommand(ExitApplication);
         }
 
+        private async Task BusyIndicatorFunc(Func<Task> section)
+        {
+            isBusy = true;
+            await section();
+            isBusy = false;
+        }
+
         private void ExitApplication(object? obj)
         {
             throw new NotImplementedException();
@@ -119,6 +131,8 @@ namespace Tourplanner.ViewModels
 
         private async Task AddTour()
         {
+            if(isBusy) return;
+
             var window = new Views.TourManagerView();
             var tour = new TourManagerViewModel(window)
             {
@@ -128,7 +142,17 @@ namespace Tourplanner.ViewModels
 
             if (window.ShowDialog() is not true) return;
 
-            // @TODO finish implementing AddTour with MapQuestAPI
+            await BusyIndicatorFunc(async () =>
+            {
+                try
+                {
+                    var newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType);
+                }
+                catch(Exception ex)
+                {
+                    throw new NullReferenceException("An error happend while creating a tour -> tour is null: " + ex.Message);
+                }
+            });
 
             void SaveButton(object? obj)
             {
