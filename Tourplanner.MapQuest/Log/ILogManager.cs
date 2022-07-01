@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tourplanner.DataAccessLayer
+namespace Tourplanner.BusinessLayer
 {
-    public interface IFileDAO
+    public interface ILogManager
     {
-        string SaveImage(byte[] mapArray, string fullPath);
+
     }
 }

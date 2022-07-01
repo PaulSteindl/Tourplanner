@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Tourplanner.Models;
 
-public interface IDirections
+namespace Tourplanner.BusinessLayer
 {
-    public Task<byte[]> FetchMapAsync(Route route);
-    public Task<Route> FetchRouteAsync(string from, string to, TransportType transportType);
+    public interface IDirections
+    {
+        public Task<byte[]> FetchMapAsync(Route route);
+        public Task<Route> FetchRouteAsync(string from, string to, TransportType transportType);
+    }
 }
