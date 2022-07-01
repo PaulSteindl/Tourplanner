@@ -10,17 +10,25 @@ using Tourplanner.Models;
 using Tourplanner.BusinessLayer;
 using AsyncAwaitBestPractices.MVVM;
 using System.Windows;
+using System.Collections.ObjectModel;
+using DemoSub;
+using System.ComponentModel;
 
 namespace Tourplanner.ViewModels
 {
-    class MainWindowViewModel : BaseViewModel
+    internal class MainWindowViewModel : BaseViewModel
     {
         private string _searchText = String.Empty;
-        private Tour? _tour;
-        private TransportType _transportType;
-        private TourManager _tourManager;
         private bool isBusy;
-        private IRouteManager _routeManager;
+
+        private Tour? _tour;
+        private TourManager _tourManager;
+        private TransportType _transportType;
+        private IList<Tour> AllTours = new List<Tour>();
+
+        public event EventHandler<Tour> TourChanged;
+
+        public ObservableCollection<Tour> ShownTours { get; set; } = new ObservableCollection<Tour>();
 
         public string SearchText
         {
@@ -30,7 +38,12 @@ namespace Tourplanner.ViewModels
         public Tour? Tour
         {
             get => _tour;
-            set => _tour = value;
+            set
+            {
+                _tour = value;
+                OnPropertyChanged();
+                UpdateShownTours();
+            }
         }
 
         public bool IsBusy
@@ -63,7 +76,7 @@ namespace Tourplanner.ViewModels
         public MainWindowViewModel()
         {
             AddTourCommand = new AsyncCommand(AddTour);
-            ModifyTourCommand = new RelayCommand(ModifyTour);
+            ModifyTourCommand = new AsyncCommand(ModifyTour);
             DeleteTourCommand = new RelayCommand(DeleteTour);
             AddTourLogCommand = new RelayCommand(AddTourLog);
             ModifyTourLogCommand = new RelayCommand(ModifyTourLog);
@@ -84,9 +97,21 @@ namespace Tourplanner.ViewModels
             isBusy = false;
         }
 
+        private void UpdateShownTours()
+        {
+            if (AllTours is null) return;
+
+            foreach(var tour in AllTours)
+            {
+                System.Windows.Application.Current.Dispatcher.Invoke(() => ShownTours.Add(tour));
+            }
+        }
+
         private void ExitApplication(object? obj)
         {
-            throw new NotImplementedException();
+            if(isBusy) return;
+
+            
         }
 
         private void ClearSearchField(object? obj)
@@ -121,12 +146,56 @@ namespace Tourplanner.ViewModels
 
         private void DeleteTour(object? obj)
         {
-            if (Tour is null) return;
+            if (isBusy) return;
+
+            var thisTour = Tour;
+            if (thisTour is null) return;
+
+            Tour = null;
+            AllTours.Remove(thisTour);
+            ShownTours.Remove(thisTour);
+            _tourManager.DeleteTour(thisTour.Id);
         }
 
-        private void ModifyTour(object? obj)
+        private async Task ModifyTour()
         {
-            if (Tour is null) return;
+            if (isBusy) return;
+
+            if(Tour is null) return;
+
+            var window = new Views.TourManagerView();
+            var tour = new TourManagerViewModel(window)
+            {
+                CancelButtonCommand = new RelayCommand(CancelButton),
+                SaveButtonCommand = new RelayCommand(SaveButton)
+            };
+
+            if (window.ShowDialog() is not true) return;
+
+            await BusyIndicatorFunc(async () =>
+            {
+                try
+                {
+                    _tourManager.UpdateTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType, Tour);
+                    UpdateShownTours();
+                }
+                catch (Exception ex)
+                {
+                    throw new NullReferenceException("An error happend while updating a tour: " + ex.Message);
+                }
+            });
+
+            void SaveButton(object? obj)
+            {
+                window.DialogResult = true;
+                window.Close();
+            }
+
+            void CancelButton(object? obj)
+            {
+                window.DialogResult = false;
+                window.Close();
+            }
         }
 
         private async Task AddTour()
@@ -147,6 +216,8 @@ namespace Tourplanner.ViewModels
                 try
                 {
                     var newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType);
+                    AllTours.Add(newTour);
+                    UpdateShownTours();
                 }
                 catch(Exception ex)
                 {

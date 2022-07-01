@@ -10,6 +10,8 @@ namespace DemoSub.ViewModels
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
+        //public INavigationService? NavigationService { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
