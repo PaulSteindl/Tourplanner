@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj": {}
+    "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj": {
+    "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+        "projectUniqueName": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
         "projectName": "Tourplanner",
-        "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj",
-        "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\obj\\",
+        "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+        "packagesPath": "C:\\Users\\Anwender\\.nuget\\packages\\",
+        "outputPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "E:\\VisualStudio\\VisualStudio_Tools\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\PaulS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Anwender\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,11 +32,11 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
-                "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj"
+              "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
+                "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj"
               },
-              "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
-                "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj"
+              "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
+                "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj"
               }
             }
           }
@@ -62,10 +62,6 @@
             "Npgsql": {
               "target": "Package",
               "version": "[6.0.5, )"
-            },
-            "log4net": {
-              "target": "Package",
-              "version": "[2.0.14, )"
             }
           },
           "imports": [
@@ -86,24 +82,24 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj": {
+    "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj",
+        "projectUniqueName": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj",
         "projectName": "Tourplanner.DataAccessLayer",
-        "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj",
-        "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.DataAccessLayer\\obj\\",
+        "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj",
+        "packagesPath": "C:\\Users\\Anwender\\.nuget\\packages\\",
+        "outputPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "E:\\VisualStudio\\VisualStudio_Tools\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\PaulS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Anwender\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -118,8 +114,8 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
-                "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj"
+              "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
+                "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj"
               }
             }
           }
@@ -158,24 +154,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
+    "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj",
+        "projectUniqueName": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj",
         "projectName": "Tourplanner.BusinessLayer",
-        "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj",
-        "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\obj\\",
+        "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj",
+        "packagesPath": "C:\\Users\\Anwender\\.nuget\\packages\\",
+        "outputPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "E:\\VisualStudio\\VisualStudio_Tools\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\PaulS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Anwender\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -190,8 +186,11 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj"
+              "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj": {
+                "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.DataAccessLayer\\Tourplanner.DataAccessLayer.csproj"
+              },
+              "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
+                "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj"
               }
             }
           }
@@ -234,24 +233,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
+    "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj",
+        "projectUniqueName": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj",
         "projectName": "Tourplanner.Models",
-        "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj",
-        "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\obj\\",
+        "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj",
+        "packagesPath": "C:\\Users\\Anwender\\.nuget\\packages\\",
+        "outputPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "E:\\VisualStudio\\VisualStudio_Tools\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\PaulS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Anwender\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -302,7 +301,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

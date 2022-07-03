@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Tourplanner.Models;
 using Tourplanner.Views;
 
 namespace Tourplanner.ViewModels
@@ -50,7 +51,10 @@ namespace Tourplanner.ViewModels
         public ICommand CancelButtonCommand { get; init; }
         public ICommand SaveButtonCommand { get; init; }
 
-        public TourManagerViewModel() { }
+        public TourManagerViewModel(Tour tour) 
+        {
+            
+        }
 
         public TourManagerViewModel(TourManagerView view)
             => view.DataContext = this;
