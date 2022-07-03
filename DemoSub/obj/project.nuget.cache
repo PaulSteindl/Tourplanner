@@ -1,14 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "lOLfxciObKnSOlBmPUSKdYLBOpM6qH5l/J+tvwtWdyu0PUJP9LtK4UJQyAgL0BZXXBHKbkM9aztx4D3A73n7VQ==",
+  "dgSpecHash": "Wf1zGBLQIWtXBHWBFH77EQboflodvPvJKQOsA+Np24UjJ4tw1lCYTRKtKuaOOlK5bpnHRs94KcrYhXJ/PWykvg==",
   "success": true,
   "projectFilePath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\DemoSub\\Tourplanner.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PaulS\\.nuget\\packages\\asyncawaitbestpractices\\6.0.4\\asyncawaitbestpractices.6.0.4.nupkg.sha512",
     "C:\\Users\\PaulS\\.nuget\\packages\\asyncawaitbestpractices.mvvm\\6.0.4\\asyncawaitbestpractices.mvvm.6.0.4.nupkg.sha512",
+    "C:\\Users\\PaulS\\.nuget\\packages\\log4net\\2.0.14\\log4net.2.0.14.nupkg.sha512",
+    "C:\\Users\\PaulS\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\PaulS\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\PaulS\\.nuget\\packages\\npgsql\\6.0.5\\npgsql.6.0.5.nupkg.sha512",
+    "C:\\Users\\PaulS\\.nuget\\packages\\system.configuration.configurationmanager\\4.5.0\\system.configuration.configurationmanager.4.5.0.nupkg.sha512",
     "C:\\Users\\PaulS\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\PaulS\\.nuget\\packages\\system.security.accesscontrol\\4.5.0\\system.security.accesscontrol.4.5.0.nupkg.sha512",
+    "C:\\Users\\PaulS\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.5.0\\system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
+    "C:\\Users\\PaulS\\.nuget\\packages\\system.security.permissions\\4.5.0\\system.security.permissions.4.5.0.nupkg.sha512",
+    "C:\\Users\\PaulS\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512",
     "C:\\Users\\PaulS\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
     "C:\\Users\\PaulS\\.nuget\\packages\\system.text.json\\6.0.5\\system.text.json.6.0.5.nupkg.sha512"
   ],

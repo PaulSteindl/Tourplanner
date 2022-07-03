@@ -2,8 +2,9 @@
 {
     public enum TransportType
     {
-        Auto,
-        Walking,
-        Bicyle
+        Fastest,
+        Shortest,
+        Pedestrian,
+        Bicycle
     }
 }

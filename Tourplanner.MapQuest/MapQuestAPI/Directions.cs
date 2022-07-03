@@ -15,7 +15,7 @@ namespace Tourplanner.BusinessLayer
 {
     internal class Directions : MapQuestAPI, IDirections
     {
-        private const string MapQuestDirectionRequest = "http://www.mapquestapi.com/directions/v2/route?key={0}&from={1}&to={2}&transportMode={3}&outFormat=json&unit=k&locale=de_DE";
+        private const string MapQuestDirectionRequest = "http://www.mapquestapi.com/directions/v2/route?key={0}&from={1}&to={2}&routeType={3}&outFormat=json&unit=k&locale=de_DE";
         private const string MapQuestMapRequest = "https://www.mapquestapi.com/staticmap/v5/map?key={0}&session={1}&size=640,480&zoom=11&boundingBox={2},{3},{4},{5}";
 
         public Directions(string mapQuestKey, HttpClient httpClient) : base(mapQuestKey, httpClient)
@@ -29,9 +29,12 @@ namespace Tourplanner.BusinessLayer
             {
                 var mapQuestRequestUrl = String.Format(MapQuestDirectionRequest, _mapQuestKey, from, to, transportType);
 
-                var route = await _httpClient.GetFromJsonAsync<Route>(mapQuestRequestUrl);
+                var routeInfo = await _httpClient.GetFromJsonAsync<RouteInfo>(mapQuestRequestUrl);
 
-                return route ?? throw new FetchDataException("Route is null");
+                if(routeInfo != null)
+                    return routeInfo.Route ?? throw new FetchDataException("Route is null");
+                else
+                    throw new FetchDataException("RouteInfo is null");
             }
             catch (Exception ex) when (ex is not FetchDataException)
             {
@@ -43,7 +46,7 @@ namespace Tourplanner.BusinessLayer
         {
             try
             {
-                var mapQuestRequestUrl = String.Format(MapQuestMapRequest, _mapQuestKey, route.RouteId, route.ul_lng, route.ul_lat, route.lr_lng, route.lr_lat);
+                var mapQuestRequestUrl = String.Format(MapQuestMapRequest, _mapQuestKey, route.SessionId, route.BoundingBox.Ul.Lng, route.BoundingBox.Ul.Lat, route.BoundingBox.Lr.Lng, route.BoundingBox.Lr.Lat);
 
                 var mapArray = await _httpClient.GetByteArrayAsync(mapQuestRequestUrl);
 
