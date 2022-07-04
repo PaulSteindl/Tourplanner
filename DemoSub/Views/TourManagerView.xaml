@@ -23,18 +23,37 @@
 
             <Label Grid.Row="0" Grid.Column="0" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" />
             <Label Grid.Row="1" Grid.Column="0" Content="Description:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Starting location:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Label Grid.Row="3" Grid.Column="0" Content="Ending location:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Start location:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="End location:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Transport type:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="4" MaxLength="48"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="4" MaxLength="68"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="4" MaxLength="48"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Margin="4" MaxLength="48"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Margin="4" MaxLength="24"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding Name}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="4" MaxLength="68" Text="{Binding Description}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding StartLocation}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding EndLocation}"/>
 
-            <Button Grid.Row="8" Grid.Column="0" Margin="4" Content="Cancel"/>
-            <Button Grid.Row="8" Grid.Column="1" Margin="4" Content="Save"/>
+            <!-- 
+            <RadioButton Grid.Row="4" Grid.Column="1" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"
+                         GroupName="Group1" IsChecked="True" Name="rb_fastest" Content="Fastest"
+                         Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rb_fastest, Path=Content}"
+            />
+            <RadioButton Grid.Row="4" Grid.Column="1" Margin="300,10,10,10" VerticalAlignment="Top" HorizontalAlignment="Left"
+                         GroupName="Group1" Name="rb_shortest" Content="Shortest"
+                         Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rb_shortest, Path=Content}"
+            />
+            <RadioButton Grid.Row="4" Grid.Column="1" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                         GroupName="Group1" Name="rb_pedestrian" Content="Pedestrian"
+                         Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rb_pedestrian, Path=Content}"
+            />
+            <RadioButton Grid.Row="4" Grid.Column="1" Margin="300,10,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                         GroupName="Bicycle" Name="rb_bicycle" Content="Bicycle"
+                         Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rb_bicycle, Path=Content}"
+            />
+            -->
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="4" MaxLength="24" Text="{Binding TransportType}"/> 
+
+            <Button Grid.Row="8" Grid.Column="0" Margin="4" Content="Cancel" Command="{Binding CancelButtonCommand}" IsCancel="True"/>
+            <Button Grid.Row="8" Grid.Column="1" Margin="4" Content="Save" Command="{Binding SaveButtonCommand}" IsDefault="True"/>
         </Grid>
     </GroupBox>
 </Window>

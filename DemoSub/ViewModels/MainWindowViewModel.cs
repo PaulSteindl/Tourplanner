@@ -25,6 +25,7 @@ namespace Tourplanner.ViewModels
 
         private Tour? _tour;
         private Log _log;
+        private string _nameRadioButton;
         private TourManager _tourManager;
         private ILogManager _logManager;
         private TransportType _transportType;
@@ -35,6 +36,16 @@ namespace Tourplanner.ViewModels
         public event EventHandler<Tour> TourChanged;
 
         public ObservableCollection<Tour> ShownTours { get; set; } = new ObservableCollection<Tour>();
+
+        public string Name
+        {
+            get => _nameRadioButton;
+            set
+            {
+                _nameRadioButton = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
 
         public string SearchText
         {
@@ -129,6 +140,52 @@ namespace Tourplanner.ViewModels
             {
                 System.Windows.Application.Current.Dispatcher.Invoke(() => ShownTours.Add(tour));
             }
+        }
+
+        private TransportType executeMethod(object parameter)
+        {
+            Name = (string)parameter;
+
+            switch (Name)
+            {
+                case "Fastest":
+                    _transportType = (TransportType)0;
+                    break;
+                case "Shortest":
+                    _transportType = (TransportType)1;
+                    break;
+                case "Pedestrian":
+                    _transportType = (TransportType)2;
+                    break;
+                case "Bicycle":
+                    _transportType = (TransportType)3;
+                    break;
+                default:
+                    break;
+            }
+            return _transportType;
+        }
+
+        private TransportType ConverStringToTransportType(string transportType)
+        {
+            switch (transportType)
+            {
+                case "Fastest":
+                    _transportType = (TransportType)0;
+                    break;
+                case "Shortest":
+                    _transportType = (TransportType)1;
+                    break;
+                case "Pedestrian":
+                    _transportType = (TransportType)2;
+                    break;
+                case "Bicycle":
+                    _transportType = (TransportType)3;
+                    break;
+                default:
+                    break;
+            }
+            return _transportType;
         }
 
         private void ExitApplication(object? obj)
@@ -238,9 +295,18 @@ namespace Tourplanner.ViewModels
             {
                 try
                 {
-                    var newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType);
-                    AllTours.Add(newTour);
-                    UpdateShownTours();
+                    TransportType transportType = ConverStringToTransportType(tour.TransportType);
+
+                    //Tour? newTour = null;
+
+                    //var type = executeMethod(tour.rb_fastest);
+
+                    Tour newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType);
+                    if(newTour != null)
+                    {
+                        AllTours.Add(newTour);
+                        UpdateShownTours();
+                    }
                 }
                 catch(Exception ex)
                 {
