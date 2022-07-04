@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Tourplanner.BusinessLayer
 {
-    internal abstract class MapQuestAPI
+    public abstract class MapQuestAPI
     {
 
         protected readonly string _mapQuestKey;

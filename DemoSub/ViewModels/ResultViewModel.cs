@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoSub.ViewModels
+namespace Tourplanner.ViewModels
 {
     internal class ResultViewModel : BaseViewModel
     {

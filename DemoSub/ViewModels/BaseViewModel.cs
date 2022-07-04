@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tourplanner.Navigation;
 
-namespace DemoSub.ViewModels
+namespace Tourplanner.ViewModels
 {
     internal abstract class BaseViewModel : INotifyPropertyChanged
     {

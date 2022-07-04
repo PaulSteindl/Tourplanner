@@ -1,5 +1,4 @@
-﻿using DemoSub.ViewModels;
-using log4net;
+﻿using log4net;
 using log4net.Core;
 using System;
 using System.Collections.Generic;
@@ -9,26 +8,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Tourplanner.ViewModels;
-using Tourplanner.Views;
+using Tourplanner.Configuration;
 
-namespace DemoSub
+namespace Tourplanner
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class Application : System.Windows.Application
+    public partial class App : Application
     {
+        static App()
+        {
+
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var mainWindowViewModel = new MainWindowViewModel();
-            //var tourManagerViewModel = new TourManagerViewModel();
-            //var singleTourViewModel = new SingleTourViewModel();
+            //var searchBarViewModel = new SearchBarViewModel();
+            //var resultViewModel = new ResultViewModel();
+            //var mainViewModel = new MainViewModel(searchBarViewModel, resultViewModel);
 
-            var wnd = new MainWindowView()
-            {
-                DataContext = mainWindowViewModel,
-            };
-            wnd.Show();
+            //var wnd = new MainWindowView()
+            //{
+            //    DataContext = mainViewModel,
+            //};
+            //wnd.Show();
+
+            var ioCConfig = new IoCContainerConfiguration();
+            ioCConfig.NavigationService.NavigateTo<MainViewModel>();
         }
     }
 }
