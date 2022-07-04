@@ -17,7 +17,7 @@ namespace UnitTest
         static HttpClient _client = new HttpClient();
         static IFileDAO _fileDAO = new FileDAO();
         static IDirections _directions = new Directions(MapQuestKey, _client);
-        static IPostgreSqlDAOConfiguration _postgre;
+        static IPostgreSqlDAOConfiguration _postgre = new ;
         static IRouteManager _routeManager = new RouteManager(_fileDAO, _directions);
         static IDatabaseManager _databaseManager = new DatabaseManager(_postgre);
         static ITourDAO _tourDAO = new TourDAO(_databaseManager);
