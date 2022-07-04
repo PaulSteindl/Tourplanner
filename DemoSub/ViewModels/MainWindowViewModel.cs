@@ -1,4 +1,4 @@
-﻿using DemoSub.ViewModels;
+﻿using Tourplanner.ViewModels;
 using Tourplanner.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Tourplanner.BusinessLayer;
 using AsyncAwaitBestPractices.MVVM;
 using System.Windows;
 using System.Collections.ObjectModel;
-using DemoSub;
+using Tourplanner;
 using System.ComponentModel;
 using System.Windows.Data;
 
