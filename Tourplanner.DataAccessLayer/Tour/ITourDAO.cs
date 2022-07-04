@@ -14,7 +14,7 @@ namespace Tourplanner.DataAccessLayer
         /// <summary>
         /// Holt eine Tour per Id
         /// </summary>
-        public Tour SelectTourById(Guid tourId);
+        public Tour? SelectTourById(Guid tourId);
 
         /// <summary>
         /// Holt alle Tours

@@ -10,6 +10,7 @@ using Tourplanner.Exceptions;
 using System.Net.Http.Json;
 using Tourplanner.Models;
 using Tourplanner.DataAccessLayer;
+using System.Globalization;
 
 namespace Tourplanner.BusinessLayer
 {
@@ -46,7 +47,12 @@ namespace Tourplanner.BusinessLayer
         {
             try
             {
-                var mapQuestRequestUrl = String.Format(MapQuestMapRequest, _mapQuestKey, route.SessionId, route.BoundingBox.Ul.Lng, route.BoundingBox.Ul.Lat, route.BoundingBox.Lr.Lng, route.BoundingBox.Lr.Lat);
+                var mapQuestRequestUrl = String.Format(MapQuestMapRequest, _mapQuestKey, route.SessionId, 
+                    route.BoundingBox.Ul.Lat.ToString(CultureInfo.CreateSpecificCulture("en-GB")), 
+                    route.BoundingBox.Ul.Lng.ToString(CultureInfo.CreateSpecificCulture("en-GB")), 
+                    route.BoundingBox.Lr.Lat.ToString(CultureInfo.CreateSpecificCulture("en-GB")), 
+                    route.BoundingBox.Lr.Lng.ToString(CultureInfo.CreateSpecificCulture("en-GB"))
+                );
 
                 var mapArray = await _httpClient.GetByteArrayAsync(mapQuestRequestUrl);
 

@@ -7,6 +7,7 @@ using Tourplanner.Models;
 using System.Drawing;
 using Npgsql;
 using System.Data;
+using Tourplanner.Exceptions;
 
 namespace Tourplanner.DataAccessLayer
 {
@@ -18,11 +19,11 @@ namespace Tourplanner.DataAccessLayer
         private const string UpdateTourByIdCommand = "UPDATE tours SET name = @name, description = @description, from = @from, to = @to, transportMode = @transportMode, distance = @distance, time = @time, picpath = @picpath, popularity = @popularity, childfriendly = @childfriendly WHERE tour_id = @id";
         private const string DeleteTourByIdCommand = "DELETE FROM tours WHERE tour_id = @id";
 
-        private readonly NpgsqlConnection _connection;
+        private IDatabaseManager databaseManager;
 
-        public TourDAO(NpgsqlConnection connection)
+        public TourDAO(IDatabaseManager databaseManager)
         {
-            _connection = connection;
+            this.databaseManager = databaseManager;
         }
 
         public bool InsertTour(Tour newTour)
@@ -31,21 +32,21 @@ namespace Tourplanner.DataAccessLayer
 
             try
             {
-                using var cmd = new NpgsqlCommand(InsertTourCommand, _connection);
-                cmd.Parameters.AddWithValue("name", newTour.Name);
-                if (!String.IsNullOrEmpty(newTour.Description))
+                affectedRows = databaseManager.ExecuteWithConnection(connection =>
+                {
+                    using var cmd = new NpgsqlCommand(InsertTourCommand, connection);
+                    cmd.Parameters.AddWithValue("name", newTour.Name);
                     cmd.Parameters.AddWithValue("description", newTour.Description);
-                cmd.Parameters.AddWithValue("from", newTour.From);
-                cmd.Parameters.AddWithValue("to", newTour.To);
-                cmd.Parameters.AddWithValue("transportMode", newTour.Transporttype);
-                cmd.Parameters.AddWithValue("distance", newTour.Distance);
-                cmd.Parameters.AddWithValue("time", newTour.Time);
-                cmd.Parameters.AddWithValue("picpath", newTour.PicPath);
-                if (newTour.Popularity.HasValue)
+                    cmd.Parameters.AddWithValue("from", newTour.From);
+                    cmd.Parameters.AddWithValue("to", newTour.To);
+                    cmd.Parameters.AddWithValue("transportMode", newTour.Transporttype);
+                    cmd.Parameters.AddWithValue("distance", newTour.Distance);
+                    cmd.Parameters.AddWithValue("time", newTour.Time);
+                    cmd.Parameters.AddWithValue("picpath", newTour.PicPath);
                     cmd.Parameters.AddWithValue("popularity", newTour.Popularity);
-                cmd.Parameters.AddWithValue("childfriendly", newTour.ChildFriendly);
-
-                affectedRows = cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("childfriendly", newTour.ChildFriendly);
+                    return cmd.ExecuteNonQuery();
+                });
             }
             catch (PostgresException)
             {
@@ -54,46 +55,55 @@ namespace Tourplanner.DataAccessLayer
             return affectedRows > 0;
         }
 
-        public Tour SelectTourById(Guid tourId)
+        public Tour? SelectTourById(Guid tourId)
         {
-            var tour = new Tour();
-
             try
             {
-                using var cmd = new NpgsqlCommand(SelectTourByIdCommand, _connection);
-                cmd.Parameters.AddWithValue("tour_id", tourId);
-                using var reader = cmd.ExecuteReader();
-                if (reader.Read())
+                return databaseManager.ExecuteWithConnection(connection =>
                 {
-                    tour = ReadTourDetails(reader);
-                }
+                    Tour? tour = null;
+                    using var cmd = new NpgsqlCommand(SelectTourByIdCommand, connection);
+                    cmd.Parameters.AddWithValue("tour_id", tourId);
+                    using var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        tour = ReadTourDetails(reader);
+                    }
+
+                    return tour;
+                });
             }
             catch (PostgresException)
             {
             }
 
-            return tour;
+            return null;
         }
 
         public List<Tour> SelectAllTours()
         {
-            var tours = new List<Tour>();
-
             try
             {
-                using var cmd = new NpgsqlCommand(SelectAllToursCommand, _connection);
-                using var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                return databaseManager.ExecuteWithConnection(connection =>
                 {
-                    var tour = ReadTourDetails(reader);
-                    tours.Add(tour);
-                }
+                    var tours = new List<Tour>();
+
+                    using var cmd = new NpgsqlCommand(SelectAllToursCommand, connection);
+                    using var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var tour = ReadTourDetails(reader);
+                        tours.Add(tour);
+                    }
+
+                    return tours;
+                });
             }
             catch (PostgresException)
             {
             }
 
-            return tours;
+            return new List<Tour>();
         }
 
         public bool UpdateTourById(Tour updatedTour)
@@ -102,22 +112,25 @@ namespace Tourplanner.DataAccessLayer
 
             try
             {
-                using var cmd = new NpgsqlCommand(UpdateTourByIdCommand, _connection);
-                cmd.Parameters.AddWithValue("id", updatedTour.Id);
-                cmd.Parameters.AddWithValue("name", updatedTour.Name);
-                if (!String.IsNullOrEmpty(updatedTour.Description))
-                    cmd.Parameters.AddWithValue("description", updatedTour.Description);
-                cmd.Parameters.AddWithValue("from", updatedTour.From);
-                cmd.Parameters.AddWithValue("to", updatedTour.To);
-                cmd.Parameters.AddWithValue("transportMode", updatedTour.Transporttype);
-                cmd.Parameters.AddWithValue("distance", updatedTour.Distance);
-                cmd.Parameters.AddWithValue("time", updatedTour.Time);
-                cmd.Parameters.AddWithValue("picpath", updatedTour.PicPath);
-                if (updatedTour.Popularity.HasValue)
-                    cmd.Parameters.AddWithValue("popularity", updatedTour.Popularity);
-                cmd.Parameters.AddWithValue("childfriendly", updatedTour.ChildFriendly);
+                affectedRows = databaseManager.ExecuteWithConnection(connection =>
+                {
+                    using var cmd = new NpgsqlCommand(UpdateTourByIdCommand, connection);
+                    cmd.Parameters.AddWithValue("id", updatedTour.Id);
+                    cmd.Parameters.AddWithValue("name", updatedTour.Name);
+                    if (!String.IsNullOrEmpty(updatedTour.Description))
+                        cmd.Parameters.AddWithValue("description", updatedTour.Description);
+                    cmd.Parameters.AddWithValue("from", updatedTour.From);
+                    cmd.Parameters.AddWithValue("to", updatedTour.To);
+                    cmd.Parameters.AddWithValue("transportMode", updatedTour.Transporttype);
+                    cmd.Parameters.AddWithValue("distance", updatedTour.Distance);
+                    cmd.Parameters.AddWithValue("time", updatedTour.Time);
+                    cmd.Parameters.AddWithValue("picpath", updatedTour.PicPath);
+                    if (updatedTour.Popularity.HasValue)
+                        cmd.Parameters.AddWithValue("popularity", updatedTour.Popularity);
+                    cmd.Parameters.AddWithValue("childfriendly", updatedTour.ChildFriendly);
 
-                affectedRows = cmd.ExecuteNonQuery();
+                    return cmd.ExecuteNonQuery();
+                });
             }
             catch (PostgresException)
             {
@@ -128,20 +141,24 @@ namespace Tourplanner.DataAccessLayer
 
         public bool DeleteTourById(Guid id)
         {
-            var rowsAffected = 0;
+            var affectedRows = 0;
 
             try
             {
-                using var cmd = new NpgsqlCommand(DeleteTourByIdCommand, _connection);
-                cmd.Parameters.AddWithValue("id", id);
-                rowsAffected = cmd.ExecuteNonQuery();
+                affectedRows = databaseManager.ExecuteWithConnection(connection =>
+                {
+                    using var cmd = new NpgsqlCommand(DeleteTourByIdCommand, connection);
+                    cmd.Parameters.AddWithValue("id", id);
+
+                    return cmd.ExecuteNonQuery();
+                });
             }
             catch (PostgresException)
             {
 
             }
 
-            return rowsAffected > 0;
+            return affectedRows > 0;
         }
 
         private Tour ReadTourDetails(IDataRecord record)

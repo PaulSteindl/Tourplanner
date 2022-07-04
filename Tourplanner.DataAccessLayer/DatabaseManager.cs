@@ -4,36 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
+using Tourplanner.Exceptions;
 
 namespace Tourplanner.DataAccessLayer
 {
-    public class DatabaseManager
+    public class DatabaseManager : IDatabaseManager
     {
         private const string CreateTourTableCommand = @"create table if not exists tours
-                                                    (
-                                                        tour_id         uuid           not null
-                                                            constraint tours_pk
-                                                                primary key,
-                                                        name            text           not null,
-                                                        description     text           not null,
-                                                        ""from""          text           not null,
-                                                        ""to""            text           not null,
-                                                        ""transportMode"" transporttype  not null,
-                                                        distance        real           not null,
-                                                        time            integer        not null,
-                                                        picpath         text           not null,
-                                                        popularity      popularityenum not null,
-                                                        childfriendly   boolean        not null
-                                                    );
+                                                        (
+                                                            tour_id         uuid           not null
+                                                                constraint tours_pk
+                                                                    primary key,
+                                                            name            text           not null,
+                                                            description     text           not null,
+                                                            ""from""          text           not null,
+                                                            ""to""            text           not null,
+                                                            ""transportMode"" transporttype  not null,
+                                                            distance        real           not null,
+                                                            time            integer        not null,
+                                                            picpath         text           not null,
+                                                            popularity      popularityenum not null,
+                                                            childfriendly   boolean        not null
+                                                        );
 
-                                                    alter table tours
-                                                        owner to postgres;
+                                                        alter table tours
+                                                            owner to postgres;
 
-                                                    create unique index if not exists tours_picpath_uindex
-                                                        on tours (picpath);
+                                                        create unique index if not exists tours_picpath_uindex
+                                                            on tours (picpath);
 
-                                                    create unique index if not exists tours_tour_id_uindex
-                                                        on tours (tour_id);";
+                                                        create unique index if not exists tours_tour_id_uindex
+                                                            on tours (tour_id);";
 
         private const string CreateLogTableCommand = @"create table if not exists logs
                                                     (
@@ -82,30 +83,55 @@ namespace Tourplanner.DataAccessLayer
                                                                 END
                                                              $$";
 
-        private readonly NpgsqlConnection _connection;
+        private readonly IPostgreSqlDAOConfiguration configuration;
 
-        public DatabaseManager(NpgsqlConnection connection)
+        public DatabaseManager(IPostgreSqlDAOConfiguration configuration)
         {
-            _connection = connection;
+            this.configuration = configuration;
+            EnsureTables();
         }
 
-        public void EnsureTables()
+        private void EnsureTables()
         {
-            using var cmdTour = new NpgsqlCommand(CreateTourTableCommand, _connection);
-            cmdTour.ExecuteNonQuery();
+            CreateTable(createDifficultyCommand);
 
-            using var cmdLog = new NpgsqlCommand(CreateLogTableCommand, _connection);
-            cmdLog.ExecuteNonQuery();
+            CreateTable(createPopularityCommand);
 
-            using var difCmd = new NpgsqlCommand(createDifficultyCommand, _connection);
-            difCmd.ExecuteNonQuery();
+            CreateTable(createTransportTypeCommand);
 
-            using var popCmd = new NpgsqlCommand(createPopularityCommand, _connection);
-            popCmd.ExecuteNonQuery();
+            CreateTable(CreateTourTableCommand);
 
-            using var transCmd = new NpgsqlCommand(createTransportTypeCommand, _connection);
-            transCmd.ExecuteNonQuery();
+            CreateTable(CreateLogTableCommand);
+
+            CreateTable(createDifficultyCommand);
+
+            CreateTable(createPopularityCommand);
+
+            CreateTable(createTransportTypeCommand);
         }
 
+        private void CreateTable(string command)
+        {
+            ExecuteWithConnection(connection =>
+            {
+                using var cmd = new NpgsqlCommand(command, connection);
+                return cmd.ExecuteNonQuery();
+            });
+        }
+
+        public T ExecuteWithConnection<T>(Func<NpgsqlConnection, T> command)
+        {
+            try
+            {
+                using var connection = new NpgsqlConnection(configuration.ConnectionString);
+                connection.Open();
+
+                return command(connection);
+            }
+            catch (NpgsqlException e)
+            {
+                throw new DataAccessFailedException("Could not connect to the database", e);
+            }
+        }
     }
 }

@@ -1,9 +1,10 @@
-﻿using Tourplanner.BusinessLayer;
+using Tourplanner.BusinessLayer;
 using Tourplanner.DataAccessLayer;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Npgsql;
 using Tourplanner.Models;
+using Tourplanner.Configuration;
 
 namespace UnitTest
 {
@@ -16,8 +17,10 @@ namespace UnitTest
         static HttpClient _client = new HttpClient();
         static IFileDAO _fileDAO = new FileDAO();
         static IDirections _directions = new Directions(MapQuestKey, _client);
+        static IPostgreSqlDAOConfiguration _postgre;
         static IRouteManager _routeManager = new RouteManager(_fileDAO, _directions);
-        static ITourDAO _tourDAO = new TourDAO(_connection);
+        static IDatabaseManager _databaseManager = new DatabaseManager(_postgre);
+        static ITourDAO _tourDAO = new TourDAO(_databaseManager);
         static ICheckInput _checkInput = new CheckInput();
         static ILogDAO _logDAO = new LogDAO(_connection);
         static ICalculateAttributes _calculateAttributes = new CalculateAttributes(_logDAO);
@@ -27,11 +30,12 @@ namespace UnitTest
         public class TourTests
         {
             [Test]
-            public async void CreateTour()
+            public async Task CreateTour()
             {
                 var test = await _tourmanager.newTour("testtour", "das ist ein Test, fuer unsere tour", "Washington, DC", "Vienna, MO", TransportType.Fastest);
 
                 Console.WriteLine(test.Distance);
+
             }
         }
     }
