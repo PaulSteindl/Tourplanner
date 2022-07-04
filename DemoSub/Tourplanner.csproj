@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="6.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Npgsql" Version="6.0.5" />
   </ItemGroup>
@@ -16,6 +18,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Tourplanner.MapQuest\Tourplanner.BusinessLayer.csproj" />
     <ProjectReference Include="..\Tourplanner.Models\Tourplanner.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
 
 </Project>

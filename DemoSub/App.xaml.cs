@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Tourplanner.ViewModels;
 using Tourplanner.Views;
 
 namespace DemoSub
@@ -17,13 +18,13 @@ namespace DemoSub
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var searchBarViewModel = new SearchBarViewModel();
-            var resultViewModel = new ResultViewModel();
-            var mainViewModel = new MainViewModel(searchBarViewModel, resultViewModel);
+            var mainWindowViewModel = new MainWindowViewModel();
+            //var tourManagerViewModel = new TourManagerViewModel();
+            //var singleTourViewModel = new SingleTourViewModel();
 
             var wnd = new MainWindowView()
             {
-                DataContext = mainViewModel,
+                DataContext = mainWindowViewModel,
             };
             wnd.Show();
         }
