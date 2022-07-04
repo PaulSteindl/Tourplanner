@@ -25,13 +25,9 @@ namespace Tourplanner.BusinessLayer
             var route = await directions.FetchRouteAsync(from, to, transportType);
             var mapArray = await directions.FetchMapAsync(route);
 
-            if(mapArray != null && mapArray.Length > 0 && route != null && !String.IsNullOrEmpty(route.RouteId))
+            if(mapArray != null && mapArray.Length > 0 && route != null && !String.IsNullOrEmpty(route.SessionId))
             {
-                string fullPath = $"{Path.GetDirectoryName(Path.GetFullPath($".\\{route.RouteId}.jpeg"))}";
-                if (!Directory.Exists(fullPath))
-                {
-                    route.picPath = fileDAO.SaveImage(mapArray, route.RouteId);
-                }
+                route.PicPath = fileDAO.SaveImage(mapArray, route.SessionId);
             }
 
             return route ?? throw new NullReferenceException();

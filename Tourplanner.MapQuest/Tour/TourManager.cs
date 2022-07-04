@@ -43,9 +43,9 @@ namespace Tourplanner.BusinessLayer
                     newTour.From = from;
                     newTour.To = to;
                     newTour.Transporttype = transportType;
-                    newTour.Distance = route.TotalDistance.Value;
-                    newTour.Time = route.TotalTime;
-                    newTour.PicPath = route.picPath;
+                    newTour.Distance = route.Distance;
+                    newTour.Time = route.Time;
+                    newTour.PicPath = route.PicPath;
                     newTour.ChildFriendly = false;
                     newTour.Popularity = PopularityEnum.Bad;
                     newTour.Logs = new List<Log>();
@@ -76,9 +76,9 @@ namespace Tourplanner.BusinessLayer
                     tour.From = from;
                     tour.To = to;
                     tour.Transporttype = transportType;
-                    tour.Distance = route.TotalDistance.Value;
-                    tour.Time = route.TotalTime;
-                    tour.PicPath = route.picPath;
+                    tour.Distance = route.Distance;
+                    tour.Time = route.Time;
+                    tour.PicPath = route.PicPath;
                     tour.ChildFriendly = calcA.CalculateChildFriendly(tour.Id, tour.Distance);
                     tour.Popularity = calcA.CalculatePopularity(tour.Id);
 

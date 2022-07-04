@@ -13,6 +13,7 @@ namespace Tourplanner.DataAccessLayer
     internal class TourDAO : ITourDAO
     {
         private const string InsertTourCommand = "INSERT INTO tours(name, description, from, to, transportMode, distance, time, picpath, popularity, childfriendly) VALUES (@name, @description, @from, @to, @transportMode, @distance, @time, @picpath, @popularity, @childfriendly)";
+        private const string SelectTourByIdCommand = "SELECT * FROM tours WHERE tour_id = @id";
         private const string SelectAllToursCommand = "SELECT * FROM tours";
         private const string UpdateTourByIdCommand = "UPDATE tours SET name = @name, description = @description, from = @from, to = @to, transportMode = @transportMode, distance = @distance, time = @time, picpath = @picpath, popularity = @popularity, childfriendly = @childfriendly WHERE tour_id = @id";
         private const string DeleteTourByIdCommand = "DELETE FROM tours WHERE tour_id = @id";
@@ -51,6 +52,27 @@ namespace Tourplanner.DataAccessLayer
             }
 
             return affectedRows > 0;
+        }
+
+        public Tour SelectTourById(Guid tourId)
+        {
+            var tour = new Tour();
+
+            try
+            {
+                using var cmd = new NpgsqlCommand(SelectTourByIdCommand, _connection);
+                cmd.Parameters.AddWithValue("tour_id", tourId);
+                using var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    tour = ReadTourDetails(reader);
+                }
+            }
+            catch (PostgresException)
+            {
+            }
+
+            return tour;
         }
 
         public List<Tour> SelectAllTours()

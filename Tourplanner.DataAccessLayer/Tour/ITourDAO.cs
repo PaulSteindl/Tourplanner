@@ -12,6 +12,11 @@ namespace Tourplanner.DataAccessLayer
         bool InsertTour(Tour newTour);
 
         /// <summary>
+        /// Holt eine Tour per Id
+        /// </summary>
+        public Tour SelectTourById(Guid tourId);
+
+        /// <summary>
         /// Holt alle Tours
         /// </summary>
         List<Tour> SelectAllTours();
@@ -27,5 +32,6 @@ namespace Tourplanner.DataAccessLayer
         /// </summary>
         /// <returns>True wenn eine Zeile gelöscht wurde</returns>
         bool DeleteTourById(Guid id);
+
     }
 }
