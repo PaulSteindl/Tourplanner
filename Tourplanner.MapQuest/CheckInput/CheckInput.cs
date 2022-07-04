@@ -7,14 +7,14 @@ namespace Tourplanner.BusinessLayer
     {
         private bool CheckUserInput(string input)
         {
-            if (Regex.Match(input, "^[a-zA-Z0-9-,]*$").Success)
+            if (Regex.Match(input, "^([a-zA-Z0-9-,]|\\s)*$").Success)
                 return true;
             return false;
         }
 
         private bool CheckUserInputWithSymbols(string input)
         {
-            if (Regex.Match(input, "^[a-zA-Z0-9,.!€$?-]*$").Success)
+            if (Regex.Match(input, "^([a-zA-Z0-9,.!€$?-]|\\s)*$").Success)
                 return true;
             return false;
         }
