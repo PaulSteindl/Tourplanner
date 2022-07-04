@@ -244,8 +244,7 @@
           "Newtonsoft.Json": "13.0.1",
           "Npgsql": "6.0.5",
           "System.Text.Json": "6.0.5",
-          "Tourplanner.DataAccessLayer": "1.0.0",
-          "Tourplanner.Models": "1.0.0"
+          "Tourplanner.DataAccessLayer": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Tourplanner.BusinessLayer.dll": {}
