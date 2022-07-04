@@ -13,7 +13,7 @@ using Tourplanner.DataAccessLayer;
 
 namespace Tourplanner.BusinessLayer
 {
-    internal class Directions : MapQuestAPI, IDirections
+    public class Directions : MapQuestAPI, IDirections
     {
         private const string MapQuestDirectionRequest = "http://www.mapquestapi.com/directions/v2/route?key={0}&from={1}&to={2}&routeType={3}&outFormat=json&unit=k&locale=de_DE";
         private const string MapQuestMapRequest = "https://www.mapquestapi.com/staticmap/v5/map?key={0}&session={1}&size=640,480&zoom=11&boundingBox={2},{3},{4},{5}";

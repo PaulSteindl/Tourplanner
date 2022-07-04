@@ -10,7 +10,7 @@ using System.Data;
 
 namespace Tourplanner.DataAccessLayer
 {
-    internal class TourDAO : ITourDAO
+    public class TourDAO : ITourDAO
     {
         private const string InsertTourCommand = "INSERT INTO tours(name, description, from, to, transportMode, distance, time, picpath, popularity, childfriendly) VALUES (@name, @description, @from, @to, @transportMode, @distance, @time, @picpath, @popularity, @childfriendly)";
         private const string SelectTourByIdCommand = "SELECT * FROM tours WHERE tour_id = @id";
