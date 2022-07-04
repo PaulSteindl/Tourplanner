@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Tourplanner.DataAccessLayer
 {
-    class LogDAO : ILogDAO
+    public class LogDAO : ILogDAO
     {        
         private const string InsertLogCommand = "INSERT INTO logs(date, comment, difficulty, time, rating) VALUES (@date, @comment, @difficulty, @time, @rating)";
         private const string SelectLogsByTourIdCommand = "SELECT * FROM logs WHERE tour_id = @tour_id";

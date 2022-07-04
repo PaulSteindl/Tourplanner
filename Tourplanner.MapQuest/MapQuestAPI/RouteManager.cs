@@ -8,7 +8,7 @@ using Tourplanner.Models;
 
 namespace Tourplanner.BusinessLayer
 {
-    internal class RouteManager
+    public class RouteManager : IRouteManager
     {
         private readonly IFileDAO fileDAO;
         private readonly IDirections directions;

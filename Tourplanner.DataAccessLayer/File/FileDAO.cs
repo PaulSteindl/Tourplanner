@@ -8,7 +8,7 @@ using Tourplanner.Models;
 
 namespace Tourplanner.DataAccessLayer
 {
-    internal class FileDAO
+    public class FileDAO : IFileDAO
     {
         public string SaveImage(byte[] mapArray, string routeId)
         {

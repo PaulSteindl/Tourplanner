@@ -1,7 +1,7 @@
-﻿<Application x:Class="DemoSub.Application"
+﻿<Application x:Class="Tourplanner.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DemoSub"
+             xmlns:local="clr-namespace:Tourplanner"
              Startup="Application_Startup">
     <Application.Resources>
          

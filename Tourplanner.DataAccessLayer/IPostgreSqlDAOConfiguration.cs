@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tourplanner.BusinessLayer
+namespace Tourplanner.DataAccessLayer
 {
-    public interface IExportManager
+    public interface IPostgreSqlDAOConfiguration
     {
-        public bool ExportTourById(Guid tourId, string path);
+        public string ConnectionString { get; }
     }
 }
