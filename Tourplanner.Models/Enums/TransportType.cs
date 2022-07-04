@@ -2,9 +2,9 @@
 {
     public enum TransportType
     {
-        Fastest,
-        Shortest,
-        Pedestrian,
-        Bicycle
+        Fastest = 0,
+        Shortest = 1,
+        Pedestrian = 2,
+        Bicycle = 3
     }
 }

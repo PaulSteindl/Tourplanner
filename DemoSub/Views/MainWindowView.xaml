@@ -35,7 +35,7 @@
                 <MenuItem Header="About"/>
             </MenuItem>
             <MenuItem Header="_Exit">
-                <MenuItem Header="_Exit"/>
+                <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}"/>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">
