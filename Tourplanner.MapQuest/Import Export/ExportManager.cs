@@ -3,7 +3,7 @@ using Tourplanner.DataAccessLayer;
 using Newtonsoft.Json;
 using System.Text.Json;
 
-namespace Tourplanner.BusinessLayer.Import_Export
+namespace Tourplanner.BusinessLayer
 {
     public class ExportManager : IExportManager
     {

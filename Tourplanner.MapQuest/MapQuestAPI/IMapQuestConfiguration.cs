@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Tourplanner.BusinessLayer
 {
-    public interface IExportManager
+    public interface IMapQuestConfiguration
     {
-        public bool ExportTourById(Guid tourId, string path);
+        public string DirectionUrl { get; }
+
+        public string MapUrl { get;}
+
+        public string MapQuestKey {get;}
     }
 }

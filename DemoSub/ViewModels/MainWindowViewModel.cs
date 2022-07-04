@@ -1,4 +1,4 @@
-﻿using DemoSub.ViewModels;
+﻿using Tourplanner.ViewModels;
 using Tourplanner.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -11,20 +11,26 @@ using Tourplanner.BusinessLayer;
 using AsyncAwaitBestPractices.MVVM;
 using System.Windows;
 using System.Collections.ObjectModel;
-using DemoSub;
+using Tourplanner;
 using System.ComponentModel;
+using System.Windows.Data;
 
 namespace Tourplanner.ViewModels
 {
-    internal class MainWindowViewModel : BaseViewModel
+    internal class MainWindowViewModel : BaseViewModel, ICloseWindow
     {
         private string _searchText = String.Empty;
         private bool isBusy;
+        public Action? Close { get; set; }
 
         private Tour? _tour;
+        private Log _log;
         private TourManager _tourManager;
+        private ILogManager _logManager;
         private TransportType _transportType;
-        private IList<Tour> AllTours = new List<Tour>();
+
+        private ObservableCollection<Tour> AllTours = new ObservableCollection<Tour>();
+        private ListCollectionView _thisLog;
 
         public event EventHandler<Tour> TourChanged;
 
@@ -43,6 +49,24 @@ namespace Tourplanner.ViewModels
                 _tour = value;
                 OnPropertyChanged();
                 UpdateShownTours();
+            }
+        }
+
+        public Log Log
+        {
+            get => _log;
+            set
+            {
+                _log = value;
+            }
+        }
+
+        public ListCollectionView ThisLog
+        {
+            get => _thisLog;
+            set
+            {
+                _thisLog = value;
             }
         }
 
@@ -109,9 +133,8 @@ namespace Tourplanner.ViewModels
 
         private void ExitApplication(object? obj)
         {
-            if(isBusy) return;
-
-            
+            // @TODO: check maybe if smth has changed => save of cancel changes with messagebox
+            Close?.Invoke();
         }
 
         private void ClearSearchField(object? obj)
@@ -240,21 +263,27 @@ namespace Tourplanner.ViewModels
 
         private void AddTourLog(object ?obj)
         {
-            if (Tour is null) return;
+            if (isBusy || Tour is null) return;
 
-            // @TODO AddTourLog method
+            var window = new Views.SingleTourView();
+            var tour = new SingleTourViewModel(window);
+
+            //var newLog = _logManager.CreateLog();
+            //ThisLog.AddNewItem(newLog);
+            //ThisLog.CommitNew();
+            //Log = newLog;
         }
 
         private void ModifyTourLog(object? obj)
         {
-            if (Tour is null) return;
+            if (isBusy || Tour is null) return;
 
             // @TODO ModifyTourLog method
         }
 
         private void DeleteTourLog(object? obj)
         {
-            if (Tour is null) return;
+            if (isBusy || Tour is null) return;
 
             // @TODO DeleteTourLog method
         }

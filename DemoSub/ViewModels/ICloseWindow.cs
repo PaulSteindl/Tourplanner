@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tourplanner.BusinessLayer
+namespace Tourplanner.ViewModels
 {
-    public interface IExportManager
+    internal interface ICloseWindow
     {
-        public bool ExportTourById(Guid tourId, string path);
+        public Action? Close { get; set; }
     }
 }

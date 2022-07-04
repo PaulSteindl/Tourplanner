@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using Tourplanner.Navigation;
 
-namespace DemoSub.ViewModels
+namespace Tourplanner.ViewModels
 {
-    public abstract class BaseViewModel : INotifyPropertyChanged
+    internal abstract class BaseViewModel : INotifyPropertyChanged
     {
-        //public INavigationService? NavigationService { get; set; }
+        public INavigationService? NavigationService { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
