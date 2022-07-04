@@ -1,5 +1,4 @@
-﻿using DemoSub.ViewModels;
-using Tourplanner.Exceptions;
+﻿using Tourplanner.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,6 @@ using Tourplanner.BusinessLayer;
 using AsyncAwaitBestPractices.MVVM;
 using System.Windows;
 using System.Collections.ObjectModel;
-using DemoSub;
 using System.ComponentModel;
 using System.Windows.Data;
 
@@ -268,10 +266,10 @@ namespace Tourplanner.ViewModels
             var window = new Views.SingleTourView();
             var tour = new SingleTourViewModel(window);
 
-            var newLog = _logManager.CreateLog();
-            ThisLog.AddNewItem(newLog);
-            ThisLog.CommitNew();
-            Log = newLog;
+            //var newLog = _logManager.CreateLog();
+            //ThisLog.AddNewItem(newLog);
+            //ThisLog.CommitNew();
+            //Log = newLog;
         }
 
         private void ModifyTourLog(object? obj)

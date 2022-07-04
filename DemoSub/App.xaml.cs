@@ -24,16 +24,6 @@ namespace Tourplanner
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //var searchBarViewModel = new SearchBarViewModel();
-            //var resultViewModel = new ResultViewModel();
-            //var mainViewModel = new MainViewModel(searchBarViewModel, resultViewModel);
-
-            //var wnd = new MainWindowView()
-            //{
-            //    DataContext = mainViewModel,
-            //};
-            //wnd.Show();
-
             var ioCConfig = new IoCContainerConfiguration();
             ioCConfig.NavigationService.NavigateTo<MainViewModel>();
         }

@@ -2,6 +2,7 @@
 using Tourplanner.DataAccessLayer;
 using Tourplanner.ViewModels;
 using Tourplanner.Views;
+using Tourplanner.Navigation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;

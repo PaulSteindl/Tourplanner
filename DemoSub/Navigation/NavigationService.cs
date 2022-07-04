@@ -1,4 +1,4 @@
-﻿using DemoSub.ViewModels;
+﻿using Tourplanner.ViewModels;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
