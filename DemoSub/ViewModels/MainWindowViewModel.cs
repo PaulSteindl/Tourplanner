@@ -268,10 +268,10 @@ namespace Tourplanner.ViewModels
             var window = new Views.SingleTourView();
             var tour = new SingleTourViewModel(window);
 
-            var newLog = _logManager.CreateLog();
-            ThisLog.AddNewItem(newLog);
-            ThisLog.CommitNew();
-            Log = newLog;
+            //var newLog = _logManager.CreateLog();
+            //ThisLog.AddNewItem(newLog);
+            //ThisLog.CommitNew();
+            //Log = newLog;
         }
 
         private void ModifyTourLog(object? obj)

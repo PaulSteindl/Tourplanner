@@ -34,9 +34,6 @@
             "projectReferences": {
               "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
                 "projectPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj"
-              },
-              "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj": {
-                "projectPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj"
               }
             }
           }
@@ -70,6 +67,10 @@
             "Npgsql": {
               "target": "Package",
               "version": "[6.0.5, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.14, )"
             }
           },
           "imports": [

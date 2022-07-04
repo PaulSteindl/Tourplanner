@@ -25,7 +25,7 @@ namespace Tourplanner
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var ioCConfig = new IoCContainerConfiguration();
-            ioCConfig.NavigationService.NavigateTo<MainViewModel>();
+            ioCConfig.NavigationService.NavigateTo<MainWindowViewModel>();
         }
     }
 }
