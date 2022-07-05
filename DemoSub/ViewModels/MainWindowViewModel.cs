@@ -136,7 +136,10 @@ namespace Tourplanner.ViewModels
         {
             if (AllTours is null) return;
 
-            foreach(var tour in AllTours)
+            // Without clean, by adding a tour the previous tour will also be added again
+            Application.Current.Dispatcher.Invoke(() => ShownTours.Clear());
+
+            foreach (var tour in AllTours)
             {
                 Application.Current.Dispatcher.Invoke(() => ShownTours.Add(tour));
             }
@@ -167,7 +170,7 @@ namespace Tourplanner.ViewModels
         private void ExitApplication(object? obj)
         {
             // @TODO: check maybe if smth has changed => save of cancel changes with messagebox
-            Close?.Invoke();
+            Application.Current.Shutdown();
         }
 
         private void ClearSearchField(object? obj)
@@ -210,14 +213,18 @@ namespace Tourplanner.ViewModels
             Tour = null;
             AllTours.Remove(thisTour);
             ShownTours.Remove(thisTour);
-            _tourManager.DeleteTour(thisTour.Id);
+            //_tourManager.DeleteTour(thisTour.Id);
         }
 
         private async Task ModifyTour()
         {
             if (isBusy) return;
 
-            if(Tour is null) return;
+            var thisTour = Tour;
+            if(thisTour is null) return;
+
+            //Tour = null;
+            //thisTour.Id;
 
             var window = new Views.TourManagerView();
             var tour = new TourManagerViewModel(window)
@@ -271,8 +278,6 @@ namespace Tourplanner.ViewModels
             {
                 try
                 {
-                    //Tour newTour = await new Tour { Id = new Guid(), Name = "NameTest", Description = "Desc", From = "Vienna", To = "Graz", Transporttype = _transportType };
-
                     TransportType transportType = ConverStringToTransportType(tour.TransportType);
                     Tour? newTour = null;
                     newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, transportType);
