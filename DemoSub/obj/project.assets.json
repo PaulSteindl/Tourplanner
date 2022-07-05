@@ -2,25 +2,25 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
-      "AsyncAwaitBestPractices/6.0.4": {
+      "AsyncAwaitBestPractices/6.0.5": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.1/AsyncAwaitBestPractices.dll": {}
+          "lib/net6.0/AsyncAwaitBestPractices.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/AsyncAwaitBestPractices.dll": {}
+          "lib/net6.0/AsyncAwaitBestPractices.dll": {}
         }
       },
-      "AsyncAwaitBestPractices.MVVM/6.0.4": {
+      "AsyncAwaitBestPractices.MVVM/6.0.5": {
         "type": "package",
         "dependencies": {
-          "AsyncAwaitBestPractices": "6.0.4"
+          "AsyncAwaitBestPractices": "6.0.5"
         },
         "compile": {
-          "lib/netstandard2.1/AsyncAwaitBestPractices.MVVM.dll": {}
+          "lib/net6.0/AsyncAwaitBestPractices.MVVM.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/AsyncAwaitBestPractices.MVVM.dll": {}
+          "lib/net6.0/AsyncAwaitBestPractices.MVVM.dll": {}
         }
       },
       "log4net/2.0.14": {
@@ -387,16 +387,20 @@
     }
   },
   "libraries": {
-    "AsyncAwaitBestPractices/6.0.4": {
-      "sha512": "dO/ZfaT+5DMMnYUCmxAk2s1jEXUTDcgethroMj1kcmedO0MAu6WgvPP4gPYem/0kJASrnBcem+kr5ju3LaNdMw==",
+    "AsyncAwaitBestPractices/6.0.5": {
+      "sha512": "EsP7PgSEUU9ljDgNVeqxWIlN1tWzCL4kovT9moVDUy7cL6ILLskJfbA61AD/+qonjHhSBH63MRArhlQj5JhbFQ==",
       "type": "package",
-      "path": "asyncawaitbestpractices/6.0.4",
+      "path": "asyncawaitbestpractices/6.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "asyncawaitbestpractices.6.0.4.nupkg.sha512",
+        "asyncawaitbestpractices.6.0.5.nupkg.sha512",
         "asyncawaitbestpractices.nuspec",
+        "lib/net5.0/AsyncAwaitBestPractices.dll",
+        "lib/net5.0/AsyncAwaitBestPractices.xml",
+        "lib/net6.0/AsyncAwaitBestPractices.dll",
+        "lib/net6.0/AsyncAwaitBestPractices.xml",
         "lib/netstandard1.0/AsyncAwaitBestPractices.dll",
         "lib/netstandard1.0/AsyncAwaitBestPractices.xml",
         "lib/netstandard2.0/AsyncAwaitBestPractices.dll",
@@ -405,16 +409,20 @@
         "lib/netstandard2.1/AsyncAwaitBestPractices.xml"
       ]
     },
-    "AsyncAwaitBestPractices.MVVM/6.0.4": {
-      "sha512": "b77He9nY/R90bRTeaPiKwfbygiWO+MV07JKuor+WhTI6WSNHunyNJ+RzxO5bwbYEff2qjNDoOWfBtMjiNPlo/w==",
+    "AsyncAwaitBestPractices.MVVM/6.0.5": {
+      "sha512": "WU8pyRhpg4QtuLEPd4MhgdBMr+jjQkzvH7ROeXCaS0Xkoxavh0BdDR85ev8+oekblTqH586jXYTfrwMoCGE5Jg==",
       "type": "package",
-      "path": "asyncawaitbestpractices.mvvm/6.0.4",
+      "path": "asyncawaitbestpractices.mvvm/6.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "asyncawaitbestpractices.mvvm.6.0.4.nupkg.sha512",
+        "asyncawaitbestpractices.mvvm.6.0.5.nupkg.sha512",
         "asyncawaitbestpractices.mvvm.nuspec",
+        "lib/net5.0/AsyncAwaitBestPractices.MVVM.dll",
+        "lib/net5.0/AsyncAwaitBestPractices.MVVM.xml",
+        "lib/net6.0/AsyncAwaitBestPractices.MVVM.dll",
+        "lib/net6.0/AsyncAwaitBestPractices.MVVM.xml",
         "lib/netstandard1.0/AsyncAwaitBestPractices.MVVM.dll",
         "lib/netstandard1.0/AsyncAwaitBestPractices.MVVM.xml",
         "lib/netstandard2.0/AsyncAwaitBestPractices.MVVM.dll",
@@ -1032,7 +1040,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "AsyncAwaitBestPractices.MVVM >= 6.0.4",
+      "AsyncAwaitBestPractices.MVVM >= 6.0.5",
       "Microsoft.Extensions.Configuration.Json >= 6.0.0",
       "Microsoft.Extensions.DependencyInjection >= 6.0.0",
       "Newtonsoft.Json >= 13.0.1",
@@ -1091,7 +1099,7 @@
         "dependencies": {
           "AsyncAwaitBestPractices.MVVM": {
             "target": "Package",
-            "version": "[6.0.4, )"
+            "version": "[6.0.5, )"
           },
           "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",

@@ -23,7 +23,7 @@
                 </Grid.RowDefinitions>
 
                 <TabControl Grid.Row="1">
-                    <TabItem Header="Route information" FontSize="15">
+                    <TabItem Header="Tour information" FontSize="15">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -41,22 +41,23 @@
 
                             <Label Grid.Row="0" Grid.Column="0" Content="Name:" FontWeight="Normal"/>
                             <Label Grid.Row="1" Grid.Column="0" Content="Description:" FontWeight="Normal"/>
-                            <Label Grid.Row="2" Grid.Column="0" Content="Starting location:" FontWeight="Normal"/>
-                            <Label Grid.Row="3" Grid.Column="0" Content="Ending location:" FontWeight="Normal"/>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Start location:" FontWeight="Normal"/>
+                            <Label Grid.Row="3" Grid.Column="0" Content="End location:" FontWeight="Normal"/>
                             <Label Grid.Row="4" Grid.Column="0" Content="Transport type:" FontWeight="Normal"/>
                             <Label Grid.Row="5" Grid.Column="0" Content="Distance:" FontWeight="Normal"/>
                             <Label Grid.Row="6" Grid.Column="0" Content="Estimated time:" FontWeight="Normal"/>
 
-                            <Label Grid.Row="0" Grid.Column="1" FontWeight="Normal"/>
-                            <Label Grid.Row="1" Grid.Column="1" FontWeight="Normal"/>
-                            <Label Grid.Row="2" Grid.Column="1" FontWeight="Normal"/>
-                            <Label Grid.Row="3" Grid.Column="1" FontWeight="Normal"/>
-                            <Label Grid.Row="4" Grid.Column="1" FontWeight="Normal"/>
-                            <Label Grid.Row="5" Grid.Column="1" FontWeight="Normal"/>
-                            <Label Grid.Row="6" Grid.Column="1" FontWeight="Normal"/>
+                            <Label Grid.Row="0" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Name}"/>
+                            <Label Grid.Row="1" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Description}"/>
+                            <Label Grid.Row="2" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.StartLocation}"/>
+                            <Label Grid.Row="3" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.EndLocation}"/>
+                            <Label Grid.Row="4" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.TransportType}"/>
+                            <Label Grid.Row="5" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Distance}"/>
+                            <Label Grid.Row="6" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Time}"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Route Image" FontSize="15">
+                        <Image Source="{Binding Tour.ImagePath}" Stretch="UniformToFill"/>
                     </TabItem>
                 </TabControl>
             </Grid>
@@ -70,7 +71,6 @@
                     <Button DockPanel.Dock="Right" Padding="4" Content="Add" FontSize="15"/>
                     <Label DockPanel.Dock="Left" Padding="4" Content="Logs:" FontSize="15"/>
                 </DockPanel>
-                
             </Grid>
         </Grid>
     </Grid>

@@ -50,7 +50,7 @@
           "dependencies": {
             "AsyncAwaitBestPractices.MVVM": {
               "target": "Package",
-              "version": "[6.0.4, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",

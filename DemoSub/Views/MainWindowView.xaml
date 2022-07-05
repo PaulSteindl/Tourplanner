@@ -31,9 +31,6 @@
                 <MenuItem Header="_Tour Report" Command="{Binding TourReportCommand}"/>
                 <MenuItem Header="_Summary Tour Report" Command="{Binding SummaryTourReportCommand}"/>
             </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem Header="About"/>
-            </MenuItem>
             <MenuItem Header="_Exit">
                 <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}"/>
             </MenuItem>
@@ -46,30 +43,27 @@
             </Grid.RowDefinitions>
 
             <DockPanel Grid.Row="1">
-                <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Clear"/>
-                <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Search"/>
+                <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Clear" Command="{Binding SearchFieldCommand}"/>
+                <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Search" Command="{Binding ClearSearchFieldCommand}"/>
                 <TextBox DockPanel.Dock="Left" MaxLength="100"/>
             </DockPanel>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
-                    <!--
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="3*"/>
-                    -->
                 </Grid.ColumnDefinitions>
 
-                <!--
-                <GridSplitter Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Center" ResizeBehavior="PreviousAndNext" Width="4"/>
-                -->
-                
                 <GroupBox Grid.Column="0" Grid.Row="2" Header="Tours" Padding="4" FontSize="20">
+                    <ListBox ItemsSource="{Binding ShownTours}" SelectedItem="{Binding Path=Tour, Mode=TwoWay}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </GroupBox>
-
-                <!--
-                <GroupBox Grid.Column="2" Grid.Row="2" Header="Tour Information" Padding="4" FontSize="20">
-                </GroupBox>
-                -->
             </Grid>
         </Grid>
     </DockPanel>

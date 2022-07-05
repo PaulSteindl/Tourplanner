@@ -19,50 +19,47 @@ namespace Tourplanner.ViewModels
 {
     internal class MainWindowViewModel : BaseViewModel, ICloseWindow
     {
-        private string _searchText = String.Empty;
         private bool isBusy;
+        // Suche
+        private string _searchText = String.Empty;
+        // Exit
         public Action? Close { get; set; }
-
+        // Tour
         private Tour? _tour;
-        private Log _log;
-        private string _nameRadioButton;
-        private ITourManager _tourManager;
-        private ILogManager _logManager;
+        private TourManager _tourManager;
         private TransportType _transportType;
-
         private ObservableCollection<Tour> AllTours = new ObservableCollection<Tour>();
-        private ListCollectionView _thisLog;
-
-        public event EventHandler<Tour> TourChanged;
-
         public ObservableCollection<Tour> ShownTours { get; set; } = new ObservableCollection<Tour>();
-
-        public string Name
-        {
-            get => _nameRadioButton;
-            set
-            {
-                _nameRadioButton = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-
+        public event EventHandler<Tour> TourChanged;
+        // Log
+        private Log _log;
+        private ListCollectionView _logList;
+        private ILogManager _logManager;
+        
+        // Suche
         public string SearchText
         {
             get => _searchText;
-            set => _searchText = value; 
+            set
+            {
+                _searchText = value;
+                UpdateShownTours();
+            }
         }
+
+        // Tour
         public Tour? Tour
         {
             get => _tour;
             set
             {
                 _tour = value;
-                OnPropertyChanged();
-                UpdateShownTours();
+                //OnPropertyChanged();
+                //UpdateShownTours();
             }
         }
 
+        // Log
         public Log Log
         {
             get => _log;
@@ -72,19 +69,19 @@ namespace Tourplanner.ViewModels
             }
         }
 
-        public ListCollectionView ThisLog
+        public ListCollectionView LogList
         {
-            get => _thisLog;
+            get => _logList;
             set
             {
-                _thisLog = value;
+                _logList = value;
             }
         }
 
         public bool IsBusy
         {
             get => isBusy;
-            set
+            private set
             {
                 isBusy = value;
                 OnPropertyChanged();
@@ -108,8 +105,9 @@ namespace Tourplanner.ViewModels
         public ICommand ClearSearchFieldCommand { get; }
         public ICommand ExitApplicationCommand { get; }
 
-        public MainWindowViewModel(ITourManager tourManager)
+        public MainWindowViewModel()
         {
+            IsBusy = true;
             AddTourCommand = new AsyncCommand(AddTour);
             ModifyTourCommand = new AsyncCommand(ModifyTour);
             DeleteTourCommand = new RelayCommand(DeleteTour);
@@ -123,10 +121,10 @@ namespace Tourplanner.ViewModels
             SearchFieldCommand = new RelayCommand(SearchField);
             ClearSearchFieldCommand = new RelayCommand(ClearSearchField);
             ExitApplicationCommand = new RelayCommand(ExitApplication);
-
             this._tourManager = tourManager;
         }
 
+        // A BusyIndicator control provides an alternative to a wait cursor to show user an indication that an application is busy doing some processing.
         private async Task BusyIndicatorFunc(Func<Task> section)
         {
             isBusy = true;
@@ -140,32 +138,8 @@ namespace Tourplanner.ViewModels
 
             foreach(var tour in AllTours)
             {
-                System.Windows.Application.Current.Dispatcher.Invoke(() => ShownTours.Add(tour));
+                Application.Current.Dispatcher.Invoke(() => ShownTours.Add(tour));
             }
-        }
-
-        private TransportType executeMethod(object parameter)
-        {
-            Name = (string)parameter;
-
-            switch (Name)
-            {
-                case "Fastest":
-                    _transportType = (TransportType)0;
-                    break;
-                case "Shortest":
-                    _transportType = (TransportType)1;
-                    break;
-                case "Pedestrian":
-                    _transportType = (TransportType)2;
-                    break;
-                case "Bicycle":
-                    _transportType = (TransportType)3;
-                    break;
-                default:
-                    break;
-            }
-            return _transportType;
         }
 
         private TransportType ConverStringToTransportType(string transportType)
@@ -198,7 +172,7 @@ namespace Tourplanner.ViewModels
 
         private void ClearSearchField(object? obj)
         {
-            throw new NotImplementedException();
+            SearchText = String.Empty;
         }
 
         private void SearchField(object? obj)
@@ -297,13 +271,11 @@ namespace Tourplanner.ViewModels
             {
                 try
                 {
+                    //Tour newTour = await new Tour { Id = new Guid(), Name = "NameTest", Description = "Desc", From = "Vienna", To = "Graz", Transporttype = _transportType };
+                    
                     TransportType transportType = ConverStringToTransportType(tour.TransportType);
-
-                    //Tour? newTour = null;
-
-                    //var type = executeMethod(tour.rb_fastest);
-
-                    Tour newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType);
+                    Tour? newTour = null;
+                    newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType);
                     if(newTour != null)
                     {
                         AllTours.Add(newTour);
