@@ -61,7 +61,7 @@ namespace Tourplanner.BusinessLayer
             return newTour;
         }
 
-        public async void UpdateTour(string name, string description, string from, string to, TransportType transportType, Tour tour)
+        public async Task<Tour> UpdateTour(string name, string description, string from, string to, TransportType transportType, Tour tour)
         {
             checkInput.CheckUserInputTour(name, description, from, to, transportType);
 
@@ -84,6 +84,7 @@ namespace Tourplanner.BusinessLayer
 
                     if(!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
                 }
+                return tour;
             }
             catch (Exception e)
             {

@@ -119,16 +119,14 @@ namespace Tourplanner.DataAccessLayer
                     using var cmd = new NpgsqlCommand(UpdateTourByIdCommand, connection);
                     cmd.Parameters.AddWithValue("id", updatedTour.Id);
                     cmd.Parameters.AddWithValue("name", updatedTour.Name);
-                    if (!String.IsNullOrEmpty(updatedTour.Description))
-                        cmd.Parameters.AddWithValue("description", updatedTour.Description);
+                    cmd.Parameters.AddWithValue("description", updatedTour.Description);
                     cmd.Parameters.AddWithValue("start", updatedTour.From);
                     cmd.Parameters.AddWithValue("finish", updatedTour.To);
-                    cmd.Parameters.AddWithValue("transporttype", updatedTour.Transporttype);
+                    cmd.Parameters.AddWithValue("transporttype", updatedTour.Transporttype.ToString());
                     cmd.Parameters.AddWithValue("distance", updatedTour.Distance);
                     cmd.Parameters.AddWithValue("time", updatedTour.Time);
                     cmd.Parameters.AddWithValue("picpath", updatedTour.PicPath);
-                    if (updatedTour.Popularity.HasValue)
-                        cmd.Parameters.AddWithValue("popularity", updatedTour.Popularity);
+                    cmd.Parameters.AddWithValue("popularity", updatedTour.Popularity.ToString());
                     cmd.Parameters.AddWithValue("childfriendly", updatedTour.ChildFriendly);
 
                     return cmd.ExecuteNonQuery();

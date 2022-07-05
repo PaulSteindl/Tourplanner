@@ -213,18 +213,16 @@ namespace Tourplanner.ViewModels
             Tour = null;
             AllTours.Remove(thisTour);
             ShownTours.Remove(thisTour);
-            //_tourManager.DeleteTour(thisTour.Id);
+            _tourManager.DeleteTour(thisTour.Id);
         }
 
         private async Task ModifyTour()
         {
             if (isBusy) return;
 
+            
+            if(Tour is null) return;
             var thisTour = Tour;
-            if(thisTour is null) return;
-
-            //Tour = null;
-            //thisTour.Id;
 
             var window = new Views.TourManagerView();
             var tour = new TourManagerViewModel(window)
@@ -239,7 +237,10 @@ namespace Tourplanner.ViewModels
             {
                 try
                 {
-                    _tourManager.UpdateTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType, Tour);
+                    AllTours.Remove(thisTour);
+                    thisTour = await _tourManager.UpdateTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, _transportType, Tour);
+                    Tour = null;
+                    AllTours.Add(thisTour);
                     UpdateShownTours();
                 }
                 catch (Exception ex)
