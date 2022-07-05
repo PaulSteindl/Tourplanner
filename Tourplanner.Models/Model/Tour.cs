@@ -10,8 +10,8 @@ namespace Tourplanner.Models
         public string? Description { get; set; }
         public string From { get; set; } = String.Empty;
         public string To { get; set; } = String.Empty;
-        public TransportType Transporttype { get; set; }
-        public double Distance { get; set; }
+        public Transport_type Transporttype { get; set; }
+        public int Distance { get; set; }
         public int Time { get; set; }
         public string PicPath { get; set; } = String.Empty;
         public PopularityEnum? Popularity { get; set; }

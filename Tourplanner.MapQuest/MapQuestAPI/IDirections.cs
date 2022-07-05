@@ -10,6 +10,6 @@ namespace Tourplanner.BusinessLayer
     public interface IDirections
     {
         public Task<byte[]> FetchMapAsync(Route route);
-        public Task<Route> FetchRouteAsync(string from, string to, TransportType transportType);
+        public Task<Route> FetchRouteAsync(string from, string to, Transport_type transportType);
     }
 }

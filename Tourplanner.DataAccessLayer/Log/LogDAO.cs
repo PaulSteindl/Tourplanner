@@ -14,11 +14,11 @@ namespace Tourplanner.DataAccessLayer
         private const string UpdateLogByIdCommand = "UPDATE logs SET date = @date, comment = @comment, difficulty = @difficulty, totaltime = @totaltime, rating = @rating WHERE log_id = @id";
         private const string DeleteLogByIdCommand = "DELETE FROM logs WHERE log_id = @id";
 
-        private readonly NpgsqlConnection _connection;
+        private IDatabaseManager databaseManager;
 
-        public LogDAO(NpgsqlConnection connection)
+        public LogDAO(IDatabaseManager databaseManager)
         {
-            _connection = connection;
+            this.databaseManager = databaseManager;
         }
 
         public bool InsertLog(Log newLog)
@@ -27,15 +27,18 @@ namespace Tourplanner.DataAccessLayer
 
             try
             {
-                using var cmd = new NpgsqlCommand(InsertLogCommand, _connection);
-                cmd.Parameters.AddWithValue("date", newLog.Date);
-                if(!String.IsNullOrEmpty(newLog.Comment))
-                    cmd.Parameters.AddWithValue("comment", newLog.Comment);
-                cmd.Parameters.AddWithValue("difficulty", newLog.Difficulty);
-                cmd.Parameters.AddWithValue("totaltime", newLog.TotalTime);
-                cmd.Parameters.AddWithValue("rating", newLog.Rating);
+                affectedRows = databaseManager.ExecuteWithConnection(connection =>
+                {
+                    using var cmd = new NpgsqlCommand(InsertLogCommand, connection);
+                    cmd.Parameters.AddWithValue("date", newLog.Date);
+                    if (!String.IsNullOrEmpty(newLog.Comment))
+                        cmd.Parameters.AddWithValue("comment", newLog.Comment);
+                    cmd.Parameters.AddWithValue("difficulty", newLog.Difficulty);
+                    cmd.Parameters.AddWithValue("totaltime", newLog.TotalTime);
+                    cmd.Parameters.AddWithValue("rating", newLog.Rating);
 
-                affectedRows = cmd.ExecuteNonQuery();
+                    return cmd.ExecuteNonQuery();
+                });
             }
             catch (PostgresException)
             {
@@ -46,24 +49,31 @@ namespace Tourplanner.DataAccessLayer
 
         public List<Log> SelectLogsByTourId(Guid tourId)
         {
-            var logs = new List<Log>();
+
 
             try
             {
-                using var cmd = new NpgsqlCommand(SelectLogsByTourIdCommand, _connection);
-                cmd.Parameters.AddWithValue("tour_id", tourId);
-                using var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                return databaseManager.ExecuteWithConnection(connection =>
                 {
-                    var log = ReadLogsDetails(reader);
-                    logs.Add(log);
-                }
+                    var logs = new List<Log>();
+
+                    using var cmd = new NpgsqlCommand(SelectLogsByTourIdCommand, connection);
+                    cmd.Parameters.AddWithValue("tour_id", tourId);
+                    using var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var log = ReadLogsDetails(reader);
+                        logs.Add(log);
+                    }
+
+                    return logs;
+                });
             }
             catch (PostgresException)
             {
             }
 
-            return logs;
+            return new List<Log>();
         }
 
         public bool UpdateLogById(Log updatedLog)
@@ -72,16 +82,19 @@ namespace Tourplanner.DataAccessLayer
 
             try
             {
-                using var cmd = new NpgsqlCommand(UpdateLogByIdCommand, _connection);
-                cmd.Parameters.AddWithValue("id", updatedLog.Id);
-                cmd.Parameters.AddWithValue("name", updatedLog.Date);
-                if (!String.IsNullOrEmpty(updatedLog.Comment))
-                    cmd.Parameters.AddWithValue("description", updatedLog.Comment);
-                cmd.Parameters.AddWithValue("from", updatedLog.Difficulty);
-                cmd.Parameters.AddWithValue("to", updatedLog.TotalTime);
-                cmd.Parameters.AddWithValue("transportMode", updatedLog.Rating);
+                affectedRows = databaseManager.ExecuteWithConnection(connection =>
+                {
+                    using var cmd = new NpgsqlCommand(UpdateLogByIdCommand, connection);
+                    cmd.Parameters.AddWithValue("id", updatedLog.Id);
+                    cmd.Parameters.AddWithValue("name", updatedLog.Date);
+                    if (!String.IsNullOrEmpty(updatedLog.Comment))
+                        cmd.Parameters.AddWithValue("description", updatedLog.Comment);
+                    cmd.Parameters.AddWithValue("from", updatedLog.Difficulty);
+                    cmd.Parameters.AddWithValue("to", updatedLog.TotalTime);
+                    cmd.Parameters.AddWithValue("transportMode", updatedLog.Rating);
 
-                affectedRows = cmd.ExecuteNonQuery();
+                    return cmd.ExecuteNonQuery();
+                });
             }
             catch (PostgresException)
             {
@@ -92,19 +105,23 @@ namespace Tourplanner.DataAccessLayer
 
         public bool DeleteLogById(Guid id)
         {
-            var rowsAffected = 0;
+            var affectedRows = 0;
 
             try
             {
-                using var cmd = new NpgsqlCommand(DeleteLogByIdCommand, _connection);
-                cmd.Parameters.AddWithValue("id", id);
-                rowsAffected = cmd.ExecuteNonQuery();
+                affectedRows = databaseManager.ExecuteWithConnection(connection =>
+                {
+                    using var cmd = new NpgsqlCommand(DeleteLogByIdCommand, connection);
+                    cmd.Parameters.AddWithValue("id", id);
+
+                    return cmd.ExecuteNonQuery();
+                });
             }
             catch (PostgresException)
             {
             }
 
-            return rowsAffected > 0;
+            return affectedRows > 0;
         }
 
         private Log ReadLogsDetails(IDataRecord record)

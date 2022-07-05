@@ -17,7 +17,7 @@ namespace Tourplanner.Configuration
 
         public string MapUrl => configuration["mapquest:mapUrl"];
 
-        public string MapQuestKey => configuration["mapquest:key"];
+        public string MapQuestKey => configuration["mapquest:mapQuestKey"];
 
         public string ConnectionString => configuration["database:connectionString"];
 

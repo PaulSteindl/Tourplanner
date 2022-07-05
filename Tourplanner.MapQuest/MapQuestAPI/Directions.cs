@@ -14,23 +14,25 @@ using System.Globalization;
 
 namespace Tourplanner.BusinessLayer
 {
-    public class Directions : MapQuestAPI, IDirections
+    public class Directions : IDirections
     {
-        private const string MapQuestDirectionRequest = "http://www.mapquestapi.com/directions/v2/route?key={0}&from={1}&to={2}&routeType={3}&outFormat=json&unit=k&locale=de_DE";
-        private const string MapQuestMapRequest = "https://www.mapquestapi.com/staticmap/v5/map?key={0}&session={1}&size=640,480&zoom=11&boundingBox={2},{3},{4},{5}";
 
-        public Directions(string mapQuestKey, HttpClient httpClient) : base(mapQuestKey, httpClient)
+        IMapQuestConfiguration configuration;
+        private readonly HttpClient httpClient;
+
+        public Directions(IMapQuestConfiguration mapQuest)
         {
-
+            httpClient = new HttpClient();
+            this.configuration = mapQuest;
         }
 
-        public async Task<Route> FetchRouteAsync(string from, string to, Models.TransportType transportType)
+        public async Task<Route> FetchRouteAsync(string from, string to, Models.Transport_type transportType)
         {
             try
             {
-                var mapQuestRequestUrl = String.Format(MapQuestDirectionRequest, _mapQuestKey, from, to, transportType);
+                var mapQuestRequestUrl = String.Format(configuration.DirectionUrl, configuration.MapQuestKey, from, to, transportType);
 
-                var routeInfo = await _httpClient.GetFromJsonAsync<RouteInfo>(mapQuestRequestUrl);
+                var routeInfo = await httpClient.GetFromJsonAsync<RouteInfo>(mapQuestRequestUrl);
 
                 if(routeInfo != null)
                     return routeInfo.Route ?? throw new FetchDataException("Route is null");
@@ -47,14 +49,14 @@ namespace Tourplanner.BusinessLayer
         {
             try
             {
-                var mapQuestRequestUrl = String.Format(MapQuestMapRequest, _mapQuestKey, route.SessionId, 
+                var mapQuestRequestUrl = String.Format(configuration.MapUrl, configuration.MapQuestKey, route.SessionId, 
                     route.BoundingBox.Ul.Lat.ToString(CultureInfo.CreateSpecificCulture("en-GB")), 
                     route.BoundingBox.Ul.Lng.ToString(CultureInfo.CreateSpecificCulture("en-GB")), 
                     route.BoundingBox.Lr.Lat.ToString(CultureInfo.CreateSpecificCulture("en-GB")), 
                     route.BoundingBox.Lr.Lng.ToString(CultureInfo.CreateSpecificCulture("en-GB"))
                 );
 
-                var mapArray = await _httpClient.GetByteArrayAsync(mapQuestRequestUrl);
+                var mapArray = await httpClient.GetByteArrayAsync(mapQuestRequestUrl);
 
                 return mapArray ?? throw new FetchDataException("Route is null");
             }
