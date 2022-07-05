@@ -32,7 +32,7 @@ namespace UnitTest
             [Test]
             public async Task CreateTour()
             {
-                var test = await _tourmanager.newTour("testtour", "das ist ein Test, fuer unsere tour", "Washington, DC", "Vienna, MO", Transport_type.Fastest);
+                var test = await _tourmanager.newTour("testtour", "das ist ein Test, fuer unsere tour", "Washington, DC", "Vienna, MO", TransportType.Fastest);
 
                 Console.WriteLine(test.Distance);
 

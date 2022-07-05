@@ -21,7 +21,7 @@ namespace Tourplanner.DataAccessLayer
                                                             finish          text            not null,
                                                             start           text            not null,
                                                             transporttype   text            not null,
-                                                            distance        real            not null,
+                                                            distance        numeric         not null,
                                                             time            integer         not null,
                                                             picpath         text            not null,
                                                             popularity      text            not null,
@@ -73,7 +73,6 @@ namespace Tourplanner.DataAccessLayer
 
         private void EnsureTables()
         {
-
             CreateTable(CreateTourTableCommand);
 
             CreateTable(CreateLogTableCommand);
@@ -84,6 +83,7 @@ namespace Tourplanner.DataAccessLayer
             ExecuteWithConnection(connection =>
             {
                 using var cmd = new NpgsqlCommand(command, connection);
+                NpgsqlConnection.GlobalTypeMapper.MapEnum<TransportType>();
                 return cmd.ExecuteNonQuery();
             });
         }
