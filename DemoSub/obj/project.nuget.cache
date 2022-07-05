@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "n6BLI3jg2UprpERQpLZrJFLk5mkvUmutD2pENwmsmDBChB/LH3QfaNBjql6xiQSFTa6Yi4XKZS4L3YzQn89g5w==",
+  "dgSpecHash": "G6nUwEO/AcC0/4dI9sfQFIYOPPHu67milzkgEaS5pW+L9nH7ZwqHeNqtVlwEPFxPNmFcA+N3fM0XWCpFyKbN9A==",
   "success": true,
   "projectFilePath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Anwender\\.nuget\\packages\\asyncawaitbestpractices\\6.0.4\\asyncawaitbestpractices.6.0.4.nupkg.sha512",
-    "C:\\Users\\Anwender\\.nuget\\packages\\asyncawaitbestpractices.mvvm\\6.0.4\\asyncawaitbestpractices.mvvm.6.0.4.nupkg.sha512",
+    "C:\\Users\\Anwender\\.nuget\\packages\\asyncawaitbestpractices\\6.0.5\\asyncawaitbestpractices.6.0.5.nupkg.sha512",
+    "C:\\Users\\Anwender\\.nuget\\packages\\asyncawaitbestpractices.mvvm\\6.0.5\\asyncawaitbestpractices.mvvm.6.0.5.nupkg.sha512",
     "C:\\Users\\Anwender\\.nuget\\packages\\log4net\\2.0.14\\log4net.2.0.14.nupkg.sha512",
     "C:\\Users\\Anwender\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.0\\microsoft.extensions.configuration.6.0.0.nupkg.sha512",
     "C:\\Users\\Anwender\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

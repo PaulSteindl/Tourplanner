@@ -30,7 +30,7 @@
         },
         "frameworks": {
           "net6.0-windows7.0": {
-            "targetAlias": "net6.0-windows",
+            "targetAlias": "net6.0-windows7.0",
             "projectReferences": {
               "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
                 "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj"
@@ -46,11 +46,11 @@
       },
       "frameworks": {
         "net6.0-windows7.0": {
-          "targetAlias": "net6.0-windows",
+          "targetAlias": "net6.0-windows7.0",
           "dependencies": {
             "AsyncAwaitBestPractices.MVVM": {
               "target": "Package",
-              "version": "[6.0.4, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
