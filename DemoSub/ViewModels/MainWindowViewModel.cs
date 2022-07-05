@@ -28,7 +28,7 @@ namespace Tourplanner.ViewModels
         private string _nameRadioButton;
         private ITourManager _tourManager;
         private ILogManager _logManager;
-        private Transport_type _transportType;
+        private TransportType _transportType;
 
         private ObservableCollection<Tour> AllTours = new ObservableCollection<Tour>();
         private ListCollectionView _thisLog;
@@ -144,23 +144,23 @@ namespace Tourplanner.ViewModels
             }
         }
 
-        private Transport_type executeMethod(object parameter)
+        private TransportType executeMethod(object parameter)
         {
             Name = (string)parameter;
 
             switch (Name)
             {
                 case "Fastest":
-                    _transportType = (Transport_type)0;
+                    _transportType = (TransportType)0;
                     break;
                 case "Shortest":
-                    _transportType = (Transport_type)1;
+                    _transportType = (TransportType)1;
                     break;
                 case "Pedestrian":
-                    _transportType = (Transport_type)2;
+                    _transportType = (TransportType)2;
                     break;
                 case "Bicycle":
-                    _transportType = (Transport_type)3;
+                    _transportType = (TransportType)3;
                     break;
                 default:
                     break;
@@ -168,21 +168,21 @@ namespace Tourplanner.ViewModels
             return _transportType;
         }
 
-        private Transport_type ConverStringToTransportType(string transportType)
+        private TransportType ConverStringToTransportType(string transportType)
         {
             switch (transportType)
             {
                 case "Fastest":
-                    _transportType = (Transport_type)0;
+                    _transportType = (TransportType)0;
                     break;
                 case "Shortest":
-                    _transportType = (Transport_type)1;
+                    _transportType = (TransportType)1;
                     break;
                 case "Pedestrian":
-                    _transportType = (Transport_type)2;
+                    _transportType = (TransportType)2;
                     break;
                 case "Bicycle":
-                    _transportType = (Transport_type)3;
+                    _transportType = (TransportType)3;
                     break;
                 default:
                     break;
@@ -297,7 +297,7 @@ namespace Tourplanner.ViewModels
             {
                 try
                 {
-                    Transport_type transportType = ConverStringToTransportType(tour.TransportType);
+                    TransportType transportType = ConverStringToTransportType(tour.TransportType);
 
                     //Tour? newTour = null;
 

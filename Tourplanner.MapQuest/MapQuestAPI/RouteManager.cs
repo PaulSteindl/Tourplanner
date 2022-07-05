@@ -19,7 +19,7 @@ namespace Tourplanner.BusinessLayer
             this.directions = directions;
         }
 
-        public async Task<Route> GetFullRoute(string from, string to, Transport_type transportType)
+        public async Task<Route> GetFullRoute(string from, string to, TransportType transportType)
         {
             byte[]? mapArray = null;
             var route = await directions.FetchRouteAsync(from, to, transportType);

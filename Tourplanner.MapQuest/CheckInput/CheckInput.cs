@@ -19,7 +19,12 @@ namespace Tourplanner.BusinessLayer
             return false;
         }
 
-        public bool CheckUserInputTour(string name, string description, string from, string to, Transport_type transportType)
+        public string MakeSymbolsDBrdy(string input)
+        {
+            return input;
+        }
+
+        public bool CheckUserInputTour(string name, string description, string from, string to, TransportType transportType)
         {
             if (name == null || !CheckUserInput(name)) throw new ArgumentException("Name is invalid");
             if (name == null || !CheckUserInputWithSymbols(description)) throw new ArgumentException("Description is invalid");

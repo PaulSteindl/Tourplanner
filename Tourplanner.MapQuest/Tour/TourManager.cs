@@ -25,7 +25,7 @@ namespace Tourplanner.BusinessLayer
             this.calcA = calcA;
         }
 
-        public async Task<Tour> newTour(string name, string description, string from, string to, Transport_type transportType)
+        public async Task<Tour> newTour(string name, string description, string from, string to, TransportType transportType)
         {
             Tour newTour = new Tour();
 
@@ -43,7 +43,7 @@ namespace Tourplanner.BusinessLayer
                     newTour.From = from;
                     newTour.To = to;
                     newTour.Transporttype = transportType;
-                    newTour.Distance = Convert.ToInt32(route.Distance);
+                    newTour.Distance = route.Distance;
                     newTour.Time = route.Time;
                     newTour.PicPath = route.PicPath;
                     newTour.ChildFriendly = false;
@@ -61,7 +61,7 @@ namespace Tourplanner.BusinessLayer
             return newTour;
         }
 
-        public async void UpdateTour(string name, string description, string from, string to, Transport_type transportType, Tour tour)
+        public async void UpdateTour(string name, string description, string from, string to, TransportType transportType, Tour tour)
         {
             checkInput.CheckUserInputTour(name, description, from, to, transportType);
 
@@ -76,7 +76,7 @@ namespace Tourplanner.BusinessLayer
                     tour.From = from;
                     tour.To = to;
                     tour.Transporttype = transportType;
-                    tour.Distance = Convert.ToInt32(route.Distance);
+                    tour.Distance = route.Distance;
                     tour.Time = route.Time;
                     tour.PicPath = route.PicPath;
                     tour.ChildFriendly = calcA.CalculateChildFriendly(tour.Id, tour.Distance);

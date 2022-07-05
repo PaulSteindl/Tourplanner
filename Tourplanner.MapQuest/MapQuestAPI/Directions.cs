@@ -26,7 +26,7 @@ namespace Tourplanner.BusinessLayer
             this.configuration = mapQuest;
         }
 
-        public async Task<Route> FetchRouteAsync(string from, string to, Models.Transport_type transportType)
+        public async Task<Route> FetchRouteAsync(string from, string to, Models.TransportType transportType)
         {
             try
             {
