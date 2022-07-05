@@ -121,6 +121,7 @@ namespace Tourplanner.ViewModels
             SearchFieldCommand = new RelayCommand(SearchField);
             ClearSearchFieldCommand = new RelayCommand(ClearSearchField);
             ExitApplicationCommand = new RelayCommand(ExitApplication);
+            this._tourManager = tourManager;
         }
 
         // A BusyIndicator control provides an alternative to a wait cursor to show user an indication that an application is busy doing some processing.
