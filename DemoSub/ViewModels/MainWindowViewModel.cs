@@ -27,7 +27,7 @@ namespace Tourplanner.ViewModels
         // Tour
         private Tour? _tour;
         private ITourManager _tourManager;
-        private Transport_type _transportType;
+        private TransportType _transportType;
         private ObservableCollection<Tour> AllTours = new ObservableCollection<Tour>();
         public ObservableCollection<Tour> ShownTours { get; set; } = new ObservableCollection<Tour>();
         public event EventHandler<Tour> TourChanged;
@@ -107,7 +107,7 @@ namespace Tourplanner.ViewModels
 
         public MainWindowViewModel(ITourManager tourManager)
         {
-            IsBusy = true;
+            //IsBusy = true;
             AddTourCommand = new AsyncCommand(AddTour);
             ModifyTourCommand = new AsyncCommand(ModifyTour);
             DeleteTourCommand = new RelayCommand(DeleteTour);
@@ -142,21 +142,21 @@ namespace Tourplanner.ViewModels
             }
         }
 
-        private Transport_type ConverStringToTransportType(string transportType)
+        private TransportType ConverStringToTransportType(string transportType)
         {
             switch (transportType)
             {
                 case "Fastest":
-                    _transportType = (Transport_type)0;
+                    _transportType = (TransportType)0;
                     break;
                 case "Shortest":
-                    _transportType = (Transport_type)1;
+                    _transportType = (TransportType)1;
                     break;
                 case "Pedestrian":
-                    _transportType = (Transport_type)2;
+                    _transportType = (TransportType)2;
                     break;
                 case "Bicycle":
-                    _transportType = (Transport_type)3;
+                    _transportType = (TransportType)3;
                     break;
                 default:
                     break;
@@ -273,7 +273,7 @@ namespace Tourplanner.ViewModels
                 {
                     //Tour newTour = await new Tour { Id = new Guid(), Name = "NameTest", Description = "Desc", From = "Vienna", To = "Graz", Transporttype = _transportType };
 
-                    Transport_type transportType = ConverStringToTransportType(tour.TransportType);
+                    TransportType transportType = ConverStringToTransportType(tour.TransportType);
                     Tour? newTour = null;
                     newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, transportType);
                     if(newTour != null)
