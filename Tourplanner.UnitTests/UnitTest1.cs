@@ -17,7 +17,7 @@ namespace UnitTest
         static HttpClient _client = new HttpClient();
         static IFileDAO _fileDAO = new FileDAO();
         static IDirections _directions = new Directions(MapQuestKey, _client);
-        static IPostgreSqlDAOConfiguration _postgre;
+        static IPostgreSqlDAOConfiguration _postgre = new ;
         static IRouteManager _routeManager = new RouteManager(_fileDAO, _directions);
         static IDatabaseManager _databaseManager = new DatabaseManager(_postgre);
         static ITourDAO _tourDAO = new TourDAO(_databaseManager);
@@ -32,7 +32,7 @@ namespace UnitTest
             [Test]
             public async Task CreateTour()
             {
-                var test = await _tourmanager.newTour("testtour", "das ist ein Test, fuer unsere tour", "Washington, DC", "Vienna, MO", TransportType.Fastest);
+                var test = await _tourmanager.newTour("testtour", "das ist ein Test, fuer unsere tour", "Washington, DC", "Vienna, MO", Transport_type.Fastest);
 
                 Console.WriteLine(test.Distance);
 

@@ -10,8 +10,8 @@ namespace Tourplanner.BusinessLayer
     {
         public string DirectionUrl { get; }
 
-        public string MapUrl { get;}
+        public string MapUrl { get; }
 
-        public string MapQuestKey {get;}
+        public string MapQuestKey { get; }
     }
 }

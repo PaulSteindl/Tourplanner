@@ -1,6 +1,6 @@
 ﻿namespace Tourplanner.Models
 {
-    public enum TransportType
+    public enum Transport_type
     {
         Fastest = 0,
         Shortest = 1,

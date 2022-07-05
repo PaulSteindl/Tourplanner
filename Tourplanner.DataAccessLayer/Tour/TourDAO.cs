@@ -8,15 +8,16 @@ using System.Drawing;
 using Npgsql;
 using System.Data;
 using Tourplanner.Exceptions;
+using System.Globalization;
 
 namespace Tourplanner.DataAccessLayer
 {
     public class TourDAO : ITourDAO
     {
-        private const string InsertTourCommand = "INSERT INTO tours(name, description, from, to, transportMode, distance, time, picpath, popularity, childfriendly) VALUES (@name, @description, @from, @to, @transportMode, @distance, @time, @picpath, @popularity, @childfriendly)";
+        private const string InsertTourCommand = "INSERT INTO tours(name, description, start, finish, transporttype, distance, time, picpath, popularity, childfriendly) VALUES (@name, @description, @start, @finish, @transporttype, @distance, @time, @picpath, @popularity, @childfriendly)";
         private const string SelectTourByIdCommand = "SELECT * FROM tours WHERE tour_id = @id";
         private const string SelectAllToursCommand = "SELECT * FROM tours";
-        private const string UpdateTourByIdCommand = "UPDATE tours SET name = @name, description = @description, from = @from, to = @to, transportMode = @transportMode, distance = @distance, time = @time, picpath = @picpath, popularity = @popularity, childfriendly = @childfriendly WHERE tour_id = @id";
+        private const string UpdateTourByIdCommand = "UPDATE tours SET name = '@name', description = '@description', start = '@start', finish = '@finish', transporttype = '@transporttype', distance = @distance, time = '@time', picpath = '@picpath', popularity = '@popularity', childfriendly = '@childfriendly' WHERE tour_id = '@id'";
         private const string DeleteTourByIdCommand = "DELETE FROM tours WHERE tour_id = @id";
 
         private IDatabaseManager databaseManager;
@@ -37,13 +38,13 @@ namespace Tourplanner.DataAccessLayer
                     using var cmd = new NpgsqlCommand(InsertTourCommand, connection);
                     cmd.Parameters.AddWithValue("name", newTour.Name);
                     cmd.Parameters.AddWithValue("description", newTour.Description);
-                    cmd.Parameters.AddWithValue("from", newTour.From);
-                    cmd.Parameters.AddWithValue("to", newTour.To);
-                    cmd.Parameters.AddWithValue("transportMode", newTour.Transporttype);
+                    cmd.Parameters.AddWithValue("start", newTour.From);
+                    cmd.Parameters.AddWithValue("finish", newTour.To);
+                    cmd.Parameters.AddWithValue("transporttype", newTour.Transporttype.ToString());
                     cmd.Parameters.AddWithValue("distance", newTour.Distance);
                     cmd.Parameters.AddWithValue("time", newTour.Time);
                     cmd.Parameters.AddWithValue("picpath", newTour.PicPath);
-                    cmd.Parameters.AddWithValue("popularity", newTour.Popularity);
+                    cmd.Parameters.AddWithValue("popularity", newTour.Popularity.ToString());
                     cmd.Parameters.AddWithValue("childfriendly", newTour.ChildFriendly);
                     return cmd.ExecuteNonQuery();
                 });
@@ -119,9 +120,9 @@ namespace Tourplanner.DataAccessLayer
                     cmd.Parameters.AddWithValue("name", updatedTour.Name);
                     if (!String.IsNullOrEmpty(updatedTour.Description))
                         cmd.Parameters.AddWithValue("description", updatedTour.Description);
-                    cmd.Parameters.AddWithValue("from", updatedTour.From);
-                    cmd.Parameters.AddWithValue("to", updatedTour.To);
-                    cmd.Parameters.AddWithValue("transportMode", updatedTour.Transporttype);
+                    cmd.Parameters.AddWithValue("start", updatedTour.From);
+                    cmd.Parameters.AddWithValue("finish", updatedTour.To);
+                    cmd.Parameters.AddWithValue("transporttype", updatedTour.Transporttype);
                     cmd.Parameters.AddWithValue("distance", updatedTour.Distance);
                     cmd.Parameters.AddWithValue("time", updatedTour.Time);
                     cmd.Parameters.AddWithValue("picpath", updatedTour.PicPath);
@@ -170,8 +171,8 @@ namespace Tourplanner.DataAccessLayer
                 Description = Convert.ToString(record["description"]),
                 From = Convert.ToString(record["from"]) ?? String.Empty,
                 To = Convert.ToString(record["to"]) ?? String.Empty,
-                Transporttype = Enum.Parse<TransportType>(Convert.ToString(record["transportMode"]) ?? String.Empty),
-                Distance = float.Parse(Convert.ToString(record["distance"]) ?? String.Empty),
+                Transporttype = Enum.Parse<Transport_type>(Convert.ToString(record["transporttype"]) ?? String.Empty),
+                Distance = Convert.ToInt32(record["distance"]),
                 Time = Convert.ToInt32(record["time"]),
                 PicPath = Convert.ToString(record["picpath"]) ?? String.Empty,
                 Popularity = Enum.Parse<PopularityEnum>(Convert.ToString(record["popularity"]) ?? String.Empty),

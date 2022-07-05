@@ -42,6 +42,7 @@ namespace Tourplanner.Configuration
             */
 
             // DAL setup
+            services.AddSingleton<IDatabaseManager, DatabaseManager>();
             services.AddSingleton<ITourDAO, TourDAO>();
             services.AddSingleton<ILogDAO, LogDAO>();
             services.AddSingleton<IFileDAO, FileDAO>();
@@ -51,6 +52,7 @@ namespace Tourplanner.Configuration
             services.AddSingleton<ICheckInput, CheckInput>();
             services.AddSingleton<IImportManager, ImportManager>();
             services.AddSingleton<IExportManager, ExportManager>();
+            services.AddSingleton<ITourManager, TourManager>();
             services.AddSingleton<ILogManager, Tourplanner.BusinessLayer.LogManager>();
             services.AddSingleton<IDirections, Directions>();
             services.AddSingleton<IRouteManager, RouteManager>();
@@ -75,8 +77,6 @@ namespace Tourplanner.Configuration
             // finished
             serviceProvider = services.BuildServiceProvider();
         }
-
-        public MainViewModel MainViewModel => serviceProvider.GetRequiredService<MainViewModel>();
         public MainWindowViewModel MainWindowViewModel => serviceProvider.GetRequiredService<MainWindowViewModel>();
         public TourManagerViewModel TourManagerViewModel => serviceProvider.GetRequiredService<TourManagerViewModel>();
         public SingleTourViewModel SingleTourViewModel => serviceProvider.GetRequiredService<SingleTourViewModel>();
