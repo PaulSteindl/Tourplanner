@@ -37,7 +37,7 @@ namespace Tourplanner.BusinessLayer
 
                 if (route != null)
                 {
-                    newTour.Id = new Guid();
+                    newTour.Id = Guid.NewGuid();
                     newTour.Name = name;
                     newTour.Description = description;
                     newTour.From = from;

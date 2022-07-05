@@ -13,7 +13,7 @@ namespace Tourplanner.DataAccessLayer
     {
         private const string CreateTourTableCommand = @"create table if not exists tours
                                                         (
-                                                            tour_id         serial
+                                                            tour_id         uuid
                                                                 constraint tours_pk
                                                                     primary key,
                                                             name            text            not null,
@@ -39,10 +39,10 @@ namespace Tourplanner.DataAccessLayer
 
         private const string CreateLogTableCommand = @"create table if not exists logs
                                                         (
-                                                            log_id     serial
+                                                            log_id     uuid
                                                                 constraint table_name_pk
                                                                     primary key,
-                                                            tour_id    integer         not null
+                                                            tour_id    uuid         not null
                                                                 constraint logs_tours_tour_id_fk
                                                                     references tours
                                                                     on update cascade on delete cascade

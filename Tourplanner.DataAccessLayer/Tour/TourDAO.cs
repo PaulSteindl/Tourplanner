@@ -14,10 +14,10 @@ namespace Tourplanner.DataAccessLayer
 {
     public class TourDAO : ITourDAO
     {
-        private const string InsertTourCommand = "INSERT INTO tours(name, description, start, finish, transporttype, distance, time, picpath, popularity, childfriendly) VALUES (@name, @description, @start, @finish, @transporttype, @distance, @time, @picpath, @popularity, @childfriendly)";
+        private const string InsertTourCommand = "INSERT INTO tours(tour_id, name, description, start, finish, transporttype, distance, time, picpath, popularity, childfriendly) VALUES (@tour_id, @name, @description, @start, @finish, @transporttype, @distance, @time, @picpath, @popularity, @childfriendly)";
         private const string SelectTourByIdCommand = "SELECT * FROM tours WHERE tour_id = @id";
         private const string SelectAllToursCommand = "SELECT * FROM tours";
-        private const string UpdateTourByIdCommand = "UPDATE tours SET name = '@name', description = '@description', start = '@start', finish = '@finish', transporttype = '@transporttype', distance = @distance, time = '@time', picpath = '@picpath', popularity = '@popularity', childfriendly = '@childfriendly' WHERE tour_id = '@id'";
+        private const string UpdateTourByIdCommand = "UPDATE tours SET name = @name, description = @description, start = @start, finish = @finish, transporttype = @transporttype, distance = @distance, time = @time, picpath = @picpath, popularity = @popularity, childfriendly = @childfriendly WHERE tour_id = @id";
         private const string DeleteTourByIdCommand = "DELETE FROM tours WHERE tour_id = @id";
 
         private IDatabaseManager databaseManager;
@@ -36,6 +36,7 @@ namespace Tourplanner.DataAccessLayer
                 affectedRows = databaseManager.ExecuteWithConnection(connection =>
                 {
                     using var cmd = new NpgsqlCommand(InsertTourCommand, connection);
+                    cmd.Parameters.AddWithValue("tour_id", newTour.Id);
                     cmd.Parameters.AddWithValue("name", newTour.Name);
                     cmd.Parameters.AddWithValue("description", newTour.Description);
                     cmd.Parameters.AddWithValue("start", newTour.From);
