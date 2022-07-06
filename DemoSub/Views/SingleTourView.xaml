@@ -4,17 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tourplanner.Views"
+        xmlns:viewmodels="clr-namespace:Tourplanner.ViewModels"
         mc:Ignorable="d"
         Title="SingleTourView" Height="450" Width="800">
     <Grid>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <GridSplitter Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Height="4"/>
 
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
@@ -26,6 +23,7 @@
                     <TabItem Header="Tour information" FontSize="15">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -46,6 +44,7 @@
                             <Label Grid.Row="4" Grid.Column="0" Content="Transport type:" FontWeight="Normal"/>
                             <Label Grid.Row="5" Grid.Column="0" Content="Distance:" FontWeight="Normal"/>
                             <Label Grid.Row="6" Grid.Column="0" Content="Estimated time:" FontWeight="Normal"/>
+                            <Button Grid.Row="7" Grid.Column="0" Content="Go back" FontWeight="Normal" FontSize="15" Grid.ColumnSpan="2" Margin="0,12,682,-12" Command="{Binding GoBackButtonCommand}"/>
 
                             <Label Grid.Row="0" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Name}"/>
                             <Label Grid.Row="1" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Description}"/>
@@ -59,18 +58,21 @@
                     <TabItem Header="Route Image" FontSize="15">
                         <Image Source="{Binding Tour.ImagePath}" Stretch="UniformToFill"/>
                     </TabItem>
+                    <TabItem Header="Tour Logs" FontSize="15">
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <DockPanel Grid.Row="0" Margin="2">
+                                <Button DockPanel.Dock="Right" Padding="4" Content="Delete" FontSize="15" Command="{Binding DeleteTourLogButtonCommand}"/>
+                                <Button DockPanel.Dock="Right" Padding="4" Content="Modify" FontSize="15" Command="{Binding ModifyTourLogButtonCommand}"/>
+                                <Button DockPanel.Dock="Right" Padding="4" Content="Add" FontSize="15" Command="{Binding AddTourLogButtonCommand}"/>
+                                <Label DockPanel.Dock="Left" Padding="4" Content="Logs:" FontSize="15"/>
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
                 </TabControl>
-            </Grid>
-            <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <DockPanel Grid.Row="0" Margin="2">
-                    <Button DockPanel.Dock="Right" Padding="4" Content="Delete" FontSize="15"/>
-                    <Button DockPanel.Dock="Right" Padding="4" Content="Add" FontSize="15"/>
-                    <Label DockPanel.Dock="Left" Padding="4" Content="Logs:" FontSize="15"/>
-                </DockPanel>
             </Grid>
         </Grid>
     </Grid>
