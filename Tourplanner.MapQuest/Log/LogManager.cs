@@ -13,14 +13,16 @@ namespace Tourplanner.BusinessLayer
     {
         ILogDAO logDAO;
         ICheckInput checkInput;
+        ITourManager tourManager;
 
-        public LogManager(ILogDAO logDAO, ICheckInput checkInput)
+        public LogManager(ILogDAO logDAO, ICheckInput checkInput, ITourManager tourManager)
         {
             this.logDAO = logDAO;
             this.checkInput = checkInput;
+            this.tourManager = tourManager;
         }
 
-        public Log CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating)
+        public Log CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId)
         {
             checkInput.CheckUserInputLog(comment);
             Log newLog = new Log();
@@ -28,6 +30,7 @@ namespace Tourplanner.BusinessLayer
             try
             {
                 newLog.Id = new Guid();
+                newLog.Id = tourId;
                 newLog.Date = date;
                 newLog.Comment = comment;
                 newLog.Difficulty = difficulty;
@@ -36,6 +39,7 @@ namespace Tourplanner.BusinessLayer
                     
 
                 if (!logDAO.InsertLog(newLog)) throw new DataUpdateFailedException("New Log couldn't get inserted");
+
             }
             catch (Exception e)
             {
@@ -58,7 +62,6 @@ namespace Tourplanner.BusinessLayer
                 log.TotalTime = time;
                 log.Rating = rating;
 
-
                 if (!logDAO.UpdateLogById(log)) throw new DataUpdateFailedException("Log couldn't get inserted");
             }
             catch (Exception e)
@@ -67,7 +70,7 @@ namespace Tourplanner.BusinessLayer
             }
         }
 
-        public void DeleteTour(Guid logId)
+        public void DeleteLog(Guid logId)
         {
             logDAO.DeleteLogById(logId);
         }
