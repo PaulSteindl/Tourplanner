@@ -12,11 +12,10 @@ namespace Tourplanner.BusinessLayer
             this.logDAO = logDAO;
         }
 
-        public bool CalculateChildFriendly(Guid tourId, double distance)
+        public bool CalculateChildFriendly(List<Log> logs, double distance)
         {
             float sum = 0;
             int i = 0;
-            var logs = logDAO.SelectLogsByTourId(tourId);
 
             for(; i < logs.Count; i++)
             {
@@ -33,10 +32,8 @@ namespace Tourplanner.BusinessLayer
             return false;
         }
 
-        public PopularityEnum CalculatePopularity(Guid tourId)
+        public PopularityEnum CalculatePopularity(List<Log> logs)
         {
-            var logs = logDAO.SelectLogsByTourId(tourId);
-
             if (logs.Count > 100)
                 return PopularityEnum.Perfect;
             else if (logs.Count > 70)

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <!-- <ProjectReference Include="..\Tourplanner.Models\Tourplanner.Models.csproj" /> -->
+    <PackageReference Include="itext7" Version="7.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Npgsql" Version="6.0.4" />
   </ItemGroup>

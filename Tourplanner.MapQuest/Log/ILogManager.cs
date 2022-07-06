@@ -10,11 +10,11 @@ namespace Tourplanner.BusinessLayer
 {
     public interface ILogManager
     {
-        public Log CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating);
+        public Log CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId);
 
         public void UpdateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Log log);
 
-        public void DeleteTour(Guid logId);
+        public void DeleteLog(Guid logId);
 
         public List<Log> GetAllLogsByTourId(Guid tourId);
     }

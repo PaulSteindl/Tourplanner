@@ -4,7 +4,7 @@ namespace Tourplanner.BusinessLayer
 {
     public interface ICalculateAttributes
     {
-        public bool CalculateChildFriendly(Guid tourId, double distance);
-        public PopularityEnum CalculatePopularity(Guid tourId);
+        public bool CalculateChildFriendly(List<Log> logs, double distance);
+        public PopularityEnum CalculatePopularity(List<Log> logs);
     }
 }

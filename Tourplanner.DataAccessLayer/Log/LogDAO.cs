@@ -9,7 +9,7 @@ namespace Tourplanner.DataAccessLayer
 {
     public class LogDAO : ILogDAO
     {        
-        private const string InsertLogCommand = "INSERT INTO logs(date, comment, difficulty, time, rating) VALUES (@date, @comment, @difficulty, @time, @rating)";
+        private const string InsertLogCommand = "INSERT INTO logs(log_id, tour_id, date, comment, difficulty, totaltime, rating) VALUES (@id, @tour_id, @date, @comment, @difficulty, @totaltime, @rating)";
         private const string SelectLogsByTourIdCommand = "SELECT * FROM logs WHERE tour_id = @tour_id";
         private const string UpdateLogByIdCommand = "UPDATE logs SET date = @date, comment = @comment, difficulty = @difficulty, totaltime = @totaltime, rating = @rating WHERE log_id = @id";
         private const string DeleteLogByIdCommand = "DELETE FROM logs WHERE log_id = @id";
@@ -30,12 +30,13 @@ namespace Tourplanner.DataAccessLayer
                 affectedRows = databaseManager.ExecuteWithConnection(connection =>
                 {
                     using var cmd = new NpgsqlCommand(InsertLogCommand, connection);
+                    cmd.Parameters.AddWithValue("id", newLog.Id);
+                    cmd.Parameters.AddWithValue("tour_id", newLog.TourId);
                     cmd.Parameters.AddWithValue("date", newLog.Date);
-                    if (!String.IsNullOrEmpty(newLog.Comment))
-                        cmd.Parameters.AddWithValue("comment", newLog.Comment);
-                    cmd.Parameters.AddWithValue("difficulty", newLog.Difficulty);
+                    cmd.Parameters.AddWithValue("comment", newLog.Comment);
+                    cmd.Parameters.AddWithValue("difficulty", newLog.Difficulty.ToString());
                     cmd.Parameters.AddWithValue("totaltime", newLog.TotalTime);
-                    cmd.Parameters.AddWithValue("rating", newLog.Rating);
+                    cmd.Parameters.AddWithValue("rating", newLog.Rating.ToString());
 
                     return cmd.ExecuteNonQuery();
                 });
@@ -49,8 +50,6 @@ namespace Tourplanner.DataAccessLayer
 
         public List<Log> SelectLogsByTourId(Guid tourId)
         {
-
-
             try
             {
                 return databaseManager.ExecuteWithConnection(connection =>
@@ -86,12 +85,11 @@ namespace Tourplanner.DataAccessLayer
                 {
                     using var cmd = new NpgsqlCommand(UpdateLogByIdCommand, connection);
                     cmd.Parameters.AddWithValue("id", updatedLog.Id);
-                    cmd.Parameters.AddWithValue("name", updatedLog.Date);
-                    if (!String.IsNullOrEmpty(updatedLog.Comment))
-                        cmd.Parameters.AddWithValue("description", updatedLog.Comment);
-                    cmd.Parameters.AddWithValue("from", updatedLog.Difficulty);
-                    cmd.Parameters.AddWithValue("to", updatedLog.TotalTime);
-                    cmd.Parameters.AddWithValue("transportMode", updatedLog.Rating);
+                    cmd.Parameters.AddWithValue("date", updatedLog.Date);
+                    cmd.Parameters.AddWithValue("comment", updatedLog.Comment);
+                    cmd.Parameters.AddWithValue("difficulty", updatedLog.Difficulty.ToString());
+                    cmd.Parameters.AddWithValue("totaltime", updatedLog.TotalTime);
+                    cmd.Parameters.AddWithValue("rating", updatedLog.Rating.ToString());
 
                     return cmd.ExecuteNonQuery();
                 });

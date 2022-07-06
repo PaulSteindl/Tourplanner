@@ -14,13 +14,15 @@ namespace Tourplanner.BusinessLayer
     { 
         IRouteManager routeManager;
         ITourDAO tourDAO;
+        ILogManager logManager;
         ICheckInput checkInput;
         ICalculateAttributes calcA;
 
-        public TourManager(IRouteManager routeManager, ITourDAO tourDAO, ICheckInput checkInput, ICalculateAttributes calcA)
+        public TourManager(IRouteManager routeManager, ILogManager logManager, ITourDAO tourDAO, ICheckInput checkInput, ICalculateAttributes calcA)
         {
             this.routeManager = routeManager;
             this.tourDAO = tourDAO;
+            this.logManager = logManager;
             this.checkInput = checkInput;
             this.calcA = calcA;
         }
@@ -67,6 +69,8 @@ namespace Tourplanner.BusinessLayer
 
             try
             {
+                var logs = logManager.GetAllLogsByTourId(tour.Id);
+
                 var route = await routeManager.GetFullRoute(from, to, transportType);
 
                 if (route != null)
@@ -79,15 +83,15 @@ namespace Tourplanner.BusinessLayer
                     tour.Distance = route.Distance;
                     tour.Time = route.Time;
                     tour.PicPath = route.PicPath;
-                    tour.ChildFriendly = calcA.CalculateChildFriendly(tour.Id, tour.Distance);
-                    tour.Popularity = calcA.CalculatePopularity(tour.Id);
+                    tour.ChildFriendly = calcA.CalculateChildFriendly(logs, tour.Distance);
+                    tour.Popularity = calcA.CalculatePopularity(logs);
 
                     if(!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
                 }
             }
-            catch (Exception e)
+            catch (Exception e) when (e is not DataUpdateFailedException)
             {
-                throw new NullReferenceException("An error happend while creating a tour -> tour is null: " + e.Message);
+                throw new ArgumentException("An error happend while updating a tour: " + e.Message);
             }
         }
 
@@ -99,6 +103,16 @@ namespace Tourplanner.BusinessLayer
         public List<Tour> GetAllTours()
         {
             return tourDAO.SelectAllTours();
+        }
+
+        public Tour UpdateTourAttributes(Tour tour)
+        {
+            var logs = logManager.GetAllLogsByTourId(tour.Id);
+
+            tour.ChildFriendly = calcA.CalculateChildFriendly(logs, tour.Distance);
+            tour.Popularity = calcA.CalculatePopularity(logs);
+
+            return tour;
         }
     }
 }

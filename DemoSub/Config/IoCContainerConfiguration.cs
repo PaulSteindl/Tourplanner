@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Tourplanner.Configuration
 {
@@ -23,8 +24,11 @@ namespace Tourplanner.Configuration
 
             services.AddSingleton<IConfiguration>((_) =>
             {
+                var path = Directory.GetCurrentDirectory();
+                var settings = Path.GetFullPath(Path.Combine(path, @"..\..\..\"));
+
                 return new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", false, true)
+                    .AddJsonFile(settings + "appsettings.json", false, true)
                     .Build();
             });
 
