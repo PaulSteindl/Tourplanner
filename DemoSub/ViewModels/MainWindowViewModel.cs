@@ -111,7 +111,7 @@ namespace Tourplanner.ViewModels
         public ICommand ClearSearchFieldCommand { get; }
         public ICommand ExitApplicationCommand { get; }
 
-        public MainWindowViewModel(ITourManager tourManager, IImportManager importManager)
+        public MainWindowViewModel(ITourManager tourManager, IImportManager importManager, IExportManager exportManager)
         {
             //IsBusy = true;
             AddTourCommand = new AsyncCommand(AddTour);
@@ -129,6 +129,7 @@ namespace Tourplanner.ViewModels
             ExitApplicationCommand = new RelayCommand(ExitApplication);
             this._tourManager = tourManager;
             this._importManager = importManager;
+            this._exportManager = exportManager;
         }
 
         // A BusyIndicator control provides an alternative to a wait cursor to show user an indication that an application is busy doing some processing.
@@ -204,7 +205,24 @@ namespace Tourplanner.ViewModels
         {
             if (isBusy) return;
 
+            if (Tour is null) return;
 
+            var selectedTourId = Tour.Id;
+            var directoryPath = @"C:\ExportTour";
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            try
+            {
+                _exportManager.ExportTourById(selectedTourId, directoryPath);
+            }
+            catch (Exception ex)
+            {
+                throw new NullReferenceException("An error happend while exporting a tour: " + ex.Message);
+            }
         }
 
         private async Task ImportTour()
@@ -250,21 +268,6 @@ namespace Tourplanner.ViewModels
                 window.DialogResult = false;
                 window.Close();
             }
-
-            /*string root = @"C:\ImportTour";
-
-            if (!Directory.Exists(root))
-            {
-                Directory.CreateDirectory(root);
-            }
-            else
-            {
-                string currentDirectory = Path.GetDirectoryName(fileAndPath);
-
-                string fullPathOnly = Path.GetFullPath(currentDirectory);
-            }
-
-            var path = Path.GetFullPath();*/
         }
 
         private void DeleteTour(object? obj)

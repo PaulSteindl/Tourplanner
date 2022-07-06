@@ -15,10 +15,10 @@ namespace Tourplanner.DataAccessLayer
     public class TourDAO : ITourDAO
     {
         private const string InsertTourCommand = "INSERT INTO tours(tour_id, name, description, start, finish, transporttype, distance, time, picpath, popularity, childfriendly) VALUES (@tour_id, @name, @description, @start, @finish, @transporttype, @distance, @time, @picpath, @popularity, @childfriendly)";
-        private const string SelectTourByIdCommand = "SELECT * FROM tours WHERE tour_id = @id";
+        private const string SelectTourByIdCommand = "SELECT * FROM tours WHERE tour_id = @tour_id";
         private const string SelectAllToursCommand = "SELECT * FROM tours";
-        private const string UpdateTourByIdCommand = "UPDATE tours SET name = @name, description = @description, start = @start, finish = @finish, transporttype = @transporttype, distance = @distance, time = @time, picpath = @picpath, popularity = @popularity, childfriendly = @childfriendly WHERE tour_id = @id";
-        private const string DeleteTourByIdCommand = "DELETE FROM tours WHERE tour_id = @id";
+        private const string UpdateTourByIdCommand = "UPDATE tours SET name = @name, description = @description, start = @start, finish = @finish, transporttype = @transporttype, distance = @distance, time = @time, picpath = @picpath, popularity = @popularity, childfriendly = @childfriendly WHERE tour_id = @tour_id";
+        private const string DeleteTourByIdCommand = "DELETE FROM tours WHERE tour_id = @tour_id";
 
         private IDatabaseManager databaseManager;
 
@@ -117,7 +117,7 @@ namespace Tourplanner.DataAccessLayer
                 affectedRows = databaseManager.ExecuteWithConnection(connection =>
                 {
                     using var cmd = new NpgsqlCommand(UpdateTourByIdCommand, connection);
-                    cmd.Parameters.AddWithValue("id", updatedTour.Id);
+                    cmd.Parameters.AddWithValue("tour_id", updatedTour.Id);
                     cmd.Parameters.AddWithValue("name", updatedTour.Name);
                     cmd.Parameters.AddWithValue("description", updatedTour.Description);
                     cmd.Parameters.AddWithValue("start", updatedTour.From);
@@ -148,7 +148,7 @@ namespace Tourplanner.DataAccessLayer
                 affectedRows = databaseManager.ExecuteWithConnection(connection =>
                 {
                     using var cmd = new NpgsqlCommand(DeleteTourByIdCommand, connection);
-                    cmd.Parameters.AddWithValue("id", id);
+                    cmd.Parameters.AddWithValue("tour_id", id);
 
                     return cmd.ExecuteNonQuery();
                 });
@@ -168,8 +168,8 @@ namespace Tourplanner.DataAccessLayer
                 Id = record.GetGuid(0),
                 Name = Convert.ToString(record["name"]) ?? String.Empty,
                 Description = Convert.ToString(record["description"]),
-                From = Convert.ToString(record["from"]) ?? String.Empty,
-                To = Convert.ToString(record["to"]) ?? String.Empty,
+                From = Convert.ToString(record["start"]) ?? String.Empty,
+                To = Convert.ToString(record["finish"]) ?? String.Empty,
                 Transporttype = Enum.Parse<TransportType>(Convert.ToString(record["transporttype"]) ?? String.Empty),
                 Distance = double.Parse(Convert.ToString(record["distance"]) ?? String.Empty),
                 Time = Convert.ToInt32(record["time"]),
