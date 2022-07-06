@@ -21,6 +21,11 @@ namespace Tourplanner.BusinessLayer
         {
             if(tour != null)
             {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
                 var fullpath = path + tour.Name + "_Report.pdf";
 
                 if (!File.Exists(fullpath))

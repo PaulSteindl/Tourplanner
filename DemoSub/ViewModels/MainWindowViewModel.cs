@@ -40,6 +40,8 @@ namespace Tourplanner.ViewModels
         private IImportManager _importManager;
         // Export
         private IExportManager _exportManager;
+        // Report
+        private IReportManager _reportManager;
         
 
         // Suche
@@ -111,7 +113,7 @@ namespace Tourplanner.ViewModels
         public ICommand ClearSearchFieldCommand { get; }
         public ICommand ExitApplicationCommand { get; }
 
-        public MainWindowViewModel(ITourManager tourManager, IImportManager importManager, IExportManager exportManager)
+        public MainWindowViewModel(ITourManager tourManager, IImportManager importManager, IExportManager exportManager, IReportManager reportManager)
         {
             //IsBusy = true;
             AddTourCommand = new AsyncCommand(AddTour);
@@ -130,6 +132,7 @@ namespace Tourplanner.ViewModels
             this._tourManager = tourManager;
             this._importManager = importManager;
             this._exportManager = exportManager;
+            this._reportManager = reportManager;
         }
 
         // A BusyIndicator control provides an alternative to a wait cursor to show user an indication that an application is busy doing some processing.
@@ -198,7 +201,21 @@ namespace Tourplanner.ViewModels
 
         private async Task TourReport()
         {
-            throw new NotImplementedException();
+            if (isBusy) return;
+
+            if (Tour is null) return;
+
+            var selectedTour = Tour;
+            var directoryPath = @"C:\TourReport\";
+
+            try
+            {
+                var boolean = _reportManager.CreateReport(selectedTour, directoryPath);
+            }
+            catch (Exception ex)
+            {
+                throw new NullReferenceException("An error happend while creating a tour report: " + ex.Message);
+            }
         }
 
         private async Task ExportTour()
@@ -208,12 +225,12 @@ namespace Tourplanner.ViewModels
             if (Tour is null) return;
 
             var selectedTourId = Tour.Id;
-            var directoryPath = @"C:\ExportTour";
+            var directoryPath = @"C:\";
 
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
+            //if (!Directory.Exists(directoryPath))
+            //{
+            //    Directory.CreateDirectory(directoryPath);
+            //}
 
             try
             {
