@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tourplanner.BusinessLayer.Report
+namespace Tourplanner.BusinessLayer
 {
     public interface IReportManager
     {

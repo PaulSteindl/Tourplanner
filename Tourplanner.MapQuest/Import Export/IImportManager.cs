@@ -9,6 +9,6 @@ namespace Tourplanner.BusinessLayer
 {
     public interface IImportManager
     {
-        public Tour ImportTour(string filepath);
+        public Task<Tour> ImportTour(string filepath);
     }
 }

@@ -60,6 +60,7 @@ namespace Tourplanner.Configuration
             services.AddSingleton<ILogManager, Tourplanner.BusinessLayer.LogManager>();
             services.AddSingleton<IDirections, Directions>();
             services.AddSingleton<IRouteManager, RouteManager>();
+            services.AddSingleton<IReportManager, ReportManager>();
 
             // UI setup
             services.AddSingleton<INavigationService, NavigationService>(s =>

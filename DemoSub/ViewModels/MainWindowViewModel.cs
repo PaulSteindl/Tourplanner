@@ -41,7 +41,6 @@ namespace Tourplanner.ViewModels
         // Export
         private IExportManager _exportManager;
         
-        
 
         // Suche
         public string SearchText
@@ -111,11 +110,6 @@ namespace Tourplanner.ViewModels
         public ICommand SearchFieldCommand { get; }
         public ICommand ClearSearchFieldCommand { get; }
         public ICommand ExitApplicationCommand { get; }
-
-        public MainWindowViewModel(object obj)
-        {
-
-        }
 
         public MainWindowViewModel(ITourManager tourManager, IImportManager importManager)
         {
@@ -208,7 +202,9 @@ namespace Tourplanner.ViewModels
 
         private async Task ExportTour()
         {
-            throw new NotImplementedException();
+            if (isBusy) return;
+
+
         }
 
         private async Task ImportTour()
@@ -230,7 +226,7 @@ namespace Tourplanner.ViewModels
                 {
                     string directoryPath = path.DirectoryPath;
                     string name = Path.GetFileName(directoryPath);
-                    var importedTour = _importManager.ImportTour(directoryPath);
+                    var importedTour = await _importManager.ImportTour(directoryPath);
                     if (importedTour != null)
                     {
                         AllTours.Add(importedTour);

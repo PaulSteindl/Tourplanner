@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Tourplanner.Models;
 using Tourplanner.DataAccessLayer;
 
-namespace Tourplanner.BusinessLayer.Report
+namespace Tourplanner.BusinessLayer
 {
     public class ReportManager : IReportManager
     {
@@ -19,18 +19,23 @@ namespace Tourplanner.BusinessLayer.Report
 
         public bool CreateReport(Tour tour, string path)
         {
-            var fullpath = path + tour.Name + "_Report.pdf";
-
-            if (!File.Exists(fullpath) && tour != null)
+            if(tour != null)
             {
-                try
+                var fullpath = path + tour.Name + "_Report.pdf";
+
+                if (!File.Exists(fullpath))
                 {
-                    fileDAO.CreateReport(tour, fullpath);
+                    try
+                    {
+                        fileDAO.CreateReport(tour, fullpath);
+                    }
+                    catch (Exception e)
+                    {
+                        return false;
+                    }
                 }
-                catch (Exception e)
-                {
+                else
                     return false;
-                }
             }
             else
                 return false;
