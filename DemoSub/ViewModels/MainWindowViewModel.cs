@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using Tourplanner;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.IO;
 
 namespace Tourplanner.ViewModels
 {
@@ -35,7 +36,13 @@ namespace Tourplanner.ViewModels
         private Log _log;
         private ListCollectionView _logList;
         private ILogManager _logManager;
+        // Import
+        private IImportManager _importManager;
+        // Export
+        private IExportManager _exportManager;
         
+        
+
         // Suche
         public string SearchText
         {
@@ -105,7 +112,12 @@ namespace Tourplanner.ViewModels
         public ICommand ClearSearchFieldCommand { get; }
         public ICommand ExitApplicationCommand { get; }
 
-        public MainWindowViewModel(ITourManager tourManager)
+        public MainWindowViewModel(object obj)
+        {
+
+        }
+
+        public MainWindowViewModel(ITourManager tourManager, IImportManager importManager)
         {
             //IsBusy = true;
             AddTourCommand = new AsyncCommand(AddTour);
@@ -122,6 +134,7 @@ namespace Tourplanner.ViewModels
             ClearSearchFieldCommand = new RelayCommand(ClearSearchField);
             ExitApplicationCommand = new RelayCommand(ExitApplication);
             this._tourManager = tourManager;
+            this._importManager = importManager;
         }
 
         // A BusyIndicator control provides an alternative to a wait cursor to show user an indication that an application is busy doing some processing.
@@ -200,7 +213,62 @@ namespace Tourplanner.ViewModels
 
         private async Task ImportTour()
         {
-            throw new NotImplementedException();
+            if (isBusy) return;
+
+            var window = new Views.ImportWindowView();
+            var path = new ImportWindowViewModel(window)
+            {
+                CancelImportButtonCommand = new RelayCommand(CancelImportButton),
+                ImportButtonCommand = new RelayCommand(ImportButton)
+            }; ;
+
+            if (window.ShowDialog() is not true) return;
+
+            await BusyIndicatorFunc(async () =>
+            {
+                try
+                {
+                    string directoryPath = path.DirectoryPath;
+                    string name = Path.GetFileName(directoryPath);
+                    var importedTour = _importManager.ImportTour(directoryPath);
+                    if (importedTour != null)
+                    {
+                        AllTours.Add(importedTour);
+                        UpdateShownTours();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new NullReferenceException("An error happend while importing a tour: " + ex.Message);
+                }
+            });
+
+            void ImportButton(object? obj)
+            {
+                window.DialogResult = true;
+                window.Close();
+            }
+
+            void CancelImportButton(object? obj)
+            {
+                window.DialogResult = false;
+                window.Close();
+            }
+
+            /*string root = @"C:\ImportTour";
+
+            if (!Directory.Exists(root))
+            {
+                Directory.CreateDirectory(root);
+            }
+            else
+            {
+                string currentDirectory = Path.GetDirectoryName(fileAndPath);
+
+                string fullPathOnly = Path.GetFullPath(currentDirectory);
+            }
+
+            var path = Path.GetFullPath();*/
         }
 
         private void DeleteTour(object? obj)

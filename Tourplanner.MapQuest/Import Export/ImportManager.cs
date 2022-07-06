@@ -15,7 +15,7 @@ namespace Tourplanner.BusinessLayer
             this.tourManager = tourManager;
         }
 
-        public void ImportTour(string filepath)
+        public Tour ImportTour(string filepath)
         {
             var jsonString = fileDAO.ReadImportFile(filepath);
 
@@ -23,6 +23,8 @@ namespace Tourplanner.BusinessLayer
 
             if(importTour != null)
                 tourManager.newTour(importTour.Name, importTour.Description ?? String.Empty, importTour.From, importTour.To, importTour.Transporttype);
+
+            return importTour;
         }
     }
 }
