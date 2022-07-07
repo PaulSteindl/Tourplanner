@@ -45,7 +45,7 @@ namespace Tourplanner.DataAccessLayer
             }
             catch (PostgresException ex)
             {
-                logger.Warn(ex.Message);
+                logger.Error(ex.Message);
             }
 
             logger.Debug($"Tried to insert Log, result [{affectedRows > 0}]");
@@ -75,7 +75,7 @@ namespace Tourplanner.DataAccessLayer
             }
             catch (PostgresException ex)
             {
-                logger.Warn(ex.Message);
+                logger.Error(ex.Message);
             }
 
             logger.Debug($"Selected all Logs with tour_id [{tourId}], count: 0");
@@ -103,7 +103,7 @@ namespace Tourplanner.DataAccessLayer
             }
             catch (PostgresException ex)
             {
-                logger.Warn(ex.Message);
+                logger.Error(ex.Message);
             }
 
             logger.Debug($"Tried to update Log, result [{affectedRows > 0}]");
@@ -126,7 +126,7 @@ namespace Tourplanner.DataAccessLayer
             }
             catch (PostgresException ex)
             {
-                logger.Warn(ex.Message);
+                logger.Error(ex.Message);
             }
 
             logger.Debug($"Tried to delete Log, result [{affectedRows > 0}]");

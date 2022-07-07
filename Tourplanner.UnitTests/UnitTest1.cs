@@ -16,13 +16,13 @@ namespace UnitTest
         static readonly NpgsqlConnection _connection = new NpgsqlConnection(connectionString);
         static HttpClient _client = new HttpClient();
         static IFileDAO _fileDAO = new FileDAO();
-        static IDirections _directions = new Directions(MapQuestKey, _client);
+        static IDirections _directions = new Directions(MapQuestKey);
         static IPostgreSqlDAOConfiguration _postgre = new ;
         static IRouteManager _routeManager = new RouteManager(_fileDAO, _directions);
         static IDatabaseManager _databaseManager = new DatabaseManager(_postgre);
         static ITourDAO _tourDAO = new TourDAO(_databaseManager);
         static ICheckInput _checkInput = new CheckInput();
-        static ILogDAO _logDAO = new LogDAO(_connection);
+        static ILogDAO _logDAO = new LogDAO(_databaseManager);
         static ICalculateAttributes _calculateAttributes = new CalculateAttributes(_logDAO);
         static ITourManager _tourmanager = new TourManager(_routeManager, _tourDAO, _checkInput, _calculateAttributes);
 

@@ -46,7 +46,7 @@ namespace Tourplanner.BusinessLayer
             }
             catch (Exception ex)
             {
-                logger.Warn($"Couldn't create new Log, [{ex.Message}]");
+                logger.Error($"Couldn't create new Log, [{ex.Message}]");
                 throw new NullReferenceException("An error happend while creating a log -> log is null: " + ex.Message);
             }
 
@@ -71,7 +71,7 @@ namespace Tourplanner.BusinessLayer
             }
             catch (Exception ex)
             {
-                logger.Warn($"Tour couldn't update with id: [{log.Id}], [{ex.Message}]");
+                logger.Error($"Tour couldn't update with id: [{log.Id}], [{ex.Message}]");
                 throw new NullReferenceException("An error happend while updating a log: " + ex.Message);
             }
 

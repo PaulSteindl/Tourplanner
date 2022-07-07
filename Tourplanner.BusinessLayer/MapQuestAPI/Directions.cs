@@ -42,7 +42,7 @@ namespace Tourplanner.BusinessLayer
             }
             catch (Exception ex) when (ex is not FetchDataException)
             {
-                logger.Warn($"Couldn't fetch Routeinfo, [{ex}]");
+                logger.Error($"Couldn't fetch Routeinfo, [{ex}]");
                 throw new FetchDataException("Error while fetching route data: ", ex);
             }
         }
@@ -66,7 +66,7 @@ namespace Tourplanner.BusinessLayer
             }
             catch (Exception ex) when (ex is not FetchDataException)
             {
-                logger.Warn($"Couldn't fetch Map, [{ex}]");
+                logger.Error($"Couldn't fetch Map, [{ex}]");
                 throw new FetchDataException("Error while fetching map data: ", ex);
             }
         }

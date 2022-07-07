@@ -41,7 +41,7 @@ namespace Tourplanner.BusinessLayer
             }
             catch(Exception ex)
             {
-                logger.Warn($"Couldnt export Tour: [{ex.Message}]");
+                logger.Error($"Couldnt export Tour: [{ex.Message}]");
                 return false;
             }
 

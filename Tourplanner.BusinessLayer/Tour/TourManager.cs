@@ -17,15 +17,17 @@ namespace Tourplanner.BusinessLayer
         IRouteManager routeManager;
         ITourDAO tourDAO;
         ILogDAO logDAO;
+        IFileDAO fileDAO;
         ILogManager logManager;
         ICheckInput checkInput;
         ICalculateAttributes calcA;
 
-        public TourManager(IRouteManager routeManager, ILogManager logManager, ITourDAO tourDAO, ILogDAO logDAO, ICheckInput checkInput, ICalculateAttributes calcA)
+        public TourManager(IRouteManager routeManager, ILogManager logManager, ITourDAO tourDAO, ILogDAO logDAO, ICheckInput checkInput, ICalculateAttributes calcA, IFileDAO fileDAO)
         {
             this.routeManager = routeManager;
             this.tourDAO = tourDAO;
             this.logDAO = logDAO;
+            this.fileDAO = fileDAO;
             this.logManager = logManager;
             this.checkInput = checkInput;
             this.calcA = calcA;
@@ -44,7 +46,15 @@ namespace Tourplanner.BusinessLayer
             return tours;
         }
 
-        //TODO: Bilder laden 
+        public async Task<Tour?> DoesMapExistAsync(string path, Tour tour)
+        {
+            if(!File.Exists(path))
+            {
+                logger.Debug("Downloaded Map again");
+                return await UpdateTour(tour.Name, tour.Description, tour.From, tour.To, tour.Transporttype, tour);
+            }
+            return null;
+        }
 
         public async Task<Tour?> NewTour(string name, string description, string from, string to, TransportType transportType)
         {
@@ -82,7 +92,7 @@ namespace Tourplanner.BusinessLayer
             }
             catch (Exception ex)
             {
-                logger.Warn($"Couldn't create new Tour, [{ex.Message}]");
+                logger.Error($"Couldn't create new Tour, [{ex.Message}]");
                 throw new NullReferenceException("An error happend while creating a tour -> tour is null: " + ex.Message);
             }
 
@@ -121,11 +131,11 @@ namespace Tourplanner.BusinessLayer
             }
             catch (Exception ex) when (ex is not DataUpdateFailedException)
             {
-                logger.Warn($"Tour couldn't update with id: [{tour.Id}], [{ex}]");
+                logger.Error($"Tour couldn't update with id: [{tour.Id}], [{ex}]");
                 throw new ArgumentException("An error happend while updating a tour: " + ex.Message);
             }
 
-            logger.Warn($"Tour couldn't update with id: [{tour.Id}], route was null");
+            logger.Error($"Tour couldn't update with id: [{tour.Id}], route was null");
 
             return null;
         }

@@ -123,7 +123,7 @@ namespace Tourplanner.BusinessLayer
                 }
                 catch (Exception ex)
                 {
-                    logger.Warn($"Couldn't create TourReport, [{ex}]");
+                    logger.Error($"Couldn't create TourReport, [{ex}]");
                     return false;
                 }
             }
@@ -174,7 +174,7 @@ namespace Tourplanner.BusinessLayer
                 }
                 catch (Exception ex)
                 {
-                    logger.Warn($"Couldn't create SummarizeReport, [{ex}]");
+                    logger.Error($"Couldn't create SummarizeReport, [{ex}]");
                     return false;
                 }
             }

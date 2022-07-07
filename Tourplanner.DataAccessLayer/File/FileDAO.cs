@@ -12,11 +12,12 @@ namespace Tourplanner.DataAccessLayer
     public class FileDAO : IFileDAO
     {
         private readonly ILogger logger = LogManager.GetLogger<FileDAO>();
+        readonly string picDirPath = "..\\..\\..\\..\\TourImages";
 
         public string SaveImage(byte[] mapArray, Guid tourId)
         {
-            Directory.CreateDirectory("C:\\TourImages");
-            var path = $"C:\\TourImages\\{tourId}.png";
+            Directory.CreateDirectory(picDirPath);
+            var path = $"{picDirPath}\\{tourId}.png";
             var fs = File.Create(path);
             fs.Write(mapArray);
             fs.Close();
