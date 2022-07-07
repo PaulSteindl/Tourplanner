@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Tourplanner.Models;
 
-namespace Tourplanner.BusinessLayer
+namespace Tourplanner.BusinessLayer.Report
 {
     public interface IReportManager
     {
-        public bool CreateReport(Tour tour, string path);
+        public bool CreateTourReport(Tour tour, string path);
+        public bool CreateSummarizeReport(string path);
     }
 }
