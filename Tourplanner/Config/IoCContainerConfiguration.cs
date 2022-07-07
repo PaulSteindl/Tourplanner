@@ -61,6 +61,7 @@ namespace Tourplanner.Configuration
             services.AddSingleton<IDirections, Directions>();
             services.AddSingleton<IRouteManager, RouteManager>();
             services.AddSingleton<IReportManager, ReportManager>();
+            services.AddSingleton<ISearchManager, SearchManager>();
 
             // UI setup
             services.AddSingleton<INavigationService, NavigationService>(s =>
