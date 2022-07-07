@@ -7,68 +7,89 @@ using System.Threading.Tasks;
 using Tourplanner.Models;
 using Tourplanner.DataAccessLayer;
 using Tourplanner.Exceptions;
+using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer
 {
     public class TourManager : ITourManager
-    { 
+    {
+        private readonly ILogger logger = Shared.LogManager.GetLogger<TourManager>();
         IRouteManager routeManager;
         ITourDAO tourDAO;
+        ILogDAO logDAO;
         ILogManager logManager;
         ICheckInput checkInput;
         ICalculateAttributes calcA;
 
-        public TourManager(IRouteManager routeManager, ILogManager logManager, ITourDAO tourDAO, ICheckInput checkInput, ICalculateAttributes calcA)
+        public TourManager(IRouteManager routeManager, ILogManager logManager, ITourDAO tourDAO, ILogDAO logDAO, ICheckInput checkInput, ICalculateAttributes calcA)
         {
             this.routeManager = routeManager;
             this.tourDAO = tourDAO;
+            this.logDAO = logDAO;
             this.logManager = logManager;
             this.checkInput = checkInput;
             this.calcA = calcA;
         }
 
-        public List<Tour> GetTours()
+        public List<Tour> LoadTours()
         {
-            return tourDAO.SelectAllTours();
+            var tours = tourDAO.SelectAllTours();
+
+            foreach(var tour in tours)
+            {
+                tour.Logs = logDAO.SelectLogsByTourId(tour.Id);
+            }
+
+            logger.Debug("Logs geladen");
+            return tours;
         }
 
-        public async Task<Tour> NewTour(string name, string description, string from, string to, TransportType transportType)
+        //TODO: Bilder laden 
+
+        public async Task<Tour?> NewTour(string name, string description, string from, string to, TransportType transportType)
         {
-            Tour newTour = new Tour();
+            Tour? newTour = null;
 
             checkInput.CheckUserInputTour(name, description, from, to, transportType);
 
             try
             {
-                var route = await routeManager.GetFullRoute(from, to, transportType);
+                var newId = Guid.NewGuid();
+                var route = await routeManager.GetFullRoute(from, to, transportType, newId);
 
                 if (route != null)
                 {
-                    newTour.Id = Guid.NewGuid();
-                    newTour.Name = name;
-                    newTour.Description = description;
-                    newTour.From = from;
-                    newTour.To = to;
-                    newTour.Transporttype = transportType;
-                    newTour.Distance = route.Distance;
-                    newTour.Time = route.Time;
-                    newTour.PicPath = route.PicPath;
-                    newTour.ChildFriendly = false;
-                    newTour.Popularity = PopularityEnum.Bad;
-                    newTour.Logs = new List<Log>();
+                    newTour = new Tour
+                    {
+                        Id = newId,
+                        Name = name,
+                        Description = description,
+                        From = from,
+                        To = to,
+                        Transporttype = transportType,
+                        Distance = route.Distance,
+                        Time = route.Time,
+                        PicPath = route.PicPath,
+                        ChildFriendly = false,
+                        Popularity = PopularityEnum.Bad,
+                        Logs = new List<Log>()
+                    };
 
                     if (!tourDAO.InsertTour(newTour)) throw new DataUpdateFailedException("New Tour couldn't get inserted");
+
+                    logger.Debug($"New Tour created with id: [{newTour.Id}]");
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new NullReferenceException("An error happend while creating a tour -> tour is null: " + e.Message);
+                logger.Warn($"Couldn't create new Tour, [{ex.Message}]");
+                throw new NullReferenceException("An error happend while creating a tour -> tour is null: " + ex.Message);
             }
 
             return newTour;
         }
 
-        public async Task<Tour> UpdateTour(string name, string description, string from, string to, TransportType transportType, Tour tour)
+        public async Task<Tour?> UpdateTour(string name, string description, string from, string to, TransportType transportType, Tour tour)
         {
             checkInput.CheckUserInputTour(name, description, from, to, transportType);
 
@@ -76,7 +97,7 @@ namespace Tourplanner.BusinessLayer
             {
                 var logs = logManager.GetAllLogsByTourId(tour.Id);
 
-                var route = await routeManager.GetFullRoute(from, to, transportType);
+                var route = await routeManager.GetFullRoute(from, to, transportType, tour.Id);
 
                 if (route != null)
                 {
@@ -92,18 +113,26 @@ namespace Tourplanner.BusinessLayer
                     tour.Popularity = calcA.CalculatePopularity(logs);
 
                     if(!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
+
+                    logger.Debug($"Tour updated with id: [{tour.Id}]");
+
+                    return tour;
                 }
-                return tour;
             }
-            catch (Exception e) when (e is not DataUpdateFailedException)
+            catch (Exception ex) when (ex is not DataUpdateFailedException)
             {
-                throw new ArgumentException("An error happend while updating a tour: " + e.Message);
+                logger.Warn($"Tour couldn't update with id: [{tour.Id}], [{ex}]");
+                throw new ArgumentException("An error happend while updating a tour: " + ex.Message);
             }
+
+            logger.Warn($"Tour couldn't update with id: [{tour.Id}], route was null");
+
+            return null;
         }
 
-        public void DeleteTour(Guid tourId)
+        public bool DeleteTour(Guid tourId)
         {
-            tourDAO.DeleteTourById(tourId);
+            return tourDAO.DeleteTourById(tourId);
         }
 
         public List<Tour> GetAllTours()
@@ -117,6 +146,8 @@ namespace Tourplanner.BusinessLayer
 
             tour.ChildFriendly = calcA.CalculateChildFriendly(logs, tour.Distance);
             tour.Popularity = calcA.CalculatePopularity(logs);
+
+            logger.Debug($"Updated tour attributes from tour: [{tour.Id}]");
 
             return tour;
         }

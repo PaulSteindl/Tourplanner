@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using Npgsql;
 using Tourplanner.Exceptions;
 using Tourplanner.Models;
+using Tourplanner.Shared;
 
 namespace Tourplanner.DataAccessLayer
 {
     public class DatabaseManager : IDatabaseManager
     {
+        private readonly ILogger logger = LogManager.GetLogger<DatabaseManager>();
+
         private const string CreateTourTableCommand = @"create table if not exists tours
                                                         (
                                                             tour_id         uuid
@@ -69,6 +72,8 @@ namespace Tourplanner.DataAccessLayer
             this.configuration = configuration;
 
             EnsureTables();
+
+            logger.Debug("DB Tables were ensured");
         }
 
         private void EnsureTables()
@@ -97,9 +102,9 @@ namespace Tourplanner.DataAccessLayer
 
                 return command(connection);
             }
-            catch (NpgsqlException e)
+            catch (NpgsqlException ex)
             {
-                throw new DataAccessFailedException("Could not connect to the database", e);
+                throw new DataAccessFailedException("Could not connect to the database", ex);
             }
         }
     }

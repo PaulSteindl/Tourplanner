@@ -13,13 +13,16 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Tourplanner.Shared;
 
-namespace Tourplanner.BusinessLayer.Report
+namespace Tourplanner.BusinessLayer
 {
     public class ReportManager : IReportManager
     {
         ITourDAO tourDAO;
         ICalculateAttributes calcA;
+        private readonly ILogger logger = Shared.LogManager.GetLogger<ReportManager>();
+
 
         public ReportManager(ITourDAO tourDAO, ICalculateAttributes calcA)
         {
@@ -114,14 +117,18 @@ namespace Tourplanner.BusinessLayer.Report
 
                     document.Close();
 
+                    logger.Debug($"TourReport created with path: [{fullpath}]");
+
                     return true;
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
+                    logger.Warn($"Couldn't create TourReport, [{ex}]");
                     return false;
                 }
             }
-            
+
+            logger.Debug($"Couldn't create TourReport with path: [{fullpath}], tour is null or File already exists");
             return false;
         }
 
@@ -167,10 +174,12 @@ namespace Tourplanner.BusinessLayer.Report
                 }
                 catch (Exception ex)
                 {
+                    logger.Warn($"Couldn't create SummarizeReport, [{ex}]");
                     return false;
                 }
             }
-            
+
+            logger.Debug($"Couldn't create SummarizeReport with path: [{fullpath}], tour is null or File already exists");
             return false;
         }
 

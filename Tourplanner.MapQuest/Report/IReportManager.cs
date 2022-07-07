@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tourplanner.Models;
 
-namespace Tourplanner.BusinessLayer.Report
+namespace Tourplanner.BusinessLayer
 {
     public interface IReportManager
     {

@@ -9,6 +9,6 @@ namespace Tourplanner.BusinessLayer
 {
     public interface IRouteManager
     {
-        public Task<Route> GetFullRoute(string from, string to, TransportType transportType);
+        public Task<Route> GetFullRoute(string from, string to, TransportType transportType, Guid tourId);
     }
 }

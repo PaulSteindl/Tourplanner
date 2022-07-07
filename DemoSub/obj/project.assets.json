@@ -1488,7 +1488,8 @@
           "Newtonsoft.Json": "13.0.1",
           "Npgsql": "6.0.5",
           "System.Text.Json": "6.0.5",
-          "Tourplanner.DataAccessLayer": "1.0.0"
+          "Tourplanner.DataAccessLayer": "1.0.0",
+          "Tourplanner.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Tourplanner.BusinessLayer.dll": {}
@@ -1504,6 +1505,7 @@
           "Newtonsoft.Json": "13.0.1",
           "Npgsql": "6.0.4",
           "Tourplanner.Models": "1.0.0",
+          "Tourplanner.Shared": "1.0.0",
           "itext7": "7.2.3"
         },
         "compile": {
@@ -1525,6 +1527,30 @@
         },
         "runtime": {
           "bin/placeholder/Tourplanner.Models.dll": {}
+        }
+      },
+      "Tourplanner.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Tourplanner.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tourplanner.Shared.dll": {}
+        }
+      },
+      "Tourplanner.Shared.Log4Net/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Tourplanner.Shared": "1.0.0",
+          "log4net": "2.0.14"
+        },
+        "compile": {
+          "bin/placeholder/Tourplanner.Shared.Log4Net.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tourplanner.Shared.Log4Net.dll": {}
         }
       }
     }
@@ -5320,6 +5346,16 @@
       "type": "project",
       "path": "../Tourplanner.Models/Tourplanner.Models.csproj",
       "msbuildProject": "../Tourplanner.Models/Tourplanner.Models.csproj"
+    },
+    "Tourplanner.Shared/1.0.0": {
+      "type": "project",
+      "path": "../Tourplanner.Shared/Tourplanner.Shared.csproj",
+      "msbuildProject": "../Tourplanner.Shared/Tourplanner.Shared.csproj"
+    },
+    "Tourplanner.Shared.Log4Net/1.0.0": {
+      "type": "project",
+      "path": "../Tourplanner.Shared.Log4Net/Tourplanner.Shared.Log4Net.csproj",
+      "msbuildProject": "../Tourplanner.Shared.Log4Net/Tourplanner.Shared.Log4Net.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5330,7 +5366,8 @@
       "Newtonsoft.Json >= 13.0.1",
       "Npgsql >= 6.0.5",
       "Tourplanner.BusinessLayer >= 1.0.0",
-      "log4net >= 2.0.14"
+      "Tourplanner.Shared >= 1.0.0",
+      "Tourplanner.Shared.Log4Net >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5367,6 +5404,12 @@
           "projectReferences": {
             "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
               "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj"
+            },
+            "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Shared.Log4Net\\Tourplanner.Shared.Log4Net.csproj": {
+              "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Shared.Log4Net\\Tourplanner.Shared.Log4Net.csproj"
+            },
+            "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Shared\\Tourplanner.Shared.csproj": {
+              "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Shared\\Tourplanner.Shared.csproj"
             }
           }
         }
@@ -5400,10 +5443,6 @@
           "Npgsql": {
             "target": "Package",
             "version": "[6.0.5, )"
-          },
-          "log4net": {
-            "target": "Package",
-            "version": "[2.0.14, )"
           }
         },
         "imports": [

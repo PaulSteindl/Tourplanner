@@ -5,18 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Tourplanner.Models;
+using Tourplanner.Shared;
 
 namespace Tourplanner.DataAccessLayer
 {
     public class FileDAO : IFileDAO
     {
-        public string SaveImage(byte[] mapArray, string routeId)
+        private readonly ILogger logger = LogManager.GetLogger<FileDAO>();
+
+        public string SaveImage(byte[] mapArray, Guid tourId)
         {
             Directory.CreateDirectory("C:\\TourImages");
-            var path = $"C:\\TourImages\\{routeId}.png";
+            var path = $"C:\\TourImages\\{tourId}.png";
             var fs = File.Create(path);
             fs.Write(mapArray);
             fs.Close();
+
+            logger.Debug($"Created picture [{path}].");
 
             return path;
         }
@@ -37,6 +42,8 @@ namespace Tourplanner.DataAccessLayer
 
             Directory.CreateDirectory(path);
             File.WriteAllText(path + filename, jsonString);
+
+            logger.Debug($"Created Export Tour [{path + filename}].");
         }
     }
 }

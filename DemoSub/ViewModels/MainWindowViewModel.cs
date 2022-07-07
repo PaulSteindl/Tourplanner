@@ -221,7 +221,7 @@ namespace Tourplanner.ViewModels
 
             try
             {
-                var boolean = _reportManager.CreateReport(selectedTour, directoryPath);
+                var boolean = _reportManager.CreateTourReport(selectedTour, directoryPath);
             }
             catch (Exception ex)
             {

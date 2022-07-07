@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tourplanner.DataAccessLayer;
 using Tourplanner.Models;
 using Tourplanner.Exceptions;
+using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer
 {
@@ -13,6 +14,7 @@ namespace Tourplanner.BusinessLayer
     {
         ILogDAO logDAO;
         ICheckInput checkInput;
+        private readonly ILogger logger = Shared.LogManager.GetLogger<LogManager>();
 
         public LogManager(ILogDAO logDAO, ICheckInput checkInput)
         {
@@ -20,37 +22,40 @@ namespace Tourplanner.BusinessLayer
             this.checkInput = checkInput;
         }
 
-        public Log CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId)
+        public Log? CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId)
         {
             checkInput.CheckUserInputLog(comment);
-            Log newLog = new Log();
+            Log newLog = null;
 
             try
             {
-                newLog.Id = new Guid();
-                newLog.Id = tourId;
-                newLog.Date = date;
-                newLog.Comment = comment;
-                newLog.Difficulty = difficulty;
-                newLog.TotalTime = time;
-                newLog.Rating = rating;
-                    
+                newLog = new Log
+                {
+                    Id = new Guid(),
+                    TourId = tourId,
+                    Date = date,
+                    Comment = comment,
+                    Difficulty = difficulty,
+                    TotalTime = time,
+                    Rating = rating,
+                }; 
 
                 if (!logDAO.InsertLog(newLog)) throw new DataUpdateFailedException("New Log couldn't get inserted");
 
+                logger.Debug($"New Log created with id: [{newLog.Id}]");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new NullReferenceException("An error happend while creating a log -> log is null: " + e.Message);
+                logger.Warn($"Couldn't create new Log, [{ex.Message}]");
+                throw new NullReferenceException("An error happend while creating a log -> log is null: " + ex.Message);
             }
 
             return newLog;
         }
 
-        public void UpdateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Log log)
+        public async Task<Log?> UpdateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Log log)
         {
             checkInput.CheckUserInputLog(comment);
-            Log newLog = new Log();
 
             try
             {
@@ -61,11 +66,16 @@ namespace Tourplanner.BusinessLayer
                 log.Rating = rating;
 
                 if (!logDAO.UpdateLogById(log)) throw new DataUpdateFailedException("Log couldn't get inserted");
+
+                logger.Debug($"Log updated with id: [{log.Id}]");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new NullReferenceException("An error happend while updating a log: " + e.Message);
+                logger.Warn($"Tour couldn't update with id: [{log.Id}], [{ex.Message}]");
+                throw new NullReferenceException("An error happend while updating a log: " + ex.Message);
             }
+
+            return log;
         }
 
         public void DeleteLog(Guid logId)

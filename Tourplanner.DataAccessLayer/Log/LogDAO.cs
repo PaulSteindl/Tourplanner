@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Threading;
+using Tourplanner.Shared;
 
 namespace Tourplanner.DataAccessLayer
 {
@@ -15,6 +16,7 @@ namespace Tourplanner.DataAccessLayer
         private const string DeleteLogByIdCommand = "DELETE FROM logs WHERE log_id = @id";
 
         private IDatabaseManager databaseManager;
+        private readonly ILogger logger = LogManager.GetLogger<LogDAO>();
 
         public LogDAO(IDatabaseManager databaseManager)
         {
@@ -41,10 +43,12 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Warn(ex.Message);
             }
 
+            logger.Debug($"Tried to insert Log, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 
@@ -65,13 +69,16 @@ namespace Tourplanner.DataAccessLayer
                         logs.Add(log);
                     }
 
+                    logger.Debug($"Selected all Logs with tour_id [{tourId}], count: [{logs.Count}]");
                     return logs;
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Warn(ex.Message);
             }
 
+            logger.Debug($"Selected all Logs with tour_id [{tourId}], count: 0");
             return new List<Log>();
         }
 
@@ -94,10 +101,12 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Warn(ex.Message);
             }
 
+            logger.Debug($"Tried to update Log, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 
@@ -115,10 +124,12 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Warn(ex.Message);
             }
 
+            logger.Debug($"Tried to delete Log, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 
