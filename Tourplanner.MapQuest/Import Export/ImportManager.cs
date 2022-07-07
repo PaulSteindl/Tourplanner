@@ -22,7 +22,7 @@ namespace Tourplanner.BusinessLayer
             var importTour = JsonConvert.DeserializeObject<Tour>(jsonString);
 
             if(importTour != null)
-                importTour = await tourManager.newTour(importTour.Name, importTour.Description ?? String.Empty, importTour.From, importTour.To, importTour.Transporttype);
+                importTour = await tourManager.NewTour(importTour.Name, importTour.Description ?? String.Empty, importTour.From, importTour.To, importTour.Transporttype);
 
             return importTour ?? throw new NullReferenceException("Error with tour import");
         }
