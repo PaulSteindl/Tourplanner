@@ -37,7 +37,6 @@ namespace Tourplanner.Navigation
                     window.Show();
                     break;
             }
-
             return result;
         }
 

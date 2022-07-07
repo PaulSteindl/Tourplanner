@@ -45,7 +45,6 @@ namespace Tourplanner.ViewModels
         private IExportManager _exportManager;
         // Report
         private IReportManager _reportManager;
-        
 
         // Suche
         public string SearchText
