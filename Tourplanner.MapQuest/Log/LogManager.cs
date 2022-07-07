@@ -13,13 +13,11 @@ namespace Tourplanner.BusinessLayer
     {
         ILogDAO logDAO;
         ICheckInput checkInput;
-        ITourManager tourManager;
 
-        public LogManager(ILogDAO logDAO, ICheckInput checkInput, ITourManager tourManager)
+        public LogManager(ILogDAO logDAO, ICheckInput checkInput)
         {
             this.logDAO = logDAO;
             this.checkInput = checkInput;
-            this.tourManager = tourManager;
         }
 
         public Log CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId)

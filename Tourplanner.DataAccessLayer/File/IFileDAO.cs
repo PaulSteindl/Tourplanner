@@ -12,6 +12,5 @@ namespace Tourplanner.DataAccessLayer
         public string SaveImage(byte[] mapArray, string routeId);
         public string ReadImportFile(string filepath);
         public void SaveExportTour(string jsonString, string path);
-        public void CreateReport(Tour tour, string path);
     }
 }
