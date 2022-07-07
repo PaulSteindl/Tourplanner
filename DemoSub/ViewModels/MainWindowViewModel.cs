@@ -404,10 +404,14 @@ namespace Tourplanner.ViewModels
             if (Tour is null) return;
 
             var window = new Views.SingleTourView();
+            
             var tour = new SingleTourViewModel(window)
             {
                 GoBackButtonCommand = new RelayCommand(GoBackButton)
             };
+            
+            // Übergibt dem SingleTourViewModel die Tour
+            tour.Tour = Tour;
 
             if (window.ShowDialog() is not true) return;
 

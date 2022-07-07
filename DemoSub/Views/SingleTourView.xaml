@@ -46,17 +46,17 @@
                             <Label Grid.Row="6" Grid.Column="0" Content="Estimated time:" FontWeight="Normal"/>
                             <Button Grid.Row="7" Grid.Column="0" Content="Go back" FontWeight="Normal" FontSize="15" Grid.ColumnSpan="2" Margin="0,12,682,-12" Command="{Binding GoBackButtonCommand}"/>
 
-                            <Label Grid.Row="0" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Name}"/>
-                            <Label Grid.Row="1" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Description}"/>
-                            <Label Grid.Row="2" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.StartLocation}"/>
-                            <Label Grid.Row="3" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.EndLocation}"/>
-                            <Label Grid.Row="4" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.TransportType}"/>
-                            <Label Grid.Row="5" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Distance}"/>
-                            <Label Grid.Row="6" Grid.Column="1" FontWeight="Normal" Content="{Binding Tour.Time}"/>
+                            <Label Grid.Row="0" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Name}"/>
+                            <Label Grid.Row="1" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Description}"/>
+                            <Label Grid.Row="2" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding From}"/>
+                            <Label Grid.Row="3" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding To}"/>
+                            <Label Grid.Row="4" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Transporttype}"/>
+                            <Label Grid.Row="5" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Distance}"/>
+                            <Label Grid.Row="6" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Time}"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Route Image" FontSize="15">
-                        <Image Source="{Binding Tour.ImagePath}" Stretch="UniformToFill"/>
+                        <Image DataContext="{Binding Tour}" Source="{Binding PicPath}" Stretch="UniformToFill"/>
                     </TabItem>
                     <TabItem Header="Tour Logs" FontSize="15" Height="24" VerticalAlignment="Top">
                         <Grid Grid.Row="2">

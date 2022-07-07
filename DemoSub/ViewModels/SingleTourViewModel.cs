@@ -31,6 +31,18 @@ namespace Tourplanner.ViewModels
         private string _distance = String.Empty;
         private string _imagePath = String.Empty;
 
+        private Tour? _tour;
+
+        public Tour? Tour
+        {
+            get => _tour;
+            set
+            {
+                _tour = value;
+                OnPropertyChanged();
+                //UpdateShownTours();
+            }
+        }
         public string Name
         {
             get => _name;

@@ -5334,23 +5334,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Anwender\\.nuget\\packages\\": {},
-    "E:\\VisualStudio\\VisualStudio_Tools\\NuGetPackages": {}
+    "C:\\Users\\kailu\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+      "projectUniqueName": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
       "projectName": "Tourplanner",
-      "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
-      "packagesPath": "C:\\Users\\Anwender\\.nuget\\packages\\",
-      "outputPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\obj\\",
+      "projectPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\Tourplanner.csproj",
+      "packagesPath": "C:\\Users\\kailu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\DemoSub\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "E:\\VisualStudio\\VisualStudio_Tools\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Anwender\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kailu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5365,8 +5365,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows7.0",
           "projectReferences": {
-            "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
-              "projectPath": "E:\\GoogleDrive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj"
+            "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj": {
+              "projectPath": "C:\\Users\\kailu\\Google Drive\\FH_TU_Wien\\Semester04\\SWEN2\\TourPlanner_if20b232\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj"
             }
           }
         }
@@ -5424,7 +5424,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
