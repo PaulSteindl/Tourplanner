@@ -371,7 +371,7 @@ namespace Tourplanner.ViewModels
                 {
                     TransportType transportType = ConverStringToTransportType(tour.TransportType);
                     Tour? newTour = null;
-                    newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, transportType);
+                    newTour = await _tourManager.NewTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, transportType);
                     if(newTour != null)
                     {
                         AllTours.Add(newTour);
