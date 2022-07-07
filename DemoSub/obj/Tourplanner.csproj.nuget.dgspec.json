@@ -183,7 +183,7 @@
         "projectName": "Tourplanner.BusinessLayer",
         "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\Tourplanner.BusinessLayer.csproj",
         "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\obj\\",
+        "outputPath": "C:\\Users\\PaulS\\source\\repos\\PaulSteindl\\Tourplanner\\Tourplanner.MapQuest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -262,7 +262,7 @@
         "projectName": "Tourplanner.Models",
         "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\Tourplanner.Models.csproj",
         "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\obj\\",
+        "outputPath": "C:\\Users\\PaulS\\source\\repos\\PaulSteindl\\Tourplanner\\Tourplanner.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -398,7 +398,7 @@
         "projectName": "Tourplanner.Shared",
         "projectPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Shared\\Tourplanner.Shared.csproj",
         "packagesPath": "C:\\Users\\PaulS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PaulS\\Source\\Repos\\PaulSteindl\\Tourplanner\\Tourplanner.Shared\\obj\\",
+        "outputPath": "C:\\Users\\PaulS\\source\\repos\\PaulSteindl\\Tourplanner\\Tourplanner.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

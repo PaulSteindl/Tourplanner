@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner", "DemoSub\Tourplanner.csproj", "{A8AE79E0-FB42-47EA-8BC5-18361B55DA23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner", "Tourplanner\Tourplanner.csproj", "{A8AE79E0-FB42-47EA-8BC5-18361B55DA23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner.BusinessLayer", "Tourplanner.MapQuest\Tourplanner.BusinessLayer.csproj", "{7319E8BF-0EC9-4B2B-BD24-C5C31889829C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner.BusinessLayer", "Tourplanner.BusinessLayer\Tourplanner.BusinessLayer.csproj", "{7319E8BF-0EC9-4B2B-BD24-C5C31889829C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner.Models", "Tourplanner.Models\Tourplanner.Models.csproj", "{62D5AD6B-ACB3-4221-A538-0DDD8E021256}"
 EndProject
@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner.DataAccessLayer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner.UnitTests", "Tourplanner.UnitTests\Tourplanner.UnitTests.csproj", "{4D07B679-5C27-4042-9EC3-3B440E01A54B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tourplanner.Shared", "Tourplanner.Shared\Tourplanner.Shared.csproj", "{E98BF15C-125E-4E28-954E-DC45B83287F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner.Shared", "Tourplanner.Shared\Tourplanner.Shared.csproj", "{E98BF15C-125E-4E28-954E-DC45B83287F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tourplanner.Shared.Log4Net", "Tourplanner.Shared.Log4Net\Tourplanner.Shared.Log4Net.csproj", "{4C9CE648-E430-4AB7-8AD5-EABD84081072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourplanner.Shared.Log4Net", "Tourplanner.Shared.Log4Net\Tourplanner.Shared.Log4Net.csproj", "{4C9CE648-E430-4AB7-8AD5-EABD84081072}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
