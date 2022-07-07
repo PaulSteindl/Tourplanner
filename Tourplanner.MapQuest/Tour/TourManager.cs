@@ -27,7 +27,12 @@ namespace Tourplanner.BusinessLayer
             this.calcA = calcA;
         }
 
-        public async Task<Tour> newTour(string name, string description, string from, string to, TransportType transportType)
+        public List<Tour> GetTours()
+        {
+            return tourDAO.SelectAllTours();
+        }
+
+        public async Task<Tour> NewTour(string name, string description, string from, string to, TransportType transportType)
         {
             Tour newTour = new Tour();
 

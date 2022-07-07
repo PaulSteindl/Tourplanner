@@ -15,14 +15,16 @@ namespace Tourplanner.BusinessLayer
             this.tourManager = tourManager;
         }
 
-        public void ImportTour(string filepath)
+        public async Task<Tour> ImportTour(string filepath)
         {
             var jsonString = fileDAO.ReadImportFile(filepath);
 
             var importTour = JsonConvert.DeserializeObject<Tour>(jsonString);
 
             if(importTour != null)
-                tourManager.newTour(importTour.Name, importTour.Description ?? String.Empty, importTour.From, importTour.To, importTour.Transporttype);
+                importTour = await tourManager.NewTour(importTour.Name, importTour.Description ?? String.Empty, importTour.From, importTour.To, importTour.Transporttype);
+
+            return importTour ?? throw new NullReferenceException("Error with tour import");
         }
     }
 }

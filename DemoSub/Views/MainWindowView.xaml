@@ -16,6 +16,7 @@
                     <MenuItem Header="_Add Tour" Command="{Binding AddTourCommand}"/>
                     <MenuItem Header="_Modify Tour" Command="{Binding ModifyTourCommand}"/>
                     <MenuItem Header="_Delete Tour" Command="{Binding DeleteTourCommand}"/>
+                    <MenuItem Header="_Show Tour Details" Command="{Binding ShowTourDetailsCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_Tour Logs">
                     <MenuItem Header="_Add Tour Log" Command="{Binding AddTourLogCommand}"/>
@@ -43,9 +44,9 @@
             </Grid.RowDefinitions>
 
             <DockPanel Grid.Row="1">
-                <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Clear" Command="{Binding SearchFieldCommand}"/>
-                <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Search" Command="{Binding ClearSearchFieldCommand}"/>
-                <TextBox DockPanel.Dock="Left" MaxLength="100"/>
+                <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Reset" Command="{Binding ResetSearchFieldCommand}"/>
+                <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Search" Command="{Binding SearchFieldCommand}"/>
+                <TextBox DockPanel.Dock="Left" MaxLength="100" Text="{Binding SearchText}"/>
             </DockPanel>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>

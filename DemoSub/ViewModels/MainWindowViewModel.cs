@@ -14,11 +14,14 @@ using System.Collections.ObjectModel;
 using Tourplanner;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.IO;
+using Tourplanner.Views;
 
 namespace Tourplanner.ViewModels
 {
     internal class MainWindowViewModel : BaseViewModel, ICloseWindow
     {
+        // Busy
         private bool isBusy;
         // Suche
         private string _searchText = String.Empty;
@@ -33,9 +36,17 @@ namespace Tourplanner.ViewModels
         public event EventHandler<Tour> TourChanged;
         // Log
         private Log _log;
-        private ListCollectionView _logList;
+        private ObservableCollection<Log> AllLogs = new ObservableCollection<Log>();
+        public ObservableCollection<Log> ShownLogs { get; set; } = new ObservableCollection<Log>();
         private ILogManager _logManager;
+        // Import
+        private IImportManager _importManager;
+        // Export
+        private IExportManager _exportManager;
+        // Report
+        private IReportManager _reportManager;
         
+
         // Suche
         public string SearchText
         {
@@ -69,15 +80,6 @@ namespace Tourplanner.ViewModels
             }
         }
 
-        public ListCollectionView LogList
-        {
-            get => _logList;
-            set
-            {
-                _logList = value;
-            }
-        }
-
         public bool IsBusy
         {
             get => isBusy;
@@ -94,6 +96,7 @@ namespace Tourplanner.ViewModels
         public ICommand AddTourCommand { get; }
         public ICommand ModifyTourCommand { get; }
         public ICommand DeleteTourCommand { get; }
+        public ICommand ShowTourDetailsCommand { get; }
         public ICommand AddTourLogCommand  { get; }
         public ICommand ModifyTourLogCommand { get; }
         public ICommand DeleteTourLogCommand { get; }
@@ -102,15 +105,17 @@ namespace Tourplanner.ViewModels
         public ICommand TourReportCommand { get; }
         public ICommand SummaryTourReportCommand { get; }
         public ICommand SearchFieldCommand { get; }
-        public ICommand ClearSearchFieldCommand { get; }
+        public ICommand ResetSearchFieldCommand { get; }
         public ICommand ExitApplicationCommand { get; }
 
-        public MainWindowViewModel(ITourManager tourManager)
+
+        public MainWindowViewModel(ITourManager tourManager, IImportManager importManager, IExportManager exportManager, IReportManager reportManager)
         {
             //IsBusy = true;
             AddTourCommand = new AsyncCommand(AddTour);
             ModifyTourCommand = new AsyncCommand(ModifyTour);
             DeleteTourCommand = new RelayCommand(DeleteTour);
+            ShowTourDetailsCommand = new RelayCommand(ShowTourDetails);
             AddTourLogCommand = new RelayCommand(AddTourLog);
             ModifyTourLogCommand = new RelayCommand(ModifyTourLog);
             DeleteTourLogCommand = new RelayCommand(DeleteTourLog);
@@ -119,10 +124,16 @@ namespace Tourplanner.ViewModels
             TourReportCommand = new AsyncCommand(TourReport);
             SummaryTourReportCommand = new AsyncCommand(SummaryTourReport);
             SearchFieldCommand = new RelayCommand(SearchField);
-            ClearSearchFieldCommand = new RelayCommand(ClearSearchField);
+            ResetSearchFieldCommand = new RelayCommand(ResetSearchField);
             ExitApplicationCommand = new RelayCommand(ExitApplication);
             this._tourManager = tourManager;
+            this._importManager = importManager;
+            this._exportManager = exportManager;
+            this._reportManager = reportManager;
         }
+
+        public MainWindowViewModel(MainWindowView view)
+            => view.DataContext = this;
 
         // A BusyIndicator control provides an alternative to a wait cursor to show user an indication that an application is busy doing some processing.
         private async Task BusyIndicatorFunc(Func<Task> section)
@@ -173,14 +184,25 @@ namespace Tourplanner.ViewModels
             Application.Current.Shutdown();
         }
 
-        private void ClearSearchField(object? obj)
-        {
-            SearchText = String.Empty;
-        }
+        private void ResetSearchField(object? obj)
+            => SearchText = String.Empty;
 
         private void SearchField(object? obj)
         {
-            throw new NotImplementedException();
+            if (AllTours is null) return;
+
+            Func<Tour, bool> searchContainsName = containsName;
+            Application.Current?.Dispatcher.Invoke(() => ShownTours.Clear());
+
+            foreach(var tour in AllTours)
+            {
+                if (searchContainsName(tour))
+                {
+                    Application.Current?.Dispatcher.Invoke(() => ShownTours.Add(tour));
+                }
+            }
+
+            bool containsName(Tour tour) => tour.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
         }
 
         private async Task SummaryTourReport()
@@ -190,17 +212,85 @@ namespace Tourplanner.ViewModels
 
         private async Task TourReport()
         {
-            throw new NotImplementedException();
+            if (isBusy) return;
+
+            if (Tour is null) return;
+
+            var selectedTour = Tour;
+            var directoryPath = @"C:\TourReport\";
+
+            try
+            {
+                var boolean = _reportManager.CreateReport(selectedTour, directoryPath);
+            }
+            catch (Exception ex)
+            {
+                throw new NullReferenceException("An error happend while creating a tour report: " + ex.Message);
+            }
         }
 
         private async Task ExportTour()
         {
-            throw new NotImplementedException();
+            if (isBusy) return;
+
+            if (Tour is null) return;
+
+            var selectedTourId = Tour.Id;
+            var directoryPath = @"C:\";
+
+            try
+            {
+                _exportManager.ExportTourById(selectedTourId, directoryPath);
+            }
+            catch (Exception ex)
+            {
+                throw new NullReferenceException("An error happend while exporting a tour: " + ex.Message);
+            }
         }
 
         private async Task ImportTour()
         {
-            throw new NotImplementedException();
+            if (isBusy) return;
+
+            var window = new Views.ImportWindowView();
+            var path = new ImportWindowViewModel(window)
+            {
+                CancelImportButtonCommand = new RelayCommand(CancelImportButton),
+                ImportButtonCommand = new RelayCommand(ImportButton)
+            }; ;
+
+            if (window.ShowDialog() is not true) return;
+
+            await BusyIndicatorFunc(async () =>
+            {
+                try
+                {
+                    string directoryPath = path.DirectoryPath;
+                    string name = Path.GetFileName(directoryPath);
+                    var importedTour = await _importManager.ImportTour(directoryPath);
+                    if (importedTour != null)
+                    {
+                        AllTours.Add(importedTour);
+                        UpdateShownTours();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new NullReferenceException("An error happend while importing a tour: " + ex.Message);
+                }
+            });
+
+            void ImportButton(object? obj)
+            {
+                window.DialogResult = true;
+                window.Close();
+            }
+
+            void CancelImportButton(object? obj)
+            {
+                window.DialogResult = false;
+                window.Close();
+            }
         }
 
         private void DeleteTour(object? obj)
@@ -281,7 +371,7 @@ namespace Tourplanner.ViewModels
                 {
                     TransportType transportType = ConverStringToTransportType(tour.TransportType);
                     Tour? newTour = null;
-                    newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, transportType);
+                    newTour = await _tourManager.NewTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, transportType);
                     if(newTour != null)
                     {
                         AllTours.Add(newTour);
@@ -307,17 +397,72 @@ namespace Tourplanner.ViewModels
             }
         }
 
-        private void AddTourLog(object ?obj)
+        private void ShowTourDetails(object ?obj)
         {
-            if (isBusy || Tour is null) return;
+            if (isBusy) return;
+
+            if (Tour is null) return;
 
             var window = new Views.SingleTourView();
-            var tour = new SingleTourViewModel(window);
+            
+            var tour = new SingleTourViewModel(window)
+            {
+                GoBackButtonCommand = new RelayCommand(GoBackButton)
+            };
+            
+            // Übergibt dem SingleTourViewModel die Tour
+            tour.Tour = Tour;
 
-            //var newLog = _logManager.CreateLog();
-            //ThisLog.AddNewItem(newLog);
-            //ThisLog.CommitNew();
-            //Log = newLog;
+            if (window.ShowDialog() is not true) return;
+
+            void GoBackButton(object? obj)
+            {
+                window.DialogResult = false;
+                window.Close();
+            }
+        }
+
+        private void AddTourLog(object ?obj)
+        {
+            if (isBusy) return;
+
+            var window = new Views.TourManagerView();
+            var tour = new TourManagerViewModel(window)
+            {
+                CancelButtonCommand = new RelayCommand(CancelButton),
+                SaveButtonCommand = new RelayCommand(SaveButton)
+            };
+
+            if (window.ShowDialog() is not true) return;
+
+            
+            //try
+            //{
+            //    TransportType transportType = ConverStringToTransportType(tour.TransportType);
+            //    Tour? newTour = null;
+            //    newTour = await _tourManager.newTour(tour.Name, tour.Description, tour.StartLocation, tour.EndLocation, transportType);
+            //    if (newTour != null)
+            //    {
+            //        AllTours.Add(newTour);
+            //        UpdateShownTours();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new NullReferenceException("An error happend while creating a tour -> tour is null: " + ex.Message);
+            //}
+
+            void SaveButton(object? obj)
+            {
+                window.DialogResult = true;
+                window.Close();
+            }
+
+            void CancelButton(object? obj)
+            {
+                window.DialogResult = false;
+                window.Close();
+            }
         }
 
         private void ModifyTourLog(object? obj)

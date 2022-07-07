@@ -8,7 +8,7 @@
 *.sln.docstates
 *.dtbcache.v2
 *.futdcache.v1
-*.suo
+appsettings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
