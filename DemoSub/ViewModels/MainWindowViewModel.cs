@@ -37,6 +37,7 @@ namespace Tourplanner.ViewModels
         // Log
         private Log _log;
         private ObservableCollection<Log> AllLogs = new ObservableCollection<Log>();
+        public ObservableCollection<Log> ShownLogs { get; set; } = new ObservableCollection<Log>();
         private ILogManager _logManager;
         // Import
         private IImportManager _importManager;
@@ -236,11 +237,6 @@ namespace Tourplanner.ViewModels
 
             var selectedTourId = Tour.Id;
             var directoryPath = @"C:\";
-
-            //if (!Directory.Exists(directoryPath))
-            //{
-            //    Directory.CreateDirectory(directoryPath);
-            //}
 
             try
             {
