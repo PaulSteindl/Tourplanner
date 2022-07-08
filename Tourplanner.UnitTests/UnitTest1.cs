@@ -136,14 +136,14 @@ namespace Tourplanner.UnitTests
         {
             LogingManager.LoggerFactory = new Log4NetFactory("..\\Tourplanner\\log4net.config");
 
+            ICheckInput checkInput = new CheckInput();
             ITourManager tourManager = new TourManager
-                (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput.Object, calcA.Object, fileDAO.Object);
+                (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput, calcA.Object, fileDAO.Object);
 
-            checkInput.Setup(t => t.CheckUserInputTour("TestName", "TestDescription", "TestFrom", "TestTo")).Returns(true);
             routeManager.Setup(t => t.GetFullRoute("TestFrom", "TestTo", TransportType.Bicycle, It.IsAny<Guid>())).ReturnsAsync(testRoute);
             tourDAO.Setup(t => t.InsertTour(It.IsAny<Tour>())).Returns(false);
 
-            Assert.Throws<NullReferenceException>(() => tourManager.NewTour("TestName", "TestDescription", "TestFrom", "TestTo", TransportType.Bicycle));
+            Assert.Throws<ArgumentException>(() => tourManager.NewTour("#TestName", "TestDescription", "TestFrom", "TestTo", TransportType.Bicycle));
         }
     }
 }
