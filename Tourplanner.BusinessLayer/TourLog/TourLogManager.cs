@@ -24,11 +24,12 @@ namespace Tourplanner.BusinessLayer
 
         public Log? CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId)
         {
-            checkInput.CheckUserInputLog(comment);
             Log newLog = null;
 
             try
             {
+                checkInput.CheckUserInputLog(comment);
+
                 newLog = new Log
                 {
                     Id = new Guid(),
@@ -54,10 +55,10 @@ namespace Tourplanner.BusinessLayer
 
         public async Task<Log?> UpdateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Log log)
         {
-            checkInput.CheckUserInputLog(comment);
-
             try
             {
+                checkInput.CheckUserInputLog(comment);
+
                 log.Date = date;
                 log.Comment = comment;
                 log.Difficulty = difficulty;

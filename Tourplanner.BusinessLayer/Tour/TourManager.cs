@@ -60,12 +60,12 @@ namespace Tourplanner.BusinessLayer
 
         public async Task<Tour?> NewTour(string name, string description, string from, string to, TransportType transportType)
         {
-            Tour? newTour = null;
-
-            checkInput.CheckUserInputTour(name, description, from, to);
+            Tour? newTour = null;   
 
             try
             {
+                checkInput.CheckUserInputTour(name, description, from, to);
+
                 var newId = Guid.NewGuid();
                 var route = await routeManager.GetFullRoute(from, to, transportType, newId);
 
@@ -102,10 +102,10 @@ namespace Tourplanner.BusinessLayer
 
         public async Task<Tour?> UpdateTour(string name, string description, string from, string to, TransportType transportType, Tour tour)
         {
-            checkInput.CheckUserInputTour(name, description, from, to);
-
             try
             {
+                checkInput.CheckUserInputTour(name, description, from, to);
+
                 var logs = logManager.GetAllLogsByTourId(tour.Id);
 
                 Route? route = null;
