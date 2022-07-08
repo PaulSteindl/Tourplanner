@@ -12,7 +12,7 @@ namespace Tourplanner.BusinessLayer
     public class SearchManager : ISearchManager
     {
         private readonly ITourDAO tourDAO;
-        private readonly ILogger logger = Shared.LogManager.GetLogger<SearchManager>();
+        private readonly ILogger logger = LogingManager.GetLogger<SearchManager>();
 
         public SearchManager(ITourDAO tourDAO)
         {

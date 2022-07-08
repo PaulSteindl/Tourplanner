@@ -48,7 +48,7 @@ namespace Tourplanner.ViewModels
         public event EventHandler<Log> SelectedLogChanged;
         public EventHandler<LogChangeEventArgs> LogUpdated;
         public EventHandler<Log> LogAdded;
-        private readonly ILogManager _logManager;
+        private readonly ITourLogManager _logManager;
 
         // PARAMS TOUR
         private string _name = String.Empty;
@@ -266,7 +266,7 @@ namespace Tourplanner.ViewModels
         public ICommand ModifyTourLogButtonCommand { get; init; }
         public ICommand DeleteTourLogButtonCommand { get; init; }
 
-        public TourInformationViewModel(ILogManager logManager)
+        public TourInformationViewModel(ITourLogManager logManager)
         {
             this._logManager = logManager;
 
@@ -277,7 +277,7 @@ namespace Tourplanner.ViewModels
                 {
                     try
                     {
-                        var log = _logManager.CreateLog(Comment, _totalTime, _dateAndTime, _difficulty, _rating, Tour.Id);
+                        var log = _logManager.CreateLog(Tour.Id, Comment, _difficulty, _totalTime, _rating);
                         AllLogs.Add(log);
                         OnLogAdded();
                     }

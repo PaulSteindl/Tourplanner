@@ -47,7 +47,6 @@ namespace Tourplanner.BusinessLayer
             catch (Exception ex)
             {
                 logger.Error($"Couldn't create new Log, [{ex.Message}]");
-                throw new NullReferenceException("An error happend while creating a log -> log is null: " + ex.Message);
             }
 
             return newLog;
@@ -68,14 +67,15 @@ namespace Tourplanner.BusinessLayer
                 if (!logDAO.UpdateLogById(log)) throw new DataUpdateFailedException("Log couldn't get inserted");
 
                 logger.Debug($"Log updated with id: [{log.Id}]");
+                return log;
             }
             catch (Exception ex)
             {
                 logger.Error($"Tour couldn't update with id: [{log.Id}], [{ex.Message}]");
-                throw new NullReferenceException("An error happend while updating a log: " + ex.Message);
             }
 
-            return log;
+            logger.Error($"Tour couldn't update with id: [{log.Id}]");
+            return null;
         }
 
         public void DeleteLog(Guid logId)
