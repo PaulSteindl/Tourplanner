@@ -7,8 +7,9 @@
         xmlns:local="clr-namespace:Tourplanner.Views"
         xmlns:views="clr-namespace:Tourplanner.Views"
         xmlns:viewmodels="clr-namespace:Tourplanner.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="Tour Planner" Height="450" Width="800">
+        Title="Tour Planner" Height="600" Width="800" Loaded="Window_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Grid.Row="0" Padding="7.5" Height="40" FontSize="15">
             <MenuItem Header="_Tour Manager">
@@ -16,7 +17,6 @@
                     <MenuItem Header="_Add Tour" Command="{Binding AddTourCommand}"/>
                     <MenuItem Header="_Modify Tour" Command="{Binding ModifyTourCommand}"/>
                     <MenuItem Header="_Delete Tour" Command="{Binding DeleteTourCommand}"/>
-                    <MenuItem Header="_Show Tour Details" Command="{Binding ShowTourDetailsCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_Tour Logs">
                     <MenuItem Header="_Add Tour Log" Command="{Binding AddTourLogCommand}"/>
@@ -51,19 +51,17 @@
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
-                <GroupBox Grid.Column="0" Grid.Row="2" Header="Tours" Padding="4" FontSize="20">
-                    <ListBox ItemsSource="{Binding ShownTours}" SelectedItem="{Binding Path=Tour, Mode=TwoWay}"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Name}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                <GridSplitter Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Center" ResizeBehavior="PreviousAndNext" Width="1" Background="Black"/>
+
+                <GroupBox Grid.Column="0" Grid.Row="2" Header="Tours" Padding="4" FontSize="15">
+                    <views:TourListView x:Name="TourList"/>
+                </GroupBox>
+                <GroupBox Grid.Column="2" Header="Tour information" Padding="4" FontSize="15">
+                    <views:TourInformationView x:Name="TourInformation"/>
                 </GroupBox>
             </Grid>
         </Grid>

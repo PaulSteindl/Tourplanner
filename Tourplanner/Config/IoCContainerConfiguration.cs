@@ -67,25 +67,27 @@ namespace Tourplanner.Configuration
             services.AddSingleton<INavigationService, NavigationService>(s =>
             {
                 var navigationService = new NavigationService(s);
-                //navigationService.RegisterNavigation<AboutViewModel, AboutDialog>();
+                navigationService.RegisterNavigation<TourManagerViewModel, TourManagerView>();
                 navigationService.RegisterNavigation<MainWindowViewModel, MainWindowView>((viewModel, window) =>
                 {
-                    //window.SearchBar.DataContext = viewModel.TourManagerViewModel;
-                    //window.ResultView.DataContext = viewModel.SingleTourViewModel;
+                    window.TourInformation.DataContext = viewModel.TourInformationViewModel;
+                    window.TourList.DataContext = viewModel.TourListViewModel;
                 });
 
                 return navigationService;
             });
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<TourManagerViewModel>();
-            services.AddTransient<SingleTourViewModel>();
+            services.AddTransient<TourInformationViewModel>();
+            services.AddTransient<TourListViewModel>();
 
             // finished
             serviceProvider = services.BuildServiceProvider();
         }
         public MainWindowViewModel MainWindowViewModel => serviceProvider.GetRequiredService<MainWindowViewModel>();
         public TourManagerViewModel TourManagerViewModel => serviceProvider.GetRequiredService<TourManagerViewModel>();
-        public SingleTourViewModel SingleTourViewModel => serviceProvider.GetRequiredService<SingleTourViewModel>();
+        public TourInformationViewModel TourInformationViewModel => serviceProvider.GetRequiredService<TourInformationViewModel>();
+        public TourListViewModel TourListViewModel => serviceProvider.GetRequiredService<TourListViewModel>();
 
         public INavigationService NavigationService => serviceProvider.GetRequiredService<INavigationService>();
     }

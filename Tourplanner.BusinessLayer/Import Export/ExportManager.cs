@@ -23,6 +23,11 @@ namespace Tourplanner.BusinessLayer
         {
             try
             {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
                 Tour exportTour = tourDAO.SelectTourById(tourId);
 
                 if (exportTour != null)

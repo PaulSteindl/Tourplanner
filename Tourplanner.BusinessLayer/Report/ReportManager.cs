@@ -32,6 +32,11 @@ namespace Tourplanner.BusinessLayer
 
         public bool CreateTourReport(Tour tour, string path)
         {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             var fullpath = path + tour.Name + "_Report.pdf";
 
             if (!File.Exists(fullpath) && tour != null)
@@ -134,6 +139,11 @@ namespace Tourplanner.BusinessLayer
 
         public bool CreateSummarizeReport(string path)
         {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             var fullpath = path + "SummarizeReport.pdf";
 
             var tours = tourDAO.SelectAllTours();
