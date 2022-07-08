@@ -33,7 +33,7 @@ namespace Tourplanner.BusinessLayer
             this.calcA = calcA;
         }
 
-        public List<Tour> LoadTours()
+        public IEnumerable<Tour> LoadTours()
         {
             var tours = tourDAO.SelectAllTours();
 
@@ -145,7 +145,7 @@ namespace Tourplanner.BusinessLayer
             return tourDAO.DeleteTourById(tourId);
         }
 
-        public List<Tour> GetAllTours()
+        public IEnumerable<Tour> GetAllTours()
         {
             return tourDAO.SelectAllTours();
         }

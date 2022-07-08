@@ -15,7 +15,7 @@ namespace Tourplanner.DataAccessLayer
         /// <summary>
         /// Holt alle Logs von einer Tour
         /// </summary>
-        List<Log> SelectLogsByTourId(Guid id);
+        IEnumerable<Log> SelectLogsByTourId(Guid id);
 
         /// <summary>
         /// Updated einen Log über die Id

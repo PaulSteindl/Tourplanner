@@ -12,27 +12,27 @@ namespace Tourplanner.BusinessLayer
             this.logDAO = logDAO;
         }
 
-        public bool CalculateChildFriendly(List<Log> logs, double distance)
+        public bool CalculateChildFriendly(IEnumerable<Log> logs, double distance)
         {
             float sum = 0;
 
-            if(sum > 3 && distance < 8 && logs.Count > 9)
+            if(sum > 3 && distance < 8 && logs.Count() > 9)
                 return true;
-            else if(sum > 2 && distance < 5 && logs.Count > 9)
+            else if(sum > 2 && distance < 5 && logs.Count() > 9)
                 return true;
              
             return false;
         }
 
-        public PopularityEnum CalculatePopularity(List<Log> logs)
+        public PopularityEnum CalculatePopularity(IEnumerable<Log> logs)
         {
-            if (logs.Count > 100)
+            if (logs.Count() > 100)
                 return PopularityEnum.Perfect;
-            else if (logs.Count > 70)
+            else if (logs.Count() > 70)
                 return PopularityEnum.Excellent;
-            else if (logs.Count > 40)
+            else if (logs.Count() > 40)
                 return PopularityEnum.Good;
-            else if (logs.Count > 10)
+            else if (logs.Count() > 10)
                 return PopularityEnum.Okay;
 
             return PopularityEnum.Bad;

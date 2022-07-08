@@ -52,7 +52,7 @@ namespace Tourplanner.DataAccessLayer
             return affectedRows > 0;
         }
 
-        public List<Log> SelectLogsByTourId(Guid tourId)
+        public IEnumerable<Log> SelectLogsByTourId(Guid tourId)
         {
             try
             {

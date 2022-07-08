@@ -8,6 +8,6 @@ namespace Tourplanner.LogManager
     {
         public string CreateLog(Guid tourguid, string comment, DifficultyEnum difficulty, int totalTime, PopularityEnum rating);
         public string UpdateLog(Guid id, string comment, DateTime date, DifficultyEnum difficulty, int totalTime, PopularityEnum rating);
-        public List<Log>? GetLogsFromTour(Guid tourId);
+        public IEnumerable<Log> GetLogsFromTour(Guid tourId);
     }
 }

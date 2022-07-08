@@ -18,6 +18,6 @@ namespace Tourplanner.Models
         public string PicPath { get; set; } = String.Empty;
         public PopularityEnum? Popularity { get; set; }
         public bool ChildFriendly { get; set; }
-        public List<Log>? Logs { get; set; }
+        public IEnumerable<Log>? Logs { get; set; }
     }
 }

@@ -138,7 +138,7 @@ namespace Tourplanner.BusinessLayer
 
             var tours = tourDAO.SelectAllTours();
 
-            if (!File.Exists(fullpath) && tours != null && tours.Count > 0)
+            if (!File.Exists(fullpath) && tours != null && tours.Count() > 0)
             {
                 try
                 {
@@ -162,8 +162,8 @@ namespace Tourplanner.BusinessLayer
                     foreach (var t in tours)
                     {
                         table.AddCell(t.Name);
-                        table.AddCell(Enum.Parse<PopularityEnum>(calcA.AverageRatingCalc(t.Logs).ToString()).ToString());
-                        table.AddCell(calcA.CalcTimeFormated(Convert.ToInt32(calcA.AverageTimeCalc(t.Logs))));
+                        table.AddCell(Enum.Parse<PopularityEnum>(calcA.AverageRatingCalc(t.Logs.ToList()).ToString()).ToString());
+                        table.AddCell(calcA.CalcTimeFormated(Convert.ToInt32(calcA.AverageTimeCalc(t.Logs.ToList()))));
                     }
 
                     document.Add(table);

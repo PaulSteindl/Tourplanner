@@ -8,7 +8,7 @@ namespace Tourplanner.Models
 {
     public record BoundingBox
     {
-        public LrUl Lr { get; set; }
-        public LrUl Ul { get; set; }
+        public LrUl? Lr { get; set; }
+        public LrUl? Ul { get; set; }
     }
 }

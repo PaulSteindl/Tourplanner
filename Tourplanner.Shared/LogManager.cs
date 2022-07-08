@@ -8,7 +8,7 @@ namespace Tourplanner.Shared
 {
     public static class LogManager
     {
-        public static ILoggerFactory LoggerFactory { get; set; }
+        public static ILoggerFactory? LoggerFactory { get; set; }
 
         public static ILogger GetLogger<TContext>()
         {

@@ -13,6 +13,6 @@ namespace Tourplanner.BusinessLayer
         public Log? CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId);
         public Task<Log?> UpdateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Log log);
         public void DeleteLog(Guid logId);
-        public List<Log> GetAllLogsByTourId(Guid tourId);
+        public IEnumerable<Log> GetAllLogsByTourId(Guid tourId);
     }
 }

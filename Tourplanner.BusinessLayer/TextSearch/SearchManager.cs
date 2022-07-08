@@ -13,7 +13,7 @@ namespace Tourplanner.BusinessLayer
 
         private readonly ILogger logger = Shared.LogManager.GetLogger<SearchManager>();
 
-        public IEnumerable<Tour> FindMatchingTours(List<Tour> tours, string? searchText = null)
+        public IEnumerable<Tour> FindMatchingTours(IEnumerable<Tour> tours, string? searchText = null)
         {
             logger.Debug($"Searching in Tour/Log for [{searchText}]");
 

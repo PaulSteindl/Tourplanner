@@ -88,7 +88,7 @@ namespace Tourplanner.DataAccessLayer
             return null;
         }
 
-        public List<Tour> SelectAllTours()
+        public IEnumerable<Tour> SelectAllTours()
         {
             try
             {

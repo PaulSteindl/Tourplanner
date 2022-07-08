@@ -9,6 +9,6 @@ namespace Tourplanner.BusinessLayer
 {
     public interface ISearchManager
     {
-        public IEnumerable<Tour> FindMatchingTours(List<Tour> tours, string? searchText = null);
+        public IEnumerable<Tour> FindMatchingTours(IEnumerable<Tour> tours, string? searchText = null);
     }
 }

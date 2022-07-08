@@ -83,7 +83,7 @@ namespace Tourplanner.BusinessLayer
             logDAO.DeleteLogById(logId);
         }
 
-        public List<Log> GetAllLogsByTourId(Guid tourId)
+        public IEnumerable<Log> GetAllLogsByTourId(Guid tourId)
         {
             return logDAO.SelectLogsByTourId(tourId);
         }

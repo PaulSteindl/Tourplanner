@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tourplanner.BusinessLayer\Tourplanner.BusinessLayer.csproj" />
-    <ProjectReference Include="..\Tourplanner.MapQuest\Tourplanner.BusinessLayer.csproj" />
     <ProjectReference Include="..\Tourplanner.Shared.Log4Net\Tourplanner.Shared.Log4Net.csproj" />
     <ProjectReference Include="..\Tourplanner.Shared\Tourplanner.Shared.csproj" />
   </ItemGroup>
