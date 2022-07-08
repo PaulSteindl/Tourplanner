@@ -1,0 +1,69 @@
+﻿<Window x:Class="Tourplanner.Views.TourManagerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tourplanner.Views"
+        xmlns:transtype="clr-namespace:Tourplanner.Models;assembly=Tourplanner.Models"
+        mc:Ignorable="d"
+        Title="Tour Manager" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Tour Manager" Padding="4" FontSize="15" Margin="0,0,0,147" Grid.RowSpan="2">
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Description:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Start location:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="End location:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Row="4" Grid.Column="0" x:Name="enum" Content="Transport type:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding Name}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="4" MaxLength="68" Text="{Binding Description}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding StartLocation}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding EndLocation}"/>
+                <ComboBox Grid.Row="4" Grid.Column="1" Margin="4,4,467,4" Width="200" SelectedItem="{Binding SelectedMyEnumType}" ItemsSource="{Binding MyEnumTypeValues}"/>
+
+                <Button Grid.Row="5" Grid.Column="1" Margin="10,4,563,4" Content="Save" Command="{Binding SaveButtonCommand}" IsDefault="True"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Tour importieren" Padding="4" FontSize="15" Grid.Row="1" Height="147" VerticalAlignment="Bottom">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Directory path:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="4" MaxLength="200" Text="{Binding DirectoryPath}"/>
+
+                <Button Grid.Row="1" Margin="0,10,0,-2" Content="Cancel" Command="{Binding CancelImportButtonCommand}" IsDefault="True"/>
+                <Button Grid.Row="1" Grid.Column="1" Margin="10,10,562,-2" Content="Import" Width="100" Command="{Binding ImportButtonCommand}" IsDefault="True"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

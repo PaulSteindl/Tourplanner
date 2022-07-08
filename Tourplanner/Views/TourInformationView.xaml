@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="Tourplanner.Views.TourInformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tourplanner.Views"
+             xmlns:views="clr-namespace:Tourplanner.Views"
+             xmlns:viewmodels="clr-namespace:Tourplanner.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:TourInformationViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TabControl Grid.Row="1">
+                    <TabItem Header="Tour information" FontSize="15">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Name:" FontWeight="Normal"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="Description:" FontWeight="Normal"/>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Start location:" FontWeight="Normal"/>
+                            <Label Grid.Row="3" Grid.Column="0" Content="End location:" FontWeight="Normal"/>
+                            <Label Grid.Row="4" Grid.Column="0" Content="Transport type:" FontWeight="Normal"/>
+                            <Label Grid.Row="5" Grid.Column="0" Content="Distance:" FontWeight="Normal"/>
+                            <Label Grid.Row="6" Grid.Column="0" Content="Estimated time:" FontWeight="Normal"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Name}"/>
+                            <Label Grid.Row="1" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Description}"/>
+                            <Label Grid.Row="2" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding From}"/>
+                            <Label Grid.Row="3" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding To}"/>
+                            <Label Grid.Row="4" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Transporttype}"/>
+                            <Label Grid.Row="5" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Distance}"/>
+                            <Label Grid.Row="6" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Time}"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Route Image" FontSize="15">
+                        <Image DataContext="{Binding Tour}" Source="{Binding PicPath}" Stretch="UniformToFill"/>
+                    </TabItem>
+                    <TabItem Header="Tour Logs" FontSize="15" Height="24" VerticalAlignment="Top">
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <GroupBox Header="Logs" Padding="4" FontSize="15">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Content="Date/Time:" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                    <Label Grid.Row="1" Grid.Column="0" Content="Comment:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Label Grid.Row="2" Grid.Column="0" Content="Total time:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Label Grid.Row="3" Grid.Column="0" Content="Difficulty:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Label Grid.Row="4" Grid.Column="0" Content="Rating:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                                    <TextBox Grid.Row="0" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding DateAndTime}"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Margin="4" MaxLength="68" Text="{Binding Comment}"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding TotalTime}"/>
+                                    <ComboBox Grid.Row="3" Grid.Column="1" Margin="4" SelectedItem="{Binding SelectedDiffEnumType}" ItemsSource="{Binding MyDiffTypeValues}"></ComboBox>
+                                    <ComboBox Grid.Row="4" Grid.Column="1" Margin="4" SelectedItem="{Binding SelectedRatEnumType}" ItemsSource="{Binding MyRatTypeValues}"></ComboBox>
+                                    <Button Grid.Row="5" Margin="5,4,5,4" Content="Save" Command="{Binding LogSaveButtonCommand}" IsDefault="True"/>
+                                </Grid>
+                            </GroupBox>
+                            <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="1" Background="Black"/>
+                            <DataGrid Grid.Row="1" ItemsSource="{Binding AllLogs}" AutoGenerateColumns="True"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
