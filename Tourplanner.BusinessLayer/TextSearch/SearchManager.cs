@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tourplanner.DataAccessLayer;
 using Tourplanner.Models;
 using Tourplanner.Shared;
 
@@ -10,12 +11,19 @@ namespace Tourplanner.BusinessLayer
 {
     public class SearchManager : ISearchManager
     {
-
+        private readonly ITourDAO tourDAO;
         private readonly ILogger logger = Shared.LogManager.GetLogger<SearchManager>();
 
-        public IEnumerable<Tour> FindMatchingTours(IEnumerable<Tour> tours, string? searchText = null)
+        public SearchManager(ITourDAO tourDAO)
+        {
+            this.tourDAO = tourDAO;
+        }
+
+        public IEnumerable<Tour> FindMatchingTours(string? searchText = null)
         {
             logger.Debug($"Searching in Tour/Log for [{searchText}]");
+
+            var tours = tourDAO.SelectAllTours();
 
             if (string.IsNullOrWhiteSpace(searchText))
             {

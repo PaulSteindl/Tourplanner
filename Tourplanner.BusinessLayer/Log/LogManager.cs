@@ -31,7 +31,7 @@ namespace Tourplanner.BusinessLayer
             {
                 newLog = new Log
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     TourId = tourId,
                     Date = date,
                     Comment = comment,

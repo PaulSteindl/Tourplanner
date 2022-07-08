@@ -37,11 +37,26 @@ namespace Tourplanner.ViewModels
             }
         }
 
+        public event EventHandler<string?>? SearchTextChanged;
+
+        private string? searchText;
+        public string? SearchText
+        {
+            get => searchText;
+            set
+            {
+                searchText = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Action? Close { get; set; }
 
         private readonly ITourManager _tourManager;
+        private readonly ILogManager _logManager;
         private readonly IExportManager _exportManager;
         private readonly IReportManager _reportManager;
+        private readonly ISearchManager _searchManager;
 
         // VIEW MODELS
         public TourManagerViewModel TourManagerViewModel { get; }
@@ -62,14 +77,18 @@ namespace Tourplanner.ViewModels
 
         // CTOR
         public MainWindowViewModel(TourManagerViewModel tourManagerViewModel, TourInformationViewModel tourInformationViewModel, TourListViewModel tourListViewModel,
-            ITourManager tourManager, IExportManager exportManager, IReportManager reportManager)
+            ITourManager tourManager, IExportManager exportManager, IReportManager reportManager, ISearchManager searchManager, ILogManager logManager)
         {
             this.TourManagerViewModel = tourManagerViewModel;
             this.TourInformationViewModel = tourInformationViewModel;
             this.TourListViewModel = tourListViewModel;
             this._tourManager = tourManager;
+            this._logManager = logManager;
             this._exportManager = exportManager;
             this._reportManager = reportManager;
+            this._searchManager = searchManager;
+
+            _tourManager.LoadTours().ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
 
             AddTourCommand = new RelayCommand((_) =>
             {
@@ -149,6 +168,28 @@ namespace Tourplanner.ViewModels
                 }
             });
 
+            SearchFieldCommand = new RelayCommand((_) =>
+            {
+                try
+                {
+                    var searchResult = _searchManager.FindMatchingTours(SearchText);
+                    TourListViewModel.AllTours.Clear();
+                    searchResult.ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
+                    SearchTextChanged?.Invoke(this, SearchText);
+                }
+                catch (Exception ex)
+                {
+                    throw new NullReferenceException("An error happend while searching through tours: " + ex.Message);
+                }
+            });
+
+            ResetSearchFieldCommand = new RelayCommand((_) =>
+            {
+                SearchText = "";
+                SearchTextChanged?.Invoke(this, SearchText);
+                _tourManager.LoadTours().ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
+            });
+
             ExitApplicationCommand = new RelayCommand((_) =>
             {
                 Close?.Invoke();
@@ -167,6 +208,7 @@ namespace Tourplanner.ViewModels
             {
                 TourInformationViewModel.Tour = _tour;
             };
+
         }
     }
 }
