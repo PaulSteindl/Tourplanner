@@ -24,12 +24,12 @@ namespace Tourplanner.BusinessLayer
             return input;
         }
 
-        public bool CheckUserInputTour(string name, string description, string from, string to, TransportType transportType)
+        public bool CheckUserInputTour(string name, string description, string from, string to)
         {
             if (name == null || !CheckUserInput(name)) throw new ArgumentException("Name is invalid");
-            if (name == null || !CheckUserInputWithSymbols(description)) throw new ArgumentException("Description is invalid");
-            if (name == null || !CheckUserInput(from)) throw new ArgumentException("Starting location is invalid");
-            if (name == null || !CheckUserInput(to)) throw new ArgumentException("Ending location is invalid");
+            if (description == null || !CheckUserInputWithSymbols(description)) throw new ArgumentException("Description is invalid");
+            if (from == null || !CheckUserInput(from)) throw new ArgumentException("Starting location is invalid");
+            if (to == null || !CheckUserInput(to)) throw new ArgumentException("Ending location is invalid");
 
             return true;
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tourplanner.Shared
 {
-    public static class LogManager
+    public static class LogingManager
     {
         public static ILoggerFactory? LoggerFactory { get; set; }
 

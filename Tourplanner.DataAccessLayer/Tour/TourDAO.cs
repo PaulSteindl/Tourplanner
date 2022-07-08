@@ -21,7 +21,7 @@ namespace Tourplanner.DataAccessLayer
         private const string UpdateTourByIdCommand = "UPDATE tours SET name = @name, description = @description, start = @start, finish = @finish, transporttype = @transporttype, distance = @distance, time = @time, picpath = @picpath, popularity = @popularity, childfriendly = @childfriendly WHERE tour_id = @tour_id";
         private const string DeleteTourByIdCommand = "DELETE FROM tours WHERE tour_id = @tour_id";
 
-        private readonly ILogger logger = LogManager.GetLogger<TourDAO>();
+        private readonly ILogger logger = LogingManager.GetLogger<TourDAO>();
         private IDatabaseManager databaseManager;
 
         public TourDAO(IDatabaseManager databaseManager)

@@ -13,16 +13,16 @@ namespace Tourplanner.BusinessLayer
 {
     public class TourManager : ITourManager
     {
-        private readonly ILogger logger = Shared.LogManager.GetLogger<TourManager>();
+        private readonly ILogger logger = LogingManager.GetLogger<TourManager>();
         IRouteManager routeManager;
         ITourDAO tourDAO;
         ILogDAO logDAO;
         IFileDAO fileDAO;
-        ILogManager logManager;
+        ITourLogManager logManager;
         ICheckInput checkInput;
         ICalculateAttributes calcA;
 
-        public TourManager(IRouteManager routeManager, ILogManager logManager, ITourDAO tourDAO, ILogDAO logDAO, ICheckInput checkInput, ICalculateAttributes calcA, IFileDAO fileDAO)
+        public TourManager(IRouteManager routeManager, ITourLogManager logManager, ITourDAO tourDAO, ILogDAO logDAO, ICheckInput checkInput, ICalculateAttributes calcA, IFileDAO fileDAO)
         {
             this.routeManager = routeManager;
             this.tourDAO = tourDAO;
@@ -46,21 +46,23 @@ namespace Tourplanner.BusinessLayer
             return tours;
         }
 
-        public async Task<Tour?> DoesMapExistAsync(string path, Tour tour)
+        public async Task<Tour?> DoesMapExistAsync(Tour tour)
         {
-            if(!File.Exists(path))
+            if(!File.Exists(tour.PicPath))
             {
-                logger.Debug("Downloaded Map again");
-                return await UpdateTour(tour.Name, tour.Description, tour.From, tour.To, tour.Transporttype, tour);
+                logger.Debug("Download Map again");
+                var route = await routeManager.GetFullRoute(tour.From, tour.To, tour.Transporttype, tour.Id);
+                if (route != null)
+                    tour.PicPath = route.PicPath;
             }
-            return null;
+            return tour;
         }
 
         public async Task<Tour?> NewTour(string name, string description, string from, string to, TransportType transportType)
         {
             Tour? newTour = null;
 
-            checkInput.CheckUserInputTour(name, description, from, to, transportType);
+            checkInput.CheckUserInputTour(name, description, from, to);
 
             try
             {
@@ -101,13 +103,16 @@ namespace Tourplanner.BusinessLayer
 
         public async Task<Tour?> UpdateTour(string name, string description, string from, string to, TransportType transportType, Tour tour)
         {
-            checkInput.CheckUserInputTour(name, description, from, to, transportType);
+            checkInput.CheckUserInputTour(name, description, from, to);
 
             try
             {
                 var logs = logManager.GetAllLogsByTourId(tour.Id);
 
-                var route = await routeManager.GetFullRoute(from, to, transportType, tour.Id);
+                Route? route = null;
+
+                if(from != tour.From || to != tour.To || transportType != tour.Transporttype)
+                    route = await routeManager.GetFullRoute(from, to, transportType, tour.Id);
 
                 if (route != null)
                 {
@@ -122,12 +127,21 @@ namespace Tourplanner.BusinessLayer
                     tour.ChildFriendly = calcA.CalculateChildFriendly(logs, tour.Distance);
                     tour.Popularity = calcA.CalculatePopularity(logs);
 
-                    if(!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
+                    if (!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
+
+                    logger.Debug($"Tour updated through Route with id: [{tour.Id}]");
+                }
+                else if(tour.Name != name || tour.Description != description)
+                {
+                    tour.Name = name;
+                    tour.Description = description;
+
+                    if (!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
 
                     logger.Debug($"Tour updated with id: [{tour.Id}]");
-
-                    return tour;
                 }
+
+                return tour;
             }
             catch (Exception ex) when (ex is not DataUpdateFailedException)
             {
