@@ -9,6 +9,7 @@ using Npgsql;
 using System.Data;
 using Tourplanner.Exceptions;
 using System.Globalization;
+using Tourplanner.Shared;
 
 namespace Tourplanner.DataAccessLayer
 {
@@ -20,6 +21,7 @@ namespace Tourplanner.DataAccessLayer
         private const string UpdateTourByIdCommand = "UPDATE tours SET name = @name, description = @description, start = @start, finish = @finish, transporttype = @transporttype, distance = @distance, time = @time, picpath = @picpath, popularity = @popularity, childfriendly = @childfriendly WHERE tour_id = @tour_id";
         private const string DeleteTourByIdCommand = "DELETE FROM tours WHERE tour_id = @tour_id";
 
+        private readonly ILogger logger = LogManager.GetLogger<TourDAO>();
         private IDatabaseManager databaseManager;
 
         public TourDAO(IDatabaseManager databaseManager)
@@ -50,10 +52,12 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Error(ex.Message);
             }
 
+            logger.Debug($"Tried to insert Tour, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 
@@ -72,17 +76,19 @@ namespace Tourplanner.DataAccessLayer
                         tour = ReadTourDetails(reader);
                     }
 
+                    logger.Debug($"Selected tour with id: [{tour.Id}], expected id: [{tourId}]");
                     return tour;
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Error(ex.Message);
             }
 
             return null;
         }
 
-        public List<Tour> SelectAllTours()
+        public IEnumerable<Tour> SelectAllTours()
         {
             try
             {
@@ -98,13 +104,16 @@ namespace Tourplanner.DataAccessLayer
                         tours.Add(tour);
                     }
 
+                    logger.Debug($"Selected all tours, count: [{tours.Count}]");
                     return tours;
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Error(ex.Message);
             }
 
+            logger.Debug($"Selected all tours, count: 0");
             return new List<Tour>();
         }
 
@@ -132,10 +141,12 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Error(ex.Message);
             }
 
+            logger.Debug($"Tried to update Tour, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 
@@ -153,11 +164,12 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
-
+                logger.Error(ex.Message);
             }
 
+            logger.Debug($"Tried to delete Tour, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 

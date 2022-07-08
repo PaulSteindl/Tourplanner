@@ -19,7 +19,7 @@ namespace Tourplanner.DataAccessLayer
         /// <summary>
         /// Holt alle Tours
         /// </summary>
-        List<Tour> SelectAllTours();
+        IEnumerable<Tour> SelectAllTours();
 
         /// <summary>
         /// Updated eine Tour über die Id

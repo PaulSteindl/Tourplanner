@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Tourplanner.Shared;
+using Tourplanner.Shared.Log4Net;
 
 namespace Tourplanner.Configuration
 {
@@ -38,12 +40,10 @@ namespace Tourplanner.Configuration
             services.AddSingleton<IMapQuestConfiguration>( s => s.GetRequiredService<AppConfiguration>());
 
             // Logger setup
-            /*
             services.AddSingleton<ILoggerFactory, Log4NetFactory>(s =>
             {
                 return new Log4NetFactory("log4net.config");
             });
-            */
 
             // DAL setup
             services.AddSingleton<IDatabaseManager, DatabaseManager>();
@@ -61,6 +61,7 @@ namespace Tourplanner.Configuration
             services.AddSingleton<IDirections, Directions>();
             services.AddSingleton<IRouteManager, RouteManager>();
             services.AddSingleton<IReportManager, ReportManager>();
+            services.AddSingleton<ISearchManager, SearchManager>();
 
             // UI setup
             services.AddSingleton<INavigationService, NavigationService>(s =>

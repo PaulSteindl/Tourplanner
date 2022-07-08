@@ -7,8 +7,8 @@ using Tourplanner.Models;
 
 namespace Tourplanner.BusinessLayer
 {
-    public interface IRouteManager
+    public interface ISearchManager
     {
-        public Task<Route> GetFullRoute(string from, string to, TransportType transportType, Guid tourId);
+        public IEnumerable<Tour> FindMatchingTours(IEnumerable<Tour> tours, string? searchText = null);
     }
 }

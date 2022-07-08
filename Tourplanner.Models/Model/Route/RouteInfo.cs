@@ -8,6 +8,6 @@ namespace Tourplanner.Models
 {
     public record RouteInfo
     {
-        public Route Route { get; set; }
+        public Route? Route { get; set; }
     }
 }

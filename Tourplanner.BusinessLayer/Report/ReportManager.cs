@@ -13,6 +13,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer
 {
@@ -20,6 +21,8 @@ namespace Tourplanner.BusinessLayer
     {
         ITourDAO tourDAO;
         ICalculateAttributes calcA;
+        private readonly ILogger logger = Shared.LogManager.GetLogger<ReportManager>();
+
 
         public ReportManager(ITourDAO tourDAO, ICalculateAttributes calcA)
         {
@@ -119,14 +122,18 @@ namespace Tourplanner.BusinessLayer
 
                     document.Close();
 
+                    logger.Debug($"TourReport created with path: [{fullpath}]");
+
                     return true;
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
+                    logger.Error($"Couldn't create TourReport, [{ex}]");
                     return false;
                 }
             }
-            
+
+            logger.Debug($"Couldn't create TourReport with path: [{fullpath}], tour is null or File already exists");
             return false;
         }
 
@@ -141,7 +148,7 @@ namespace Tourplanner.BusinessLayer
 
             var tours = tourDAO.SelectAllTours();
 
-            if (!File.Exists(fullpath) && tours != null && tours.Count > 0)
+            if (!File.Exists(fullpath) && tours != null && tours.Count() > 0)
             {
                 try
                 {
@@ -165,8 +172,8 @@ namespace Tourplanner.BusinessLayer
                     foreach (var t in tours)
                     {
                         table.AddCell(t.Name);
-                        table.AddCell(Enum.Parse<PopularityEnum>(calcA.AverageRatingCalc(t.Logs).ToString()).ToString());
-                        table.AddCell(calcA.CalcTimeFormated(Convert.ToInt32(calcA.AverageTimeCalc(t.Logs))));
+                        table.AddCell(Enum.Parse<PopularityEnum>(calcA.AverageRatingCalc(t.Logs.ToList()).ToString()).ToString());
+                        table.AddCell(calcA.CalcTimeFormated(Convert.ToInt32(calcA.AverageTimeCalc(t.Logs.ToList()))));
                     }
 
                     document.Add(table);
@@ -177,10 +184,12 @@ namespace Tourplanner.BusinessLayer
                 }
                 catch (Exception ex)
                 {
+                    logger.Error($"Couldn't create SummarizeReport, [{ex}]");
                     return false;
                 }
             }
-            
+
+            logger.Debug($"Couldn't create SummarizeReport with path: [{fullpath}], tour is null or File already exists");
             return false;
         }
 

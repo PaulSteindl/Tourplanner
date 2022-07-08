@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Tourplanner.DataAccessLayer;
 using Tourplanner.Models;
+using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer
 {
@@ -8,6 +9,7 @@ namespace Tourplanner.BusinessLayer
     {
         private IFileDAO fileDAO;
         private ITourManager tourManager;
+        private readonly ILogger logger = Shared.LogManager.GetLogger<ImportManager>();
 
         public ImportManager(IFileDAO fileDAO, ITourManager tourManager)
         {
@@ -23,6 +25,8 @@ namespace Tourplanner.BusinessLayer
 
             if(importTour != null)
                 importTour = await tourManager.NewTour(importTour.Name, importTour.Description ?? String.Empty, importTour.From, importTour.To, importTour.Transporttype);
+
+            logger.Debug($"Tour imported with id: [{importTour.Id}]");
 
             return importTour ?? throw new NullReferenceException("Error with tour import");
         }

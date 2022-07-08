@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tourplanner.Models
+namespace Tourplanner.Shared
 {
-    public record BoundingBox
+    public interface ILoggerFactory
     {
-        public LrUl? Lr { get; set; }
-        public LrUl? Ul { get; set; }
+        ILogger CreateLogger<TContext>();
     }
 }

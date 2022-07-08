@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using Tourplanner.ViewModels;
 using Tourplanner.Configuration;
+using Tourplanner.Shared.Log4Net;
+using Tourplanner.Shared;
 
 namespace Tourplanner
 {
@@ -17,13 +19,17 @@ namespace Tourplanner
     /// </summary>
     public partial class App : Application
     {
+        private readonly Shared.ILogger logger = Shared.LogManager.GetLogger<App>();
+
         static App()
         {
-
+            Shared.LogManager.LoggerFactory = new Log4NetFactory("log4net.config");
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            logger.Debug("App started");
+
             var ioCConfig = new IoCContainerConfiguration();
             ioCConfig.NavigationService.NavigateTo<MainWindowViewModel>();
         }

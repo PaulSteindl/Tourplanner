@@ -11,6 +11,7 @@ using System.Net.Http.Json;
 using Tourplanner.Models;
 using Tourplanner.DataAccessLayer;
 using System.Globalization;
+using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer
 {
@@ -19,6 +20,7 @@ namespace Tourplanner.BusinessLayer
 
         IMapQuestConfiguration configuration;
         private readonly HttpClient httpClient;
+        private readonly ILogger logger = Shared.LogManager.GetLogger<Directions>();
 
         public Directions(IMapQuestConfiguration mapQuest)
         {
@@ -34,13 +36,13 @@ namespace Tourplanner.BusinessLayer
 
                 var routeInfo = await httpClient.GetFromJsonAsync<RouteInfo>(mapQuestRequestUrl);
 
-                if(routeInfo != null)
-                    return routeInfo.Route ?? throw new FetchDataException("Route is null");
-                else
-                    throw new FetchDataException("RouteInfo is null");
+                logger.Debug($"Fetched Routeinfo with session id{routeInfo.Route.SessionId}");
+
+                return routeInfo.Route ?? throw new FetchDataException("Route is null");
             }
             catch (Exception ex) when (ex is not FetchDataException)
             {
+                logger.Error($"Couldn't fetch Routeinfo, [{ex}]");
                 throw new FetchDataException("Error while fetching route data: ", ex);
             }
         }
@@ -58,10 +60,13 @@ namespace Tourplanner.BusinessLayer
 
                 var mapArray = await httpClient.GetByteArrayAsync(mapQuestRequestUrl);
 
+                logger.Debug($"Fetched Map for Route with session id{route.SessionId}");
+
                 return mapArray ?? throw new FetchDataException("Route is null");
             }
             catch (Exception ex) when (ex is not FetchDataException)
             {
+                logger.Error($"Couldn't fetch Map, [{ex}]");
                 throw new FetchDataException("Error while fetching map data: ", ex);
             }
         }

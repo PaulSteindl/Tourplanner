@@ -2,6 +2,7 @@
 using Tourplanner.DataAccessLayer;
 using Newtonsoft.Json;
 using System.Text.Json;
+using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer
 {
@@ -9,6 +10,7 @@ namespace Tourplanner.BusinessLayer
     {
         private ITourDAO tourDAO;
         private IFileDAO fileDAO;
+        private readonly ILogger logger = Shared.LogManager.GetLogger<ExportManager>();
 
         public ExportManager(ITourDAO tourDAO, IFileDAO fileDAO)
         {
@@ -37,13 +39,18 @@ namespace Tourplanner.BusinessLayer
 
                     fileDAO.SaveExportTour(jsonString, path);
 
+                    logger.Debug($"Exported Tour: [{exportTour.Name}] ");
+
                     return true;
                 }
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
+                logger.Error($"Couldnt export Tour: [{ex.Message}]");
                 return false;
             }
+
+            logger.Debug($"Couldnt export Tour: exportTour is null ");
 
             return false;
         }
