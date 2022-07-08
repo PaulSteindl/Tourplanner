@@ -95,7 +95,6 @@ namespace Tourplanner.BusinessLayer
             catch (Exception ex)
             {
                 logger.Error($"Couldn't create new Tour, [{ex.Message}]");
-                throw new NullReferenceException("An error happend while creating a tour -> tour is null: " + ex.Message);
             }
 
             return newTour;
@@ -143,10 +142,9 @@ namespace Tourplanner.BusinessLayer
 
                 return tour;
             }
-            catch (Exception ex) when (ex is not DataUpdateFailedException)
+            catch (Exception ex)
             {
                 logger.Error($"Tour couldn't update with id: [{tour.Id}], [{ex}]");
-                throw new ArgumentException("An error happend while updating a tour: " + ex.Message);
             }
 
             logger.Error($"Tour couldn't update with id: [{tour.Id}], route was null");
