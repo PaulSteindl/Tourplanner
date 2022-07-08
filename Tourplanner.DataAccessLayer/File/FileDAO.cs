@@ -24,7 +24,7 @@ namespace Tourplanner.DataAccessLayer
 
             logger.Debug($"Created picture [{path}].");
 
-            return path;
+            return Path.GetFullPath(path);
         }
 
         public void DeleteImage(Guid tourId)

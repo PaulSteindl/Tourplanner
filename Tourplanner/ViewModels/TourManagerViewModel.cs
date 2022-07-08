@@ -151,8 +151,6 @@ namespace Tourplanner.ViewModels
             }
         }
 
-
-
         public string DirectoryPath
         {
             get => _directoryPath;
@@ -199,7 +197,6 @@ namespace Tourplanner.ViewModels
                 {
                     try
                     {
-
                         Tour? newTour = null;
                         newTour = await _tourManager.NewTour(Name, Description, StartLocation, EndLocation, _transportType);
                         if (newTour is not null)
