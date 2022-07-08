@@ -33,7 +33,7 @@ namespace Tourplanner.ViewModels
         // LOG
         private Log? _log;
         public ObservableCollection<Log> AllLogs { get; } = new();
-        private ILogManager _logManager;
+        private ITourLogManager _logManager;
 
         // PARAMS TOUR
         private string _name = String.Empty;
@@ -180,7 +180,7 @@ namespace Tourplanner.ViewModels
         public ICommand ModifyTourLogButtonCommand { get; init; }
         public ICommand DeleteTourLogButtonCommand { get; init; }
 
-        public TourInformationViewModel(ILogManager logManager)
+        public TourInformationViewModel(ITourLogManager logManager)
         {
             this._logManager = logManager;
 

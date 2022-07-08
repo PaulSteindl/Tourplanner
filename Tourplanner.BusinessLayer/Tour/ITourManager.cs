@@ -10,6 +10,6 @@ namespace Tourplanner.BusinessLayer
         public bool DeleteTour(Guid tourId);
         public IEnumerable<Tour> GetAllTours();
         public Tour UpdateTourAttributes(Tour tour);
-        public Task<Tour?> DoesMapExistAsync(string path, Tour tour);
+        public Task<Tour?> DoesMapExistAsync(Tour tour);
     }
 }
