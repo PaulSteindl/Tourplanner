@@ -9,7 +9,7 @@ namespace Tourplanner.BusinessLayer
     {
         private IFileDAO fileDAO;
         private ITourManager tourManager;
-        private readonly ILogger logger = Shared.LogManager.GetLogger<ImportManager>();
+        private readonly ILogger logger = LogingManager.GetLogger<ImportManager>();
 
         public ImportManager(IFileDAO fileDAO, ITourManager tourManager)
         {

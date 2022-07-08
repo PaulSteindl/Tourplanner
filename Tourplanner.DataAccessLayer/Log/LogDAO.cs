@@ -16,7 +16,7 @@ namespace Tourplanner.DataAccessLayer
         private const string DeleteLogByIdCommand = "DELETE FROM logs WHERE log_id = @id";
 
         private IDatabaseManager databaseManager;
-        private readonly ILogger logger = LogManager.GetLogger<LogDAO>();
+        private readonly ILogger logger = LogingManager.GetLogger<LogDAO>();
 
         public LogDAO(IDatabaseManager databaseManager)
         {

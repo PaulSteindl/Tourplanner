@@ -10,13 +10,13 @@ using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer
 {
-    public class LogManager : ILogManager
+    public class TourLogManager : ITourLogManager
     {
         ILogDAO logDAO;
         ICheckInput checkInput;
-        private readonly ILogger logger = Shared.LogManager.GetLogger<LogManager>();
+        private readonly ILogger logger = LogingManager.GetLogger<TourLogManager>();
 
-        public LogManager(ILogDAO logDAO, ICheckInput checkInput)
+        public TourLogManager(ILogDAO logDAO, ICheckInput checkInput)
         {
             this.logDAO = logDAO;
             this.checkInput = checkInput;

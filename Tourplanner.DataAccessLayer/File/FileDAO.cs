@@ -11,7 +11,7 @@ namespace Tourplanner.DataAccessLayer
 {
     public class FileDAO : IFileDAO
     {
-        private readonly ILogger logger = LogManager.GetLogger<FileDAO>();
+        private readonly ILogger logger = LogingManager.GetLogger<FileDAO>();
         readonly string picDirPath = "..\\..\\..\\..\\TourImages";
 
         public string SaveImage(byte[] mapArray, Guid tourId)
@@ -25,6 +25,16 @@ namespace Tourplanner.DataAccessLayer
             logger.Debug($"Created picture [{path}].");
 
             return path;
+        }
+
+        public void DeleteImage(Guid tourId)
+        {
+            var path = $"{picDirPath}\\{tourId}.png";
+
+            if (File.Exists(path))
+                File.Delete(path);
+
+            logger.Debug($"Deleted picture [{path}].");
         }
 
         public string ReadImportFile(string filepath)

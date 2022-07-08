@@ -21,7 +21,7 @@ namespace Tourplanner.BusinessLayer
     {
         ITourDAO tourDAO;
         ICalculateAttributes calcA;
-        private readonly ILogger logger = Shared.LogManager.GetLogger<ReportManager>();
+        private readonly ILogger logger = LogingManager.GetLogger<ReportManager>();
 
 
         public ReportManager(ITourDAO tourDAO, ICalculateAttributes calcA)
@@ -157,6 +157,7 @@ namespace Tourplanner.BusinessLayer
                     table.AddHeaderCell(getHeaderCell("Tourname"));
                     table.AddHeaderCell(getHeaderCell("Rating"));
                     table.AddHeaderCell(getHeaderCell("Time"));
+                    table.AddHeaderCell(getHeaderCell("Difficulty"));
                     table.SetFontSize(10).SetBackgroundColor(ColorConstants.WHITE);
 
                     foreach (var t in tours)
@@ -164,6 +165,7 @@ namespace Tourplanner.BusinessLayer
                         table.AddCell(t.Name);
                         table.AddCell(Enum.Parse<PopularityEnum>(calcA.AverageRatingCalc(t.Logs.ToList()).ToString()).ToString());
                         table.AddCell(calcA.CalcTimeFormated(Convert.ToInt32(calcA.AverageTimeCalc(t.Logs.ToList()))));
+                        table.AddCell(Enum.Parse<DifficultyEnum>(calcA.AverageDifficultyCalc(t.Logs.ToList()).ToString()).ToString());
                     }
 
                     document.Add(table);

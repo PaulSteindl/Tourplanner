@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Tourplanner.Models;
 
-namespace Tourplanner.LogManager
+namespace Tourplanner
 {
     internal interface ILogManager
     {

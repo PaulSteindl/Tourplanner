@@ -12,7 +12,7 @@ namespace Tourplanner.DataAccessLayer
 {
     public class DatabaseManager : IDatabaseManager
     {
-        private readonly ILogger logger = LogManager.GetLogger<DatabaseManager>();
+        private readonly ILogger logger = LogingManager.GetLogger<DatabaseManager>();
 
         private const string CreateTourTableCommand = @"create table if not exists tours
                                                         (

@@ -20,7 +20,7 @@ namespace Tourplanner.BusinessLayer
 
         IMapQuestConfiguration configuration;
         private readonly HttpClient httpClient;
-        private readonly ILogger logger = Shared.LogManager.GetLogger<Directions>();
+        private readonly ILogger logger = LogingManager.GetLogger<Directions>();
 
         public Directions(IMapQuestConfiguration mapQuest)
         {

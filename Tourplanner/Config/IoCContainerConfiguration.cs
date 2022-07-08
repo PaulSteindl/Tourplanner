@@ -57,7 +57,7 @@ namespace Tourplanner.Configuration
             services.AddSingleton<IImportManager, ImportManager>();
             services.AddSingleton<IExportManager, ExportManager>();
             services.AddSingleton<ITourManager, TourManager>();
-            services.AddSingleton<ILogManager, Tourplanner.BusinessLayer.LogManager>();
+            services.AddSingleton<ITourLogManager, TourLogManager>();
             services.AddSingleton<IDirections, Directions>();
             services.AddSingleton<IRouteManager, RouteManager>();
             services.AddSingleton<IReportManager, ReportManager>();

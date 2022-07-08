@@ -8,7 +8,7 @@ using Tourplanner.Models;
 
 namespace Tourplanner.BusinessLayer
 {
-    public interface ILogManager
+    public interface ITourLogManager
     {
         public Log? CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId);
         public Task<Log?> UpdateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Log log);

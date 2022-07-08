@@ -19,7 +19,7 @@ namespace Tourplanner.BusinessLayer
             this.directions = directions;
         }
 
-        public async Task<Route> GetFullRoute(string from, string to, TransportType transportType, Guid tourId)
+        public async Task<Route?> GetFullRoute(string from, string to, TransportType transportType, Guid tourId)
         {
             byte[]? mapArray = null;
             var route = await directions.FetchRouteAsync(from, to, transportType);
@@ -28,12 +28,13 @@ namespace Tourplanner.BusinessLayer
 
             if(mapArray != null && mapArray.Length > 0 && route != null && !String.IsNullOrEmpty(route.SessionId))
             {
+                fileDAO.DeleteImage(tourId);
                 route.PicPath = fileDAO.SaveImage(mapArray, tourId);
             }
             else
                 throw new NullReferenceException();
 
-            return route ?? throw new NullReferenceException();
+            return route;
         }
     }
 }

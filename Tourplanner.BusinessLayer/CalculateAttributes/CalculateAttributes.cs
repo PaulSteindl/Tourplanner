@@ -45,7 +45,7 @@ namespace Tourplanner.BusinessLayer
 
             for (; i < logs.Count; i++)
             {
-                sum += Convert.ToInt32(logs[i].Difficulty);
+                sum += Convert.ToInt32(logs[i].Rating);
             }
 
             sum /= logs.Count;
@@ -61,6 +61,21 @@ namespace Tourplanner.BusinessLayer
             for (; i < logs.Count; i++)
             {
                 sum += logs[i].TotalTime;
+            }
+
+            sum /= logs.Count;
+
+            return sum;
+        }
+
+        public float AverageDifficultyCalc(List<Log> logs)
+        {
+            float sum = 0;
+            int i = 0;
+
+            for (; i < logs.Count; i++)
+            {
+                sum += Convert.ToInt32(logs[i].Difficulty);
             }
 
             sum /= logs.Count;

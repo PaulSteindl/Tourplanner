@@ -19,11 +19,11 @@ namespace Tourplanner
     /// </summary>
     public partial class App : Application
     {
-        private readonly Shared.ILogger logger = Shared.LogManager.GetLogger<App>();
+        private readonly Shared.ILogger logger = LogingManager.GetLogger<App>();
 
         static App()
         {
-            Shared.LogManager.LoggerFactory = new Log4NetFactory("log4net.config");
+            LogingManager.LoggerFactory = new Log4NetFactory("log4net.config");
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)

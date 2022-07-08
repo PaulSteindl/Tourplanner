@@ -32,6 +32,14 @@ namespace Tourplanner.DataAccessLayerInMemory
             return json;
         }
 
+        public void DeleteImage(Guid tourId)
+        {
+            var path = $"{picDirPath}\\{tourId}.png";
+
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+
         public void SaveExportTour(string jsonString, string path)
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
