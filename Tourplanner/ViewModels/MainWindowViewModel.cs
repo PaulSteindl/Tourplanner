@@ -88,7 +88,8 @@ namespace Tourplanner.ViewModels
             this._reportManager = reportManager;
             this._searchManager = searchManager;
 
-            _tourManager.LoadTours().ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
+            _tourManager.LoadTours().Result.ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
+            TourListViewModel.AllTours.ToList().ForEach(j => j.Logs.ToList().ForEach(l => TourListViewModel.AllLog.Add(l)));
 
             AddTourCommand = new RelayCommand((_) =>
             {
@@ -187,7 +188,8 @@ namespace Tourplanner.ViewModels
             {
                 SearchText = "";
                 SearchTextChanged?.Invoke(this, SearchText);
-                _tourManager.LoadTours().ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
+                TourListViewModel.AllTours.Clear();
+                _tourManager.LoadTours().Result.ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
             });
 
             ExitApplicationCommand = new RelayCommand((_) =>

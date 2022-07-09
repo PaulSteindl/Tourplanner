@@ -33,25 +33,26 @@ namespace Tourplanner.BusinessLayer
             this.calcA = calcA;
         }
 
-        public IEnumerable<Tour> LoadTours()
+        public async Task<IEnumerable<Tour>> LoadTours()
         {
-            var tours = tourDAO.SelectAllTours();
+            var tours = tourDAO.SelectAllTours().ToList();
 
             if (tours != null && tours.Count() > 0)
             {
-                foreach (var tour in tours)
+                for(int i = 0; i < tours.Count(); i++)
                 {
-                    tour.Logs = logDAO.SelectLogsByTourId(tour.Id);
+                    tours[i].Logs = logDAO.SelectLogsByTourId(tours[i].Id);
+                    //tours[i] = await DoesMapExistAsync(tours[i]);
                 }
             }
 
-            logger.Debug("Logs geladen");
+            logger.Debug("Tours geladen");
             return tours;
         }
 
         public async Task<Tour?> DoesMapExistAsync(Tour tour)
         {
-            if(!File.Exists(tour.PicPath))
+            if(tour != null && !File.Exists(tour.PicPath))
             {
                 logger.Debug("Download Map again");
                 var route = await routeManager.GetFullRoute(tour.From, tour.To, tour.Transporttype, tour.Id);

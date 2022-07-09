@@ -12,11 +12,13 @@ namespace Tourplanner.BusinessLayer
     public class SearchManager : ISearchManager
     {
         private readonly ITourDAO tourDAO;
+        private readonly ILogDAO logDAO;
         private readonly ILogger logger = LogingManager.GetLogger<SearchManager>();
 
-        public SearchManager(ITourDAO tourDAO)
+        public SearchManager(ITourDAO tourDAO, ILogDAO logDAO)
         {
             this.tourDAO = tourDAO;
+            this.logDAO = logDAO;
         }
 
         public IEnumerable<Tour> FindMatchingTours(string? searchText = null)
@@ -24,6 +26,14 @@ namespace Tourplanner.BusinessLayer
             logger.Debug($"Searching in Tour/Log for [{searchText}]");
 
             var tours = tourDAO.SelectAllTours();
+
+            if(tours != null && tours.Count() > 0)
+            {
+                foreach(var tour in tours)
+                {
+                    tour.Logs = logDAO.SelectLogsByTourId(tour.Id);
+                }
+            }
 
             if (string.IsNullOrWhiteSpace(searchText))
             {

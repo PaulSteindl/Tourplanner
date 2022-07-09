@@ -46,7 +46,8 @@
             <DockPanel Grid.Row="1">
                 <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Reset" Command="{Binding ResetSearchFieldCommand}"/>
                 <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Search" Command="{Binding SearchFieldCommand}"/>
-                <TextBox DockPanel.Dock="Left" MaxLength="100" Text="{Binding SearchText}"/>
+                <Label Content="Search For:" Width="90" Height="40" FontSize="15" Padding="8"/>
+                <TextBox DockPanel.Dock="Left" MaxLength="100" FontSize="15" VerticalContentAlignment="Center" Text="{Binding SearchText}" Width="572"/>
             </DockPanel>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
