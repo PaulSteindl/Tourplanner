@@ -37,6 +37,14 @@ namespace Tourplanner.DataAccessLayer
             logger.Debug($"Deleted picture [{path}].");
         }
 
+        public void DeleteFile(string path)
+        {
+            if (File.Exists(path))
+                File.Delete(path);
+
+            logger.Debug($"Deleted File [{path}].");
+        }
+
         public string ReadImportFile(string filepath)
         {
             string json = File.ReadAllText(filepath);
