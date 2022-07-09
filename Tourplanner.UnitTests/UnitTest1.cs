@@ -136,14 +136,149 @@ namespace Tourplanner.UnitTests
         {
             LogingManager.LoggerFactory = new Log4NetFactory("..\\Tourplanner\\log4net.config");
 
-            ICheckInput checkInput = new CheckInput();
             ITourManager tourManager = new TourManager
-                (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput, calcA.Object, fileDAO.Object);
+                (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput.Object, calcA.Object, fileDAO.Object);
 
-            routeManager.Setup(t => t.GetFullRoute("TestFrom", "TestTo", TransportType.Bicycle, It.IsAny<Guid>())).ReturnsAsync(testRoute);
+            Tour? nullTour = null;
+
+            checkInput.Setup(t => t.CheckUserInputTour("TestName", "TestDescription", "TestFrom", "TestTo")).Throws(new ArgumentException());
+            routeManager.Setup(t => t.GetFullRoute("#TestFrom", "TestTo", TransportType.Bicycle, It.IsAny<Guid>())).ReturnsAsync(testRoute);
             tourDAO.Setup(t => t.InsertTour(It.IsAny<Tour>())).Returns(false);
 
-            Assert.Throws<ArgumentException>(() => tourManager.NewTour("#TestName", "TestDescription", "TestFrom", "TestTo", TransportType.Bicycle));
+            var res = tourManager.NewTour("#TestName", "TestDescription", "TestFrom", "TestTo", TransportType.Bicycle).Result;
+
+            Assert.That(res, Is.EqualTo(nullTour));
         }
+
+        [Test]
+        public void TestTourManagerNewTourDidntSaveInDAO()
+        {
+            LogingManager.LoggerFactory = new Log4NetFactory("..\\Tourplanner\\log4net.config");
+
+            ITourManager tourManager = new TourManager
+                (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput.Object, calcA.Object, fileDAO.Object);
+
+            Route? nullRoute = null;
+            Tour? nullTour = null;
+
+            checkInput.Setup(t => t.CheckUserInputTour("TestName", "TestDescription", "TestFrom", "TestTo")).Returns(true);
+            routeManager.Setup(t => t.GetFullRoute("TestFrom", "TestTo", TransportType.Bicycle, It.IsAny<Guid>())).ReturnsAsync(nullRoute);
+            tourDAO.Setup(t => t.InsertTour(It.IsAny<Tour>())).Returns(false);
+
+            var newTour = tourManager.NewTour("TestName", "TestDescription", "TestFrom", "TestTo", TransportType.Bicycle).Result;
+
+            Assert.That(newTour, Is.EqualTo(nullTour));
+        }
+
+        [Test]
+        public void TestTourManagerUpdateTourValidInput()
+        {
+            LogingManager.LoggerFactory = new Log4NetFactory("..\\Tourplanner\\log4net.config");
+
+            ITourManager tourManager = new TourManager
+                (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput.Object, calcA.Object, fileDAO.Object);
+
+            checkInput.Setup(t => t.CheckUserInputTour("TestNameNew", "TestDescriptionNew", "TestFromNew", "TestToNew")).Returns(true);
+            routeManager.Setup(t => t.GetFullRoute("TestFromNew", "TestToNew", TransportType.Fastest, It.IsAny<Guid>())).ReturnsAsync(testRoute);
+            tourDAO.Setup(t => t.UpdateTourById(It.IsAny<Tour>())).Returns(true);
+            calcA.Setup(t => t.CalculateChildFriendly(It.IsAny<IEnumerable<Log>>(), It.IsAny<double>())).Returns(true);
+            calcA.Setup(t => t.CalculatePopularity(It.IsAny<IEnumerable<Log>>())).Returns(PopularityEnum.Good);
+
+            var updatedTour = tourManager.UpdateTour("TestNameNew", "TestDescriptionNew", "TestFromNew", "TestToNew", TransportType.Fastest, testTour).Result;
+
+            Tour updatedTestTour = new Tour
+            {
+                Id = tourGuid,
+                Name = "TestNameNew",
+                Description = "TestDescriptionNew",
+                From = "TestFromNew",
+                To = "TestToNew",
+                Transporttype = TransportType.Fastest,
+                ChildFriendly = true,
+                Logs = testTour.Logs,
+                Distance = testRoute.Distance,
+                PicPath = testRoute.PicPath,
+                Popularity = PopularityEnum.Good,
+                Time = testRoute.Time
+            };
+
+            Assert.That(JsonConvert.SerializeObject(updatedTour), Is.EqualTo(JsonConvert.SerializeObject(updatedTestTour)));
+        }
+
+        //[Test]
+        //public void TestTourManagerUpdatedTourRouteIsNull()
+        //{
+        //    LogingManager.LoggerFactory = new Log4NetFactory("..\\Tourplanner\\log4net.config");
+
+        //    ITourManager tourManager = new TourManager
+        //        (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput.Object, calcA.Object, fileDAO.Object);
+
+        //    checkInput.Setup(t => t.CheckUserInputTour("TestNameNew", "TestDescriptionNew", "TestFromNew", "TestToNew")).Returns(true);
+        //    routeManager.Setup(t => t.GetFullRoute("TestFromNew", "TestToNew", TransportType.Fastest, It.IsAny<Guid>())).ReturnsAsync(testRoute);
+        //    tourDAO.Setup(t => t.UpdateTourById(It.IsAny<Tour>())).Returns(true);
+        //    calcA.Setup(t => t.CalculateChildFriendly(It.IsAny<IEnumerable<Log>>(), It.IsAny<double>())).Returns(true);
+        //    calcA.Setup(t => t.CalculatePopularity(It.IsAny<IEnumerable<Log>>())).Returns(PopularityEnum.Good);
+
+        //    var updatedTour = tourManager.UpdateTour("TestNameNew", "TestDescriptionNew", "TestFromNew", "TestToNew", TransportType.Fastest, testTour).Result;
+
+        //    Tour updatedTestTour = new Tour
+        //    {
+        //        Id = tourGuid,
+        //        Name = "TestNameNew",
+        //        Description = "TestDescriptionNew",
+        //        From = "TestFromNew",
+        //        To = "TestToNew",
+        //        Transporttype = TransportType.Fastest,
+        //        ChildFriendly = true,
+        //        Logs = testTour.Logs,
+        //        Distance = testRoute.Distance,
+        //        PicPath = testRoute.PicPath,
+        //        Popularity = PopularityEnum.Good,
+        //        Time = testRoute.Time
+        //    };
+
+        //    Assert.That(JsonConvert.SerializeObject(updatedTour), Is.EqualTo(JsonConvert.SerializeObject(updatedTestTour)));
+        //}
+        //Assert.That(JsonConvert.SerializeObject(newTour), Is.EqualTo(JsonConvert.SerializeObject(nullTour)));
+        //}
+
+        //[Test]
+        //public void TestTourManagerNewTourCantInsertIntoDB()
+        //{
+        //    LogingManager.LoggerFactory = new Log4NetFactory("..\\Tourplanner\\log4net.config");
+
+        //    ITourManager tourManager = new TourManager
+        //        (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput.Object, calcA.Object, fileDAO.Object);
+
+        //    Tour? nullTour = null;
+
+        //    checkInput.Setup(t => t.CheckUserInputTour("TestName", "TestDescription", "TestFrom", "TestTo")).Throws(new ArgumentException());
+        //    routeManager.Setup(t => t.GetFullRoute("#TestFrom", "TestTo", TransportType.Bicycle, It.IsAny<Guid>())).ReturnsAsync(testRoute);
+        //    tourDAO.Setup(t => t.InsertTour(It.IsAny<Tour>())).Returns(false);
+
+        //    var res = tourManager.NewTour("#TestName", "TestDescription", "TestFrom", "TestTo", TransportType.Bicycle).Result;
+
+        //    Assert.That(res, Is.EqualTo(nullTour));
+        //}
+
+        //[Test]
+        //public void TestTourManagerNewTourDidntSaveInDAO()
+        //{
+        //    LogingManager.LoggerFactory = new Log4NetFactory("..\\Tourplanner\\log4net.config");
+
+        //    ITourManager tourManager = new TourManager
+        //        (routeManager.Object, logManager.Object, tourDAO.Object, logDAO.Object, checkInput.Object, calcA.Object, fileDAO.Object);
+
+        //    Route? nullRoute = null;
+        //    Tour? nullTour = null;
+
+        //    checkInput.Setup(t => t.CheckUserInputTour("TestName", "TestDescription", "TestFrom", "TestTo")).Returns(true);
+        //    routeManager.Setup(t => t.GetFullRoute("TestFrom", "TestTo", TransportType.Bicycle, It.IsAny<Guid>())).ReturnsAsync(nullRoute);
+        //    tourDAO.Setup(t => t.InsertTour(It.IsAny<Tour>())).Returns(false);
+
+        //    var newTour = tourManager.NewTour("TestName", "TestDescription", "TestFrom", "TestTo", TransportType.Bicycle).Result;
+
+        //    Assert.That(newTour, Is.EqualTo(nullTour));
+        //}
     }
 }
