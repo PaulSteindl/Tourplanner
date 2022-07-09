@@ -173,6 +173,11 @@ namespace Tourplanner.ViewModels
             TourUpdated?.Invoke(this, new TourChangeEventArgs(oldTour, newTour));
         }
 
+        public void WindowFailed()
+        {
+            Close?.Invoke();
+        }
+
         //public ICommand CancelButtonCommand { get; init; }
         public ICommand SaveButtonCommand { get; init; }
         public ICommand CancelImportButtonCommand { get; init; }
@@ -201,8 +206,16 @@ namespace Tourplanner.ViewModels
                         newTour = await _tourManager.NewTour(Name, Description, StartLocation, EndLocation, _transportType);
                         if (newTour is not null)
                         {
-                            Tour = newTour;
-                            OnTourAdded();
+                            if (newTour.ErrorMessages.Count() == 0)
+                            {
+                                Tour = newTour;
+                                OnTourAdded();
+                            }
+                            else
+                            {
+                                //@TODO Error Window
+                                WindowFailed();
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -217,7 +230,18 @@ namespace Tourplanner.ViewModels
                     try
                     {
                         thisTour = await _tourManager.UpdateTour(Name, Description, StartLocation, EndLocation, SelectedMyEnumType, thisTour);
-                        OnTourUpdated(oldTour, thisTour);
+                        if (thisTour is not null)
+                        {
+                            if(thisTour.ErrorMessages.Count() == 0)
+                                OnTourUpdated(oldTour, thisTour);
+                            else
+                            {
+                                //@TODO error Message
+                                WindowFailed();
+                            }
+                        }
+                        else
+                            WindowFailed();
                     }
                     catch (Exception ex)
                     {
@@ -240,7 +264,13 @@ namespace Tourplanner.ViewModels
                     var importedTour = await _importManager.ImportTour(directoryPath);
                     if (importedTour != null)
                     {
-                        Tour = importedTour;
+                        if(importedTour.ErrorMessages.Count() == 0)
+                            Tour = importedTour;
+                        else
+                        {
+                            //@TODO error Message
+                            WindowFailed();
+                        }
                     }
                 }
                 catch (Exception ex)

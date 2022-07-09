@@ -19,5 +19,6 @@ namespace Tourplanner.Models
         public PopularityEnum? Popularity { get; set; }
         public bool ChildFriendly { get; set; }
         public IEnumerable<Log>? Logs { get; set; }
+        public IEnumerable<string?> ErrorMessages { get; set; }
     }
 }

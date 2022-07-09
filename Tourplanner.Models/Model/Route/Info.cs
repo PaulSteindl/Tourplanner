@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tourplanner.Models
 {
-    public record RouteInfo
+    public class Info
     {
-        public Route? Route { get; set; }
-
-        public Info? Info { get; set; }
+        public int Statuscode { get; set; }
+        public List<string?> Messages { get; set; }
     }
 }

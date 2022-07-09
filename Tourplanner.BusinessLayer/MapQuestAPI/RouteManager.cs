@@ -19,22 +19,20 @@ namespace Tourplanner.BusinessLayer
             this.directions = directions;
         }
 
-        public async Task<Route?> GetFullRoute(string from, string to, TransportType transportType, Guid tourId)
+        public async Task<RouteInfo?> GetFullRoute(string from, string to, TransportType transportType, Guid tourId)
         {
             byte[]? mapArray = null;
-            var route = await directions.FetchRouteAsync(from, to, transportType);
-            if(route != null && String.IsNullOrEmpty(route.SessionId) && route.Time != 0)
-                mapArray = await directions.FetchMapAsync(route);
+            var routeInfo = await directions.FetchRouteAsync(from, to, transportType);
+            if(routeInfo.Route != null && !String.IsNullOrEmpty(routeInfo.Route.SessionId) && routeInfo.Route.Time != 0)
+                mapArray = await directions.FetchMapAsync(routeInfo.Route);
 
-            if(mapArray != null && mapArray.Length > 0 && route != null && !String.IsNullOrEmpty(route.SessionId))
+            if(mapArray != null && routeInfo.Route != null && !String.IsNullOrEmpty(routeInfo.Route.SessionId))
             {
                 fileDAO.DeleteImage(tourId);
-                route.PicPath = fileDAO.SaveImage(mapArray, tourId);
+                routeInfo.Route.PicPath = fileDAO.SaveImage(mapArray, tourId);
             }
-            else
-                throw new NullReferenceException();
 
-            return route;
+            return routeInfo;
         }
     }
 }

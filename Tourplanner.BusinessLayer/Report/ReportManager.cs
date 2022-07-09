@@ -21,13 +21,17 @@ namespace Tourplanner.BusinessLayer
     {
         ITourDAO tourDAO;
         ICalculateAttributes calcA;
+        ITourManager tourManager;
+        IFileDAO fileDAO;
         private readonly ILogger logger = LogingManager.GetLogger<ReportManager>();
 
 
-        public ReportManager(ITourDAO tourDAO, ICalculateAttributes calcA)
+        public ReportManager(ITourDAO tourDAO, ICalculateAttributes calcA, ITourManager tourManager, IFileDAO fileDAO)
         {
             this.tourDAO = tourDAO;
             this.calcA = calcA;
+            this.tourManager = tourManager;
+            this.fileDAO = fileDAO;
         }
 
         public bool CreateTourReport(Tour tour, string path)
@@ -129,6 +133,7 @@ namespace Tourplanner.BusinessLayer
                 catch (Exception ex)
                 {
                     logger.Error($"Couldn't create TourReport, [{ex}]");
+                    fileDAO.DeleteFile(fullpath);
                     return false;
                 }
             }
@@ -146,7 +151,7 @@ namespace Tourplanner.BusinessLayer
 
             var fullpath = path + "SummarizeReport.pdf";
 
-            var tours = tourDAO.SelectAllTours();
+            var tours = tourManager.LoadTours().Result.ToList();
 
             if (!File.Exists(fullpath) && tours != null && tours.Count() > 0)
             {
@@ -163,7 +168,7 @@ namespace Tourplanner.BusinessLayer
                             .SetFontColor(ColorConstants.DARK_GRAY);
                     document.Add(tourHeader);
 
-                    Table table = new Table(UnitValue.CreatePercentArray(3)).UseAllAvailableWidth();
+                    Table table = new Table(UnitValue.CreatePercentArray(4)).UseAllAvailableWidth();
                     table.AddHeaderCell(getHeaderCell("Tourname"));
                     table.AddHeaderCell(getHeaderCell("Rating"));
                     table.AddHeaderCell(getHeaderCell("Time"));
@@ -173,9 +178,18 @@ namespace Tourplanner.BusinessLayer
                     foreach (var t in tours)
                     {
                         table.AddCell(t.Name);
-                        table.AddCell(Enum.Parse<PopularityEnum>(calcA.AverageRatingCalc(t.Logs.ToList()).ToString()).ToString());
-                        table.AddCell(calcA.CalcTimeFormated(Convert.ToInt32(calcA.AverageTimeCalc(t.Logs.ToList()))));
-                        table.AddCell(Enum.Parse<DifficultyEnum>(calcA.AverageDifficultyCalc(t.Logs.ToList()).ToString()).ToString());
+                        if (t.Logs != null && t.Logs.Count() > 0)
+                        {
+                            table.AddCell(Enum.Parse<PopularityEnum>(calcA.AverageRatingCalc(t.Logs.ToList()).ToString()).ToString());
+                            table.AddCell(calcA.CalcTimeFormated(Convert.ToInt32(calcA.AverageTimeCalc(t.Logs.ToList()))));
+                            table.AddCell(Enum.Parse<DifficultyEnum>(calcA.AverageDifficultyCalc(t.Logs.ToList()).ToString()).ToString());
+                        }
+                        else
+                        {
+                            table.AddCell("NA");
+                            table.AddCell("NA");
+                            table.AddCell("NA");
+                        }
                     }
 
                     document.Add(table);
@@ -187,6 +201,7 @@ namespace Tourplanner.BusinessLayer
                 catch (Exception ex)
                 {
                     logger.Error($"Couldn't create SummarizeReport, [{ex}]");
+                    fileDAO.DeleteFile(fullpath);
                     return false;
                 }
             }
