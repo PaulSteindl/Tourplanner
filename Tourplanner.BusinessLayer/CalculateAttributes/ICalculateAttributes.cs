@@ -10,5 +10,6 @@ namespace Tourplanner.BusinessLayer
         public float AverageTimeCalc(List<Log> logs);
         public string CalcTimeFormated(int time);
         public float AverageDifficultyCalc(List<Log> logs);
+        public string GetErrorString(IEnumerable<string?> errorMessages);
     }
 }
