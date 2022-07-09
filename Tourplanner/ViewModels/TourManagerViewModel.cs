@@ -106,7 +106,7 @@ namespace Tourplanner.ViewModels
                 Description = _tour.Description;
                 StartLocation = _tour.From;
                 EndLocation = _tour.To;
-                DirectoryPath = _tour.PicPath;
+                //DirectoryPath = _tour.PicPath;
                 SelectedMyEnumType = _tour.Transporttype;
             }
         }

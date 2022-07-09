@@ -18,11 +18,6 @@
                     <MenuItem Header="_Modify Tour" Command="{Binding ModifyTourCommand}"/>
                     <MenuItem Header="_Delete Tour" Command="{Binding DeleteTourCommand}"/>
                 </MenuItem>
-                <MenuItem Header="_Tour Logs">
-                    <MenuItem Header="_Add Tour Log" Command="{Binding AddTourLogCommand}"/>
-                    <MenuItem Header="_Modify Tour Log" Command="{Binding ModifyTourLogCommand}"/>
-                    <MenuItem Header="_Delete Tour Log" Command="{Binding DeleteTourLogCommand}"/>
-                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Data Provider">
                 <MenuItem Header="_Import" Command="{Binding ImportTourCommand}"/>
