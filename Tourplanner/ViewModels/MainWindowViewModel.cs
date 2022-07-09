@@ -53,7 +53,7 @@ namespace Tourplanner.ViewModels
         public Action? Close { get; set; }
 
         private readonly ITourManager _tourManager;
-        private readonly ILogManager _logManager;
+        private readonly ITourLogManager _logManager;
         private readonly IExportManager _exportManager;
         private readonly IReportManager _reportManager;
         private readonly ISearchManager _searchManager;
@@ -77,7 +77,7 @@ namespace Tourplanner.ViewModels
 
         // CTOR
         public MainWindowViewModel(TourManagerViewModel tourManagerViewModel, TourInformationViewModel tourInformationViewModel, TourListViewModel tourListViewModel,
-            ITourManager tourManager, IExportManager exportManager, IReportManager reportManager, ISearchManager searchManager, ILogManager logManager)
+            ITourManager tourManager, IExportManager exportManager, IReportManager reportManager, ISearchManager searchManager, ITourLogManager logManager)
         {
             this.TourManagerViewModel = tourManagerViewModel;
             this.TourInformationViewModel = tourInformationViewModel;
