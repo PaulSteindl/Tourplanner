@@ -107,5 +107,20 @@ namespace Tourplanner.BusinessLayer
 
             return answer;
         }
+
+        public string GetErrorString(IEnumerable<string?> errorMessages)
+        {
+            string errorMessage = String.Empty;
+
+            if (errorMessages != null && errorMessages.Count() > 0)
+            {
+                foreach(string error in errorMessages)
+                {
+                    errorMessage += error + '\n';
+                }
+            }
+
+            return string.Empty;
+        }
     }
 }
