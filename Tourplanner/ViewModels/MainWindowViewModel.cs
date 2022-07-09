@@ -53,7 +53,6 @@ namespace Tourplanner.ViewModels
         public Action? Close { get; set; }
 
         private readonly ITourManager _tourManager;
-        private readonly ITourLogManager _logManager;
         private readonly IExportManager _exportManager;
         private readonly IReportManager _reportManager;
         private readonly ISearchManager _searchManager;
@@ -77,19 +76,18 @@ namespace Tourplanner.ViewModels
 
         // CTOR
         public MainWindowViewModel(TourManagerViewModel tourManagerViewModel, TourInformationViewModel tourInformationViewModel, TourListViewModel tourListViewModel,
-            ITourManager tourManager, IExportManager exportManager, IReportManager reportManager, ISearchManager searchManager, ITourLogManager logManager)
+            ITourManager tourManager, IExportManager exportManager, IReportManager reportManager, ISearchManager searchManager)
         {
             this.TourManagerViewModel = tourManagerViewModel;
             this.TourInformationViewModel = tourInformationViewModel;
             this.TourListViewModel = tourListViewModel;
             this._tourManager = tourManager;
-            this._logManager = logManager;
             this._exportManager = exportManager;
             this._reportManager = reportManager;
             this._searchManager = searchManager;
 
             _tourManager.LoadTours().Result.ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
-            TourListViewModel.AllTours.ToList().ForEach(j => j.Logs.ToList().ForEach(l => TourListViewModel.AllLog.Add(l)));
+            //TourListViewModel.AllTours.ToList().ForEach(j => j.Logs.ToList().ForEach(l => TourInformationViewModel.AllLog.Add(l)));
 
             AddTourCommand = new RelayCommand((_) =>
             {
@@ -160,7 +158,6 @@ namespace Tourplanner.ViewModels
                 try
                 {
                     var directoryPath = @"C:\SummarizeTourReport\";
-                    // @TODO: CHECK IF DIR EXISTS ??
                     var boolean = _reportManager.CreateSummarizeReport(directoryPath);
                 }
                 catch (Exception ex)
@@ -210,7 +207,6 @@ namespace Tourplanner.ViewModels
             {
                 TourInformationViewModel.Tour = _tour;
             };
-
         }
     }
 }

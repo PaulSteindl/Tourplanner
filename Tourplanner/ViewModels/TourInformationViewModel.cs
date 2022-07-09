@@ -226,7 +226,6 @@ namespace Tourplanner.ViewModels
             {
                 _tour = value;
                 OnPropertyChanged();
-                //UpdateShownTours();
             }
         }
 
@@ -237,7 +236,7 @@ namespace Tourplanner.ViewModels
             {
                 _log = value;
                 OnPropertyChanged();
-
+                OnSelectedLogChanged();
                 //Comment = _log.Comment;
                 //DateAndTime = _log.Date;
                 //TotalTime = _log.TotalTime;
@@ -274,7 +273,7 @@ namespace Tourplanner.ViewModels
             LogSaveButtonCommand = new RelayCommand((_) =>
             {
                 IsEditingLog = false;
-                if (!IsEditingLog)
+                if (!IsEditingLog && Tour is not null)
                 {
                     try
                     {

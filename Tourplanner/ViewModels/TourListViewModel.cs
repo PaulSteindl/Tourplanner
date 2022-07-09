@@ -31,11 +31,8 @@ namespace Tourplanner.ViewModels
 
         // TOUR
         public Tour? _tour;
-        public Log? _log;
         public event EventHandler<Tour> SelectedTourChanged;
-        public event EventHandler<Log> SelectedLogChanged;
         public ObservableCollection<Tour> AllTours { get; } = new();
-        public ObservableCollection<Log> AllLog { get; } = new();
 
         public Tour? Tour
         {
@@ -47,24 +44,10 @@ namespace Tourplanner.ViewModels
                 OnSelectedTourChanged();
             }
         }
-        public Log? Log
-        {
-            get => _log;
-            set
-            {
-                _log = value;
-                OnPropertyChanged();
-                OnSelectedLogChanged();
-            }
-        }
 
         private void OnSelectedTourChanged()
         {
             SelectedTourChanged?.Invoke(this, Tour);
-        }
-        private void OnSelectedLogChanged()
-        {
-            SelectedLogChanged?.Invoke(this, Log);
         }
     }
 }
