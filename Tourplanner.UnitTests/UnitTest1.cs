@@ -283,7 +283,7 @@ namespace Tourplanner.UnitTests
 
             var emptyTourList = new List<Tour>();
 
-            var retrieveList = tourManager.LoadTours();
+            var retrieveList = tourManager.LoadTours().Result;
 
             Assert.That(retrieveList, Is.EqualTo(emptyTourList));
         }
@@ -322,7 +322,7 @@ namespace Tourplanner.UnitTests
             tourDAO.Setup(t => t.SelectAllTours()).Returns(tours);
             logDAO.Setup(t => t.SelectLogsByTourId(It.IsAny<Guid>())).Returns(logs);
 
-            var retrieveList = tourManager.LoadTours();
+            var retrieveList = tourManager.LoadTours().Result;
 
             Assert.That(JsonConvert.SerializeObject(retrieveList), Is.EqualTo(JsonConvert.SerializeObject(resTours)));
         }

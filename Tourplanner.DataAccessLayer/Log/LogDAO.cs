@@ -138,6 +138,7 @@ namespace Tourplanner.DataAccessLayer
             var message = new Log
             {
                 Id = record.GetGuid(0),
+                TourId = record.GetGuid(1),
                 Date= Convert.ToDateTime(record["date"]),
                 Comment = Convert.ToString(record["comment"]) ?? String.Empty,
                 Difficulty = Enum.Parse<DifficultyEnum>(Convert.ToString(record["difficulty"]) ?? String.Empty),

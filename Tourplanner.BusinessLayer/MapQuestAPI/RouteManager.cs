@@ -23,7 +23,7 @@ namespace Tourplanner.BusinessLayer
         {
             byte[]? mapArray = null;
             var route = await directions.FetchRouteAsync(from, to, transportType);
-            if(route != null)
+            if(route != null && String.IsNullOrEmpty(route.SessionId) && route.Time != 0)
                 mapArray = await directions.FetchMapAsync(route);
 
             if(mapArray != null && mapArray.Length > 0 && route != null && !String.IsNullOrEmpty(route.SessionId))
