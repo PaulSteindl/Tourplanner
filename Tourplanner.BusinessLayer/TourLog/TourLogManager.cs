@@ -22,7 +22,7 @@ namespace Tourplanner.BusinessLayer
             this.checkInput = checkInput;
         }
 
-        public Log? CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId)
+        public async Task<Log?> CreateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Guid tourId)
         {
             Log newLog = null;
 
@@ -32,7 +32,7 @@ namespace Tourplanner.BusinessLayer
 
                 newLog = new Log
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     TourId = tourId,
                     Date = date,
                     Comment = comment,
@@ -44,13 +44,14 @@ namespace Tourplanner.BusinessLayer
                 if (!logDAO.InsertLog(newLog)) throw new DataUpdateFailedException("New Log couldn't get inserted");
 
                 logger.Debug($"New Log created with id: [{newLog.Id}]");
+                return newLog;
             }
             catch (Exception ex)
             {
                 logger.Error($"Couldn't create new Log, [{ex.Message}]");
             }
 
-            return newLog;
+            return null;
         }
 
         public async Task<Log?> UpdateLog(string comment, int time, DateTime date, DifficultyEnum difficulty, PopularityEnum rating, Log log)

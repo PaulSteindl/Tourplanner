@@ -37,9 +37,12 @@ namespace Tourplanner.BusinessLayer
         {
             var tours = tourDAO.SelectAllTours();
 
-            foreach(var tour in tours)
+            if (tours != null && tours.Count() > 0)
             {
-                tour.Logs = logDAO.SelectLogsByTourId(tour.Id);
+                foreach (var tour in tours)
+                {
+                    tour.Logs = logDAO.SelectLogsByTourId(tour.Id);
+                }
             }
 
             logger.Debug("Logs geladen");
