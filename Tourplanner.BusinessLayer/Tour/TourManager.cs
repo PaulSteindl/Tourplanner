@@ -57,7 +57,7 @@ namespace Tourplanner.BusinessLayer
                 logger.Debug("Download Map again");
                 var route = await routeManager.GetFullRoute(tour.From, tour.To, tour.Transporttype, tour.Id);
                 if (route != null)
-                    tour.PicPath = route.PicPath;
+                    tour.PicPath = route.Route.PicPath;
             }
             return tour;
         }
@@ -71,9 +71,9 @@ namespace Tourplanner.BusinessLayer
                 checkInput.CheckUserInputTour(name, description, from, to);
 
                 var newId = Guid.NewGuid();
-                var route = await routeManager.GetFullRoute(from, to, transportType, newId);
+                var routeInfo = await routeManager.GetFullRoute(from, to, transportType, newId);
 
-                if (route != null)
+                if (routeInfo != null && routeInfo.Route != null && routeInfo.Info != null)
                 {
                     newTour = new Tour
                     {
@@ -83,17 +83,18 @@ namespace Tourplanner.BusinessLayer
                         From = from,
                         To = to,
                         Transporttype = transportType,
-                        Distance = route.Distance,
-                        Time = route.Time,
-                        PicPath = route.PicPath,
+                        Distance = routeInfo.Route.Distance,
+                        Time = routeInfo.Route.Time,
+                        PicPath = routeInfo.Route.PicPath,
                         ChildFriendly = false,
                         Popularity = PopularityEnum.Bad,
-                        Logs = new List<Log>()
+                        Logs = new List<Log>(),
+                        ErrorMessages = routeInfo.Info.Messages
                     };
+                    if (routeInfo.Info.Statuscode == 0)
+                        if (!tourDAO.InsertTour(newTour)) throw new DataUpdateFailedException("New Tour couldn't get inserted");
 
-                    if (!tourDAO.InsertTour(newTour)) throw new DataUpdateFailedException("New Tour couldn't get inserted");
-
-                    logger.Debug($"New Tour created with id: [{newTour.Id}]");
+                    logger.Debug($"New Tour created with id: [{newTour.Id}], Statuscode [{routeInfo.Info.Statuscode}]");
                 }
             }
             catch (Exception ex)
@@ -112,27 +113,29 @@ namespace Tourplanner.BusinessLayer
 
                 var logs = logManager.GetAllLogsByTourId(tour.Id);
 
-                Route? route = null;
+                RouteInfo? routeInfo = null;
 
                 if(from != tour.From || to != tour.To || transportType != tour.Transporttype)
-                    route = await routeManager.GetFullRoute(from, to, transportType, tour.Id);
+                    routeInfo = await routeManager.GetFullRoute(from, to, transportType, tour.Id);
 
-                if (route != null)
+                if (routeInfo != null && routeInfo.Route != null && routeInfo.Info != null)
                 {
                     tour.Name = name;
                     tour.Description = description;
                     tour.From = from;
                     tour.To = to;
                     tour.Transporttype = transportType;
-                    tour.Distance = route.Distance;
-                    tour.Time = route.Time;
-                    tour.PicPath = route.PicPath;
+                    tour.Distance = routeInfo.Route.Distance;
+                    tour.Time = routeInfo.Route.Time;
+                    tour.PicPath = routeInfo.Route.PicPath;
                     tour.ChildFriendly = calcA.CalculateChildFriendly(logs, tour.Distance);
                     tour.Popularity = calcA.CalculatePopularity(logs);
+                    tour.ErrorMessages = routeInfo.Info.Messages;
 
-                    if (!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
+                    if(routeInfo.Info.Statuscode == 0)
+                        if (!tourDAO.UpdateTourById(tour)) throw new DataUpdateFailedException("Tour couldn't get updated");
 
-                    logger.Debug($"Tour updated through Route with id: [{tour.Id}]");
+                    logger.Debug($"Tour updated through Route with id: [{tour.Id}], Statuscode: [{routeInfo.Info.Statuscode}]");
                 }
                 else if(tour.Name != name || tour.Description != description)
                 {

@@ -28,7 +28,7 @@ namespace Tourplanner.BusinessLayer
             this.configuration = mapQuest;
         }
 
-        public async Task<Route> FetchRouteAsync(string from, string to, Models.TransportType transportType)
+        public async Task<RouteInfo> FetchRouteAsync(string from, string to, Models.TransportType transportType)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Tourplanner.BusinessLayer
 
                 logger.Debug($"Fetched Routeinfo with session id{routeInfo.Route.SessionId}");
 
-                return routeInfo.Route ?? throw new FetchDataException("Route is null");
+                return routeInfo ?? throw new FetchDataException("Route is null");
             }
             catch (Exception ex) when (ex is not FetchDataException)
             {
