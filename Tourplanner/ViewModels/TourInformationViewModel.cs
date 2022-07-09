@@ -277,9 +277,12 @@ namespace Tourplanner.ViewModels
                 {
                     try
                     {
-                        var log = _logManager.CreateLog(Comment, _totalTime, DateAndTime, _difficulty, _rating, Tour.Id);
-                        AllLogs.Add(log);
-                        OnLogAdded();
+                        var log = _logManager.CreateLog(Comment, _totalTime, DateAndTime, _difficulty, _rating, Tour.Id).Result;
+                        if (log != null)
+                        {
+                            AllLogs.Add(log);
+                            OnLogAdded();
+                        }
                     }
                     catch (Exception ex)
                     {
