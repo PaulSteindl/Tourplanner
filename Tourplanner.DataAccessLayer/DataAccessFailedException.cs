@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tourplanner.Exceptions
+namespace Tourplanner.DataAccessLayer
 {
     public class DataAccessFailedException : Exception
     {

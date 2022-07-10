@@ -8,7 +8,6 @@ using Tourplanner.Models;
 using Moq;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Tourplanner.Exceptions;
 
 namespace Tourplanner.UnitTests
 {

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Tourplanner.DataAccessLayer;
 using Tourplanner.Models;
-using Tourplanner.Exceptions;
 using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer
