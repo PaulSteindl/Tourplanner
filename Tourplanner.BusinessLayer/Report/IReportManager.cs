@@ -9,7 +9,7 @@ namespace Tourplanner.BusinessLayer
 {
     public interface IReportManager
     {
-        public bool CreateTourReport(Tour tour, string path);
+        public bool CreateTourReport(Guid tourid, string path);
         public bool CreateSummarizeReport(string path);
     }
 }

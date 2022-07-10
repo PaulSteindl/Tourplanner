@@ -22,24 +22,39 @@ namespace Tourplanner.BusinessLayer
         ICalculateAttributes calcA;
         ITourManager tourManager;
         IFileDAO fileDAO;
+        ITourDAO tourDAO;
+        ILogDAO logDAO;
+
         private readonly ILogger logger = LogingManager.GetLogger<ReportManager>();
 
 
-        public ReportManager(ICalculateAttributes calcA, ITourManager tourManager, IFileDAO fileDAO)
+        public ReportManager(ICalculateAttributes calcA, ITourManager tourManager, IFileDAO fileDAO, ITourDAO tourDAO, ILogDAO logDAO)
         {
             this.calcA = calcA;
             this.tourManager = tourManager;
             this.fileDAO = fileDAO;
+            this.tourDAO = tourDAO;
+            this.logDAO = logDAO;
         }
 
-        public bool CreateTourReport(Tour tour, string path)
+        public bool CreateTourReport(Guid tourid, string path)
         {
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            var fullpath = path + tour.Name + "_Report.pdf";
+            var tour = tourDAO.SelectTourById(tourid);
+
+            tour.Logs = logDAO.SelectLogsByTourId(tourid);
+
+            var stamp = string.Format("{0:D2}_{1:D2}_{2:D4}_{3:D2}m_",
+                                DateTime.Now.Day,
+                                DateTime.Now.Month,
+                                DateTime.Now.Year,
+                                DateTime.Now.Minute);
+
+            var fullpath = path + stamp + tour.Name + "_Report.pdf";
 
             if (!File.Exists(fullpath) && tour != null)
             {
@@ -100,26 +115,29 @@ namespace Tourplanner.BusinessLayer
                             .SetFontColor(ColorConstants.DARK_GRAY);
                     document.Add(logHeader);
 
-                    foreach (var log in tour.Logs)
+                    if(tour.Logs != null && tour.Logs.Count() > 0)
                     {
-                        List loglist = new List()
-                            .SetSymbolIndent(12)
-                            .SetFontSize(10)
-                            .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
+                        foreach (var log in tour.Logs)
+                        {
+                            List loglist = new List()
+                                .SetSymbolIndent(12)
+                                .SetFontSize(10)
+                                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
 
-                        loglist.Add(new ListItem("Date: " + log.Date.ToString()))
-                            .Add(new ListItem("Difficulty: " + log.Difficulty.ToString()))
-                            .Add(new ListItem("Time Required: " + calcA.CalcTimeFormated(log.TotalTime)))
-                            .Add(new ListItem("Rating: " + log.Rating.ToString()))
-                            .Add(new ListItem("Comment: "));
-                        document.Add(loglist);
+                            loglist.Add(new ListItem("Date: " + log.Date.ToString()))
+                                .Add(new ListItem("Difficulty: " + log.Difficulty.ToString()))
+                                .Add(new ListItem("Time Required: " + calcA.CalcTimeFormated(log.TotalTime)))
+                                .Add(new ListItem("Rating: " + log.Rating.ToString()))
+                                .Add(new ListItem("Comment: "));
+                            document.Add(loglist);
 
-                        document.Add(new Paragraph(log.Comment)
-                                    .SetFontSize(10)
-                                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
-                                );
+                            document.Add(new Paragraph(log.Comment)
+                                        .SetFontSize(10)
+                                        .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                                    );
 
-                        document.Add(new Paragraph());
+                            document.Add(new Paragraph());
+                        }
                     }
 
                     document.Close();

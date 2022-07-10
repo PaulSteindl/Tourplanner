@@ -148,7 +148,7 @@ namespace Tourplanner.ViewModels
                 try
                 {
                     var directoryPath = @"C:\TourReport\";
-                    var boolean = _reportManager.CreateTourReport(TourListViewModel.Tour, directoryPath);
+                    var boolean = _reportManager.CreateTourReport(TourListViewModel.Tour.Id, directoryPath);
                 }
                 catch (Exception ex)
                 {
