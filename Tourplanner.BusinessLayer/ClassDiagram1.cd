@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tourplanner.BusinessLayer.CalculateAttributes" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAQAAiAAAAAAAAIAEAAAAAAIAAAAAAEAAA=</HashCode>
+      <FileName>CalculateAttributes\CalculateAttributes.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.CheckInput" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAACAAAAIAAAAAAAAAAgAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>CheckInput\CheckInput.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.DataUpdateFailedException">
+    <Position X="15.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exception\DataUpdateFailedException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.FetchDataException">
+    <Position X="17.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exception\FetchDataException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.TourplannerException">
+    <Position X="17.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exception\TourplannerException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.ExportManager" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAEQACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Import Export\ExportManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.ImportManager" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAACAAAAAACAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Import Export\ImportManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.Directions" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAACAAEgAACAAAAAAAAA=</HashCode>
+      <FileName>MapQuestAPI\Directions.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.RouteManager" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MapQuestAPI\RouteManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.ReportManager" BaseTypeListCollapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAQAAACAAAEAECAAAAAAAAAAAACQEAAAAA=</HashCode>
+      <FileName>Report\ReportManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.SearchManager" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAACAAAEAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TextSearch\SearchManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.TourManager" BaseTypeListCollapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAgACAAAYAIACAAAEAACgAAEAAAAAAAAAQAAYAAA=</HashCode>
+      <FileName>Tour\TourManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.BusinessLayer.TourLogManager" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAgAAAAAQAAACAAACAAAAAAAIAAAACAAAAAAAAAA=</HashCode>
+      <FileName>TourLog\TourLogManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Tourplanner.BusinessLayer.ICalculateAttributes">
+    <Position X="10.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAiAAAAAAAAIAEAAAAAAIAAAAAAEAAA=</HashCode>
+      <FileName>CalculateAttributes\ICalculateAttributes.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.ICheckInput">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CheckInput\ICheckInput.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.IExportManager">
+    <Position X="13.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Import Export\IExportManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.IImportManager">
+    <Position X="6.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Import Export\IImportManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.IDirections">
+    <Position X="17.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAACAAAAAAAAA=</HashCode>
+      <FileName>MapQuestAPI\IDirections.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.IMapQuestConfiguration">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAgAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MapQuestAPI\IMapQuestConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.IRouteManager">
+    <Position X="15.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MapQuestAPI\IRouteManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.IReportManager">
+    <Position X="19" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Report\IReportManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.ISearchManager">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TextSearch\ISearchManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.ITourManager">
+    <Position X="12" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAIAIAAAAAAAAAAAAEAAAAAAAAAAAAYAAA=</HashCode>
+      <FileName>Tour\ITourManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.BusinessLayer.ITourLogManager">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAACAAAAAAAIAAAACAAAAAAAAAA=</HashCode>
+      <FileName>TourLog\ITourLogManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
