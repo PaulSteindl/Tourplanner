@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Tourplanner.BusinessLayer;
 using Tourplanner.Models;
+using Tourplanner.Shared;
 using Tourplanner.Views;
 
 namespace Tourplanner.ViewModels
@@ -56,8 +57,8 @@ namespace Tourplanner.ViewModels
         public EventHandler<Tour> TourAdded;
         private readonly ITourManager _tourManager;
 
-        // IMPORT
         private readonly IImportManager _importManager;
+        private readonly ILogger _logger = LogingManager.GetLogger<Directions>();
 
         public TransportType SelectedMyEnumType
         {
@@ -106,7 +107,7 @@ namespace Tourplanner.ViewModels
                 Description = _tour.Description;
                 StartLocation = _tour.From;
                 EndLocation = _tour.To;
-                DirectoryPath = _tour.PicPath;
+                //DirectoryPath = _tour.PicPath;
                 SelectedMyEnumType = _tour.Transporttype;
             }
         }
@@ -213,7 +214,7 @@ namespace Tourplanner.ViewModels
                             }
                             else
                             {
-                                //@TODO Error Window
+                                //_logger.Error("Error by adding a new tour.");
                                 WindowFailed();
                             }
                         }
@@ -236,7 +237,7 @@ namespace Tourplanner.ViewModels
                                 OnTourUpdated(oldTour, thisTour);
                             else
                             {
-                                //@TODO error Message
+                                //_logger.Error($"Error by updating a tour with tour name: {oldTour.Name}.");
                                 WindowFailed();
                             }
                         }
@@ -265,10 +266,13 @@ namespace Tourplanner.ViewModels
                     if (importedTour != null)
                     {
                         if(importedTour.ErrorMessages.Count() == 0)
+                        {
                             Tour = importedTour;
+                            OnTourAdded();
+                        }
                         else
                         {
-                            //@TODO error Message
+                            //_logger.Error("Error by importing a new tour.");
                             WindowFailed();
                         }
                     }

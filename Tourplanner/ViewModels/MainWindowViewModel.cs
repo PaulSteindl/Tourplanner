@@ -17,6 +17,7 @@ using System.Windows.Data;
 using System.IO;
 using Tourplanner.Views;
 using static Tourplanner.ViewModels.TourManagerViewModel;
+using Tourplanner.Shared;
 
 namespace Tourplanner.ViewModels
 {
@@ -144,7 +145,6 @@ namespace Tourplanner.ViewModels
                 try
                 {
                     var directoryPath = @"C:\TourReport\";
-                    // @TODO: CHECK IF DIR EXISTS ??
                     var boolean = _reportManager.CreateTourReport(TourListViewModel.Tour, directoryPath);
                 }
                 catch (Exception ex)
