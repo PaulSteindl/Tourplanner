@@ -108,7 +108,7 @@ namespace Tourplanner.UnitTests
 
             testInfo = new Info
             {
-                Messages = new List<string?>(),
+                Messages = null,
                 Statuscode = 0
             };
 
