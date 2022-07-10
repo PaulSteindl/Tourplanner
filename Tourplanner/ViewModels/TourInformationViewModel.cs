@@ -211,8 +211,8 @@ namespace Tourplanner.ViewModels
             set
             {
                 _tour = value;
-                OnPropertyChanged();
                 OnTourChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -242,7 +242,6 @@ namespace Tourplanner.ViewModels
             var getAllLogsFromTour = _logManager.GetAllLogsByTourId(Tour.Id);
             var tmp = new ObservableCollection<Log>(getAllLogsFromTour);
             AllLogs = tmp;
-            OnPropertyChanged();
         }
 
         public ICommand LogSaveButtonCommand { get; init; }
