@@ -19,16 +19,14 @@ namespace Tourplanner.BusinessLayer
 {
     public class ReportManager : IReportManager
     {
-        ITourDAO tourDAO;
         ICalculateAttributes calcA;
         ITourManager tourManager;
         IFileDAO fileDAO;
         private readonly ILogger logger = LogingManager.GetLogger<ReportManager>();
 
 
-        public ReportManager(ITourDAO tourDAO, ICalculateAttributes calcA, ITourManager tourManager, IFileDAO fileDAO)
+        public ReportManager(ICalculateAttributes calcA, ITourManager tourManager, IFileDAO fileDAO)
         {
-            this.tourDAO = tourDAO;
             this.calcA = calcA;
             this.tourManager = tourManager;
             this.fileDAO = fileDAO;

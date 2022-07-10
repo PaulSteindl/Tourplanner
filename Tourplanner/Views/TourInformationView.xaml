@@ -53,7 +53,7 @@
                             <Label Grid.Row="3" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding To}"/>
                             <Label Grid.Row="4" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Transporttype}"/>
                             <Label Grid.Row="5" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Distance}"/>
-                            <Label Grid.Row="6" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding Time}"/>
+                            <Label Grid.Row="6" Grid.Column="1" FontWeight="Normal" DataContext="{Binding Tour}" Content="{Binding FormatedTime}"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Route Image" FontSize="15">

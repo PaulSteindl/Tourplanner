@@ -15,6 +15,7 @@ namespace Tourplanner.Models
         public TransportType Transporttype { get; set; }
         public double Distance { get; set; }
         public int Time { get; set; }
+        public string? FormatedTime { get; set; }
         public string PicPath { get; set; } = String.Empty;
         public PopularityEnum? Popularity { get; set; }
         public bool ChildFriendly { get; set; }

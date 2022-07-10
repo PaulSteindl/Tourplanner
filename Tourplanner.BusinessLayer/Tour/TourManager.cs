@@ -41,6 +41,7 @@ namespace Tourplanner.BusinessLayer
             {
                 for(int i = 0; i < tours.Count(); i++)
                 {
+                    tours[i].FormatedTime = calcA.CalcTimeFormated(tours[i].Time);
                     tours[i].Logs = logDAO.SelectLogsByTourId(tours[i].Id);
                     //tours[i] = await DoesMapExistAsync(tours[i]);
                 }
@@ -85,6 +86,7 @@ namespace Tourplanner.BusinessLayer
                         Transporttype = transportType,
                         Distance = routeInfo.Route.Distance,
                         Time = routeInfo.Route.Time,
+                        FormatedTime = calcA.CalcTimeFormated(routeInfo.Route.Time),
                         PicPath = routeInfo.Route.PicPath,
                         ChildFriendly = false,
                         Popularity = PopularityEnum.Bad,
@@ -127,6 +129,7 @@ namespace Tourplanner.BusinessLayer
                     tour.Transporttype = transportType;
                     tour.Distance = routeInfo.Route.Distance;
                     tour.Time = routeInfo.Route.Time;
+                    tour.FormatedTime = calcA.CalcTimeFormated(routeInfo.Route.Time);
                     tour.PicPath = routeInfo.Route.PicPath;
                     tour.ChildFriendly = calcA.CalculateChildFriendly(logs, tour.Distance);
                     tour.Popularity = calcA.CalculatePopularity(logs);
