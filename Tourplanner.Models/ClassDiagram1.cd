@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tourplanner.Models.Info">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASAAAAA=</HashCode>
+      <FileName>Model\Route\Info.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tourplanner.Models.RouteSteps">
+    <Position X="6.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Route\RouteSteps.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tourplanner.Models.Log">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAQAAAAAAAAAAAAAAAAEBAAAEAAAAAAA=</HashCode>
+      <FileName>Model\Log.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tourplanner.Models.Tour">
+    <Position X="4.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAUCAAgABAAAAAAAAQAAAAIAABAAEAAAAgAEQA=</HashCode>
+      <FileName>Model\Tour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Tourplanner.Models.DifficultyEnum">
+    <Position X="3" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACQACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkAAA=</HashCode>
+      <FileName>Enums\DifficultyEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Tourplanner.Models.PopularityEnum">
+    <Position X="4.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgBAAAAgAAAAAAAAAAAAAAIAAAAAAAAAAE=</HashCode>
+      <FileName>Enums\PopularityEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Tourplanner.Models.TransportType">
+    <Position X="6.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Enums\TransportType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
