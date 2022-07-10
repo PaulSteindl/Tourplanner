@@ -38,6 +38,9 @@ namespace Tourplanner.ViewModels
             }
         }
 
+        private readonly ILogger _logger = LogingManager.GetLogger<MainWindowViewModel>();
+
+
         public event EventHandler<string?>? SearchTextChanged;
 
         private string? searchText;
@@ -88,7 +91,7 @@ namespace Tourplanner.ViewModels
             this._searchManager = searchManager;
 
             _tourManager.LoadTours().Result.ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
-            //TourListViewModel.AllTours.ToList().ForEach(j => j.Logs.ToList().ForEach(l => TourInformationViewModel.AllLog.Add(l)));
+            TourListViewModel.AllTours.ToList().ForEach(j => j.Logs.ToList().ForEach(l => TourInformationViewModel.AllLogs.Add(l)));
 
             AddTourCommand = new RelayCommand((_) =>
             {
@@ -114,7 +117,7 @@ namespace Tourplanner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    throw new NullReferenceException("An error happend while deleting a tour: " + ex.Message);
+                    _logger.Error("An error happend while deleting a tour: " + ex.Message);
                 }
             });
 
@@ -134,7 +137,7 @@ namespace Tourplanner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    throw new NullReferenceException("An error happend while exporting a tour: " + ex.Message);
+                    _logger.Error("An error happend while exporting a tour: " + ex.Message);
                 }
             });
 
@@ -149,7 +152,7 @@ namespace Tourplanner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    throw new NullReferenceException("An error happend while creating a tour report: " + ex.Message);
+                    _logger.Error("An error happend while creating a tour report: " + ex.Message);
                 }
             });
 
@@ -162,7 +165,7 @@ namespace Tourplanner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    throw new NullReferenceException("An error happend while creating a tour summarize report: " + ex.Message);
+                    _logger.Error("An error happend while creating a tour summarize report: " + ex.Message);
                 }
             });
 
@@ -177,16 +180,23 @@ namespace Tourplanner.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    throw new NullReferenceException("An error happend while searching through tours: " + ex.Message);
+                    _logger.Error("An error happend while searching through tours: " + ex.Message);
                 }
             });
 
             ResetSearchFieldCommand = new RelayCommand((_) =>
             {
-                SearchText = "";
-                SearchTextChanged?.Invoke(this, SearchText);
-                TourListViewModel.AllTours.Clear();
-                _tourManager.LoadTours().Result.ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
+                try
+                {
+                    SearchText = "";
+                    SearchTextChanged?.Invoke(this, SearchText);
+                    TourListViewModel.AllTours.Clear();
+                    _tourManager.LoadTours().Result.ToList().ForEach(j => TourListViewModel.AllTours.Add(j));
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error("An error occured while resetting the search field: " + ex.Message);
+                }
             });
 
             ExitApplicationCommand = new RelayCommand((_) =>

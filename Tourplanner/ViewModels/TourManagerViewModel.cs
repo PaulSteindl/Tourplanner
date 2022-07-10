@@ -58,7 +58,7 @@ namespace Tourplanner.ViewModels
         private readonly ITourManager _tourManager;
 
         private readonly IImportManager _importManager;
-        private readonly ILogger _logger = LogingManager.GetLogger<Directions>();
+        private readonly ILogger _logger = LogingManager.GetLogger<TourManagerViewModel>();
 
         public TransportType SelectedMyEnumType
         {
@@ -94,7 +94,6 @@ namespace Tourplanner.ViewModels
             }
         }
 
-
         public Tour? Tour
         {
             get => _tour;
@@ -107,7 +106,6 @@ namespace Tourplanner.ViewModels
                 Description = _tour.Description;
                 StartLocation = _tour.From;
                 EndLocation = _tour.To;
-                //DirectoryPath = _tour.PicPath;
                 SelectedMyEnumType = _tour.Transporttype;
             }
         }
@@ -214,14 +212,15 @@ namespace Tourplanner.ViewModels
                             }
                             else
                             {
-                                //_logger.Error("Error by adding a new tour.");
+                                _logger.Error("Error by adding a new tour.");
                                 WindowFailed();
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        throw new NullReferenceException("An error happend while creating a tour: " + ex.Message);
+                        _logger.Error("Error by adding a new tour.");
+                        WindowFailed();
                     }
                 }
                 else
@@ -237,7 +236,7 @@ namespace Tourplanner.ViewModels
                                 OnTourUpdated(oldTour, thisTour);
                             else
                             {
-                                //_logger.Error($"Error by updating a tour with tour name: {oldTour.Name}.");
+                                _logger.Error($"Error by updating a tour with tour name: {oldTour.Name}.");
                                 WindowFailed();
                             }
                         }
@@ -246,7 +245,8 @@ namespace Tourplanner.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        throw new NullReferenceException("An error happend while updating a tour: " + ex.Message);
+                        _logger.Error($"Error by updating a tour with tour name: {oldTour.Name}.");
+                        WindowFailed();
                     }
                 }
                 isBusy = false;
@@ -272,14 +272,15 @@ namespace Tourplanner.ViewModels
                         }
                         else
                         {
-                            //_logger.Error("Error by importing a new tour.");
+                            _logger.Error("Error by importing a new tour.");
                             WindowFailed();
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    throw new NullReferenceException("An error happend while importing a tour: " + ex.Message);
+                    _logger.Error("Error by importing a new tour.");
+                    WindowFailed();
                 }
                 isBusy = false;
             }, (_) => isBusy == false);

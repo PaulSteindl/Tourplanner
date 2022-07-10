@@ -38,7 +38,7 @@ namespace Tourplanner.BusinessLayer
             return PopularityEnum.Bad;
         }
 
-        public float AverageRatingCalc(List<Log> logs)
+        public int AverageRatingCalc(List<Log> logs)
         {
             float sum = 0;
             int i = 0;
@@ -50,7 +50,7 @@ namespace Tourplanner.BusinessLayer
 
             sum /= logs.Count;
 
-            return sum;
+            return Convert.ToInt32(sum);
         }
 
         public float AverageTimeCalc(List<Log> logs)
@@ -68,7 +68,7 @@ namespace Tourplanner.BusinessLayer
             return sum;
         }
 
-        public float AverageDifficultyCalc(List<Log> logs)
+        public int AverageDifficultyCalc(List<Log> logs)
         {
             float sum = 0;
             int i = 0;
@@ -80,7 +80,7 @@ namespace Tourplanner.BusinessLayer
 
             sum /= logs.Count;
 
-            return sum;
+            return Convert.ToInt32(sum);
         }
 
         public string CalcTimeFormated(int time)

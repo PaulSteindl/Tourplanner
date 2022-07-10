@@ -149,18 +149,24 @@ namespace Tourplanner.BusinessLayer
                 Directory.CreateDirectory(path);
             }
 
-            var fullpath = path + "SummarizeReport.pdf";
+            var stamp = string.Format("{0:D2}_{1:D2}_{2:D4}_{3:D2}m",
+                                DateTime.Now.Day,
+                                DateTime.Now.Month,
+                                DateTime.Now.Year,
+                                DateTime.Now.Minute);
+
+            var fullpath = path + "SummarizeReport" + stamp + ".pdf";
 
             var tours = tourManager.LoadTours().Result.ToList();
 
             if (!File.Exists(fullpath) && tours != null && tours.Count() > 0)
             {
-                try
-                {
                     PdfWriter writer = new PdfWriter(fullpath);
                     PdfDocument pdf = new PdfDocument(writer);
                     Document document = new Document(pdf);
 
+                try
+                {
                     Paragraph tourHeader = new Paragraph("Summarize Report")
                             .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
                             .SetFontSize(16)
@@ -200,6 +206,7 @@ namespace Tourplanner.BusinessLayer
                 }
                 catch (Exception ex)
                 {
+                    document.Close();
                     logger.Error($"Couldn't create SummarizeReport, [{ex}]");
                     fileDAO.DeleteFile(fullpath);
                     return false;

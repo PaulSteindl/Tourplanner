@@ -9,7 +9,7 @@
         xmlns:viewmodels="clr-namespace:Tourplanner.ViewModels"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="Tour Planner" Height="600" Width="800" Loaded="Window_Loaded">
+        Title="Tour Planner" Height="700" Width="900" Loaded="Window_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Grid.Row="0" Padding="7.5" Height="40" FontSize="15">
             <MenuItem Header="_Tour Manager">
@@ -42,7 +42,7 @@
                 <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Reset" Command="{Binding ResetSearchFieldCommand}"/>
                 <Button DockPanel.Dock="Right" Height="40" Width="60" FontSize="15" Content="Search" Command="{Binding SearchFieldCommand}"/>
                 <Label Content="Search For:" Width="90" Height="40" FontSize="15" Padding="8"/>
-                <TextBox DockPanel.Dock="Left" MaxLength="100" FontSize="15" VerticalContentAlignment="Center" Text="{Binding SearchText}" Width="572"/>
+                <TextBox DockPanel.Dock="Left" MaxLength="100" FontSize="15" VerticalContentAlignment="Center" Text="{Binding SearchText}" Width="Auto"/>
             </DockPanel>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>

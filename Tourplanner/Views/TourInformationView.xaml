@@ -87,25 +87,37 @@
                                     <Label Grid.Row="4" Grid.Column="0" Content="Rating:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                                     <TextBox Grid.Row="0" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding DateAndTime}"/>
-                                    <TextBox Grid.Row="1" Grid.Column="1" Margin="4" MaxLength="68" Text="{Binding Comment}"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Margin="4" MaxLength="150" Text="{Binding Comment}"/>
                                     <TextBox Grid.Row="2" Grid.Column="1" Margin="4" MaxLength="48" Text="{Binding TotalTime}"/>
                                     <ComboBox Grid.Row="3" Grid.Column="1" Margin="4" SelectedItem="{Binding SelectedDiffEnumType}" ItemsSource="{Binding MyDiffTypeValues}"></ComboBox>
                                     <ComboBox Grid.Row="4" Grid.Column="1" Margin="4" SelectedItem="{Binding SelectedRatEnumType}" ItemsSource="{Binding MyRatTypeValues}"></ComboBox>
-                                    <Button Grid.Row="5" Margin="5,4,5,4" Content="Save" Command="{Binding LogSaveButtonCommand}" IsDefault="True"/>
+                                    <Button Grid.Row="5" Width="65" Height="22" Margin="5,4,5,4" Content="Save" Command="{Binding LogSaveButtonCommand}" IsDefault="True"/>
+                                    <Button Grid.Row="5" Width="65" Height="22" Content="Update" Command="{Binding UpdateButtonCommand}" IsDefault="True" Grid.Column="1" HorizontalAlignment="Left" Margin="4,4,0,3"/>
+                                    <Button Grid.Row="5" Width="65" Height="22" Content="Delete" Command="{Binding DeleteLogButtonCommand}" IsDefault="True" Grid.Column="1" HorizontalAlignment="Left" Margin="74,4,0,3" />
+                                    <Button Grid.Row="5" Width="65" Height="22" Content="Reset" Command="{Binding ResetLogButtonCommand}" IsDefault="True" Grid.Column="1" HorizontalAlignment="Left" Margin="144,4,0,3" />
                                 </Grid>
                             </GroupBox>
                             <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="1" Background="Black"/>
-                            <DataGrid Grid.Row="1" ItemsSource="{Binding AllLogs}" AutoGenerateColumns="True">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
-                                    <DataGridTextColumn Header="Tour ID" Binding="{Binding TourId}"/>
-                                    <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                                    <DataGridTextColumn Header="Comment" Binding="{Binding Comment}"/>
-                                    <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}"/>
-                                    <DataGridTextColumn Header="Rating" Binding="{Binding Rating}"/>
-                                    <DataGridTextColumn Header="Total Time" Binding="{Binding Total}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                            <GroupBox Grid.Row="2">
+                                <ListView Grid.Row="1" ItemsSource="{Binding AllLogs}" SelectedValue="{Binding Log}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="15" FontWeight="ExtraBlack" Text="Date: "/>
+                                                <TextBlock Text="{Binding Date}"/>
+                                                <TextBlock FontSize="15" FontWeight="ExtraBlack"  Text=" TotalTime: "/>
+                                                <TextBlock Text="{Binding TotalTime}"/>
+                                                <TextBlock FontSize="15" FontWeight="ExtraBlack"  Text=" Difficulty: "/>
+                                                <TextBlock Text="{Binding Difficulty}"/>
+                                                <TextBlock FontSize="15" FontWeight="ExtraBlack"  Text=" Rating: "/>
+                                                <TextBlock Text="{Binding Rating}"/>
+                                                <TextBlock FontSize="15" FontWeight="ExtraBlack"  Text=" Comment: "/>
+                                                <TextBlock Text="{Binding Comment}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </GroupBox>
                         </Grid>
                     </TabItem>
                 </TabControl>

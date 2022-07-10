@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Tourplanner.BusinessLayer;
 using Tourplanner.Models;
+using Tourplanner.Shared;
 
 namespace Tourplanner.ViewModels
 {
@@ -36,7 +37,9 @@ namespace Tourplanner.ViewModels
         public ObservableCollection<Log> AllLogs { get; private set; } = new();
         public event EventHandler<Log> SelectedLogChanged;
         private readonly ITourLogManager _logManager;
-        
+
+        private readonly ILogger _logger = LogingManager.GetLogger<TourInformationViewModel>();
+
         // PARAMS TOUR
         private string _name = String.Empty;
         private string _description = String.Empty;
@@ -120,7 +123,7 @@ namespace Tourplanner.ViewModels
                 isEditingLog = value;
                 if (isEditingLog == false)
                 {
-                    Log = new Log();
+                    //Log = newLog;
                 }
             }
         }
@@ -224,11 +227,18 @@ namespace Tourplanner.ViewModels
                 _log = value;
                 OnPropertyChanged();
                 OnSelectedLogChanged();
-                //Comment = _log.Comment;
-                //DateAndTime = _log.Date;
-                //TotalTime = _log.TotalTime;
-                //SelectedRatEnumType = _log.Rating;
-                //SelectedDiffEnumType = _log.Difficulty;
+                if (Log is not null)
+                {
+                    Comment = _log.Comment;
+                    DateAndTime = _log.Date;
+                    TotalTime = _log.TotalTime;
+                    SelectedRatEnumType = _log.Rating;
+                    SelectedDiffEnumType = _log.Difficulty;
+                }
+                else
+                {
+                    Log = new Log();
+                }
             }
         }
 
@@ -240,13 +250,18 @@ namespace Tourplanner.ViewModels
         private void OnTourChanged()
         {
             var getAllLogsFromTour = _logManager.GetAllLogsByTourId(Tour.Id);
-            var tmp = new ObservableCollection<Log>(getAllLogsFromTour);
-            AllLogs = tmp;
+            AllLogs.Clear();
+            getAllLogsFromTour.ToList().ForEach(l => AllLogs.Add(l));
+            if (Log is not null)
+            {
+                Log = null;
+            }
         }
 
         public ICommand LogSaveButtonCommand { get; init; }
-        public ICommand ModifyTourLogButtonCommand { get; init; }
-        public ICommand DeleteTourLogButtonCommand { get; init; }
+        public ICommand UpdateButtonCommand { get; init; }
+        public ICommand DeleteLogButtonCommand { get; init; }
+        public ICommand ResetLogButtonCommand { get; init; }
 
         public TourInformationViewModel(ITourLogManager logManager)
         {
@@ -260,26 +275,69 @@ namespace Tourplanner.ViewModels
                     try
                     {
                         var log = _logManager.CreateLog(Comment, _totalTime, DateAndTime, _difficulty, _rating, Tour.Id).Result;
-                        //if (log != null)
-                        //{
-                        //    AllLogs.Add(log);
-                        //}
+                        if (log is not null)
+                        {
+                            AllLogs.Add(log);
+                        }
                     }
                     catch (Exception ex)
                     {
-                        throw new NullReferenceException("An error happend while creating a tour log: " + ex.Message);
+                        _logger.Error("An error happend while creating a tour log: " + ex.Message);
                     }
                 }
             });
 
-            ModifyTourLogButtonCommand = new RelayCommand((_) =>
+            UpdateButtonCommand = new RelayCommand((_) =>
             {
+                if (Log is null) return;
 
+                IsEditingLog = true;
+                if (IsEditingLog)
+                {
+                    Log oldLog = Log;
+                    var thisLog = Log;
+                    try
+                    {
+                        thisLog = _logManager.UpdateLog(Comment, _totalTime, DateAndTime, _difficulty, _rating, thisLog).Result;
+                        if(thisLog is not null)
+                        {
+                            AllLogs.Remove(oldLog);
+                            AllLogs.Add(thisLog);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        _logger.Error("An error happend while updating a tour log: " + ex.Message);
+                    }
+                }
             });
 
-            DeleteTourLogButtonCommand = new RelayCommand((_) =>
+            DeleteLogButtonCommand = new RelayCommand((_) =>
             {
+                if (Log is null) return;
 
+                try
+                {
+                    _logManager.DeleteLog(Log.Id);
+                    AllLogs.Remove(Log);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error("An error happend while deleting a tour log: " + ex.Message);
+                }
+            });
+
+            ResetLogButtonCommand = new RelayCommand((_) =>
+            {
+                if(Log is null) return;
+                else
+                {
+                    Comment = "";
+                    DateAndTime = DateTime.Now;
+                    TotalTime = 0;
+                    SelectedRatEnumType = PopularityEnum.Perfect;
+                    SelectedDiffEnumType = DifficultyEnum.Hard;
+                }
             });
         }
     }
