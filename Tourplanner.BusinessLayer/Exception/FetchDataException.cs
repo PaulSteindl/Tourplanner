@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tourplanner.Exceptions
+namespace Tourplanner.BusinessLayer
 {
     public class FetchDataException : TourplannerException
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tourplanner.Exceptions
+namespace Tourplanner.BusinessLayer
 {
     public class DataUpdateFailedException : Exception
     {

@@ -7,7 +7,6 @@ using Tourplanner.Models;
 using System.Drawing;
 using Npgsql;
 using System.Data;
-using Tourplanner.Exceptions;
 using System.Globalization;
 using Tourplanner.Shared;
 using Tourplanner.DataAccessLayer;

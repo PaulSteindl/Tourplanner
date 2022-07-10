@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tourplanner.Exceptions
+namespace Tourplanner.BusinessLayer
 {
     public abstract class TourplannerException : Exception
     {
@@ -15,7 +15,7 @@ namespace Tourplanner.Exceptions
 
         public TourplannerException(string message) : base(message)
         {
-        
+
         }
 
         public TourplannerException(string message, Exception innerException) : base(message, innerException)

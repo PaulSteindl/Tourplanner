@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tourplanner.Models;
 using Tourplanner.DataAccessLayer;
-using Tourplanner.Exceptions;
 using Tourplanner.Shared;
 
 namespace Tourplanner.BusinessLayer

@@ -1,5 +1,4 @@
 ﻿using Tourplanner.ViewModels;
-using Tourplanner.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

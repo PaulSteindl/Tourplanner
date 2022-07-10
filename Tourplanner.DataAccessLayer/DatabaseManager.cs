@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
-using Tourplanner.Exceptions;
 using Tourplanner.Models;
 using Tourplanner.Shared;
 
