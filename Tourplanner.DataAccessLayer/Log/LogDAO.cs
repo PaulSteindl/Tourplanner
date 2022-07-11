@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Threading;
+using Tourplanner.Shared;
 
 namespace Tourplanner.DataAccessLayer
 {
@@ -15,6 +16,7 @@ namespace Tourplanner.DataAccessLayer
         private const string DeleteLogByIdCommand = "DELETE FROM logs WHERE log_id = @id";
 
         private IDatabaseManager databaseManager;
+        private readonly ILogger logger = LogingManager.GetLogger<LogDAO>();
 
         public LogDAO(IDatabaseManager databaseManager)
         {
@@ -41,14 +43,16 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Error(ex.Message);
             }
 
+            logger.Debug($"Tried to insert Log, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 
-        public List<Log> SelectLogsByTourId(Guid tourId)
+        public IEnumerable<Log> SelectLogsByTourId(Guid tourId)
         {
             try
             {
@@ -65,13 +69,16 @@ namespace Tourplanner.DataAccessLayer
                         logs.Add(log);
                     }
 
+                    logger.Debug($"Selected all Logs with tour_id [{tourId}], count: [{logs.Count}]");
                     return logs;
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Error(ex.Message);
             }
 
+            logger.Debug($"Selected all Logs with tour_id [{tourId}], count: 0");
             return new List<Log>();
         }
 
@@ -94,10 +101,12 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Error(ex.Message);
             }
 
+            logger.Debug($"Tried to update Log, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 
@@ -115,10 +124,12 @@ namespace Tourplanner.DataAccessLayer
                     return cmd.ExecuteNonQuery();
                 });
             }
-            catch (PostgresException)
+            catch (PostgresException ex)
             {
+                logger.Error(ex.Message);
             }
 
+            logger.Debug($"Tried to delete Log, result [{affectedRows > 0}]");
             return affectedRows > 0;
         }
 
@@ -127,6 +138,7 @@ namespace Tourplanner.DataAccessLayer
             var message = new Log
             {
                 Id = record.GetGuid(0),
+                TourId = record.GetGuid(1),
                 Date= Convert.ToDateTime(record["date"]),
                 Comment = Convert.ToString(record["comment"]) ?? String.Empty,
                 Difficulty = Enum.Parse<DifficultyEnum>(Convert.ToString(record["difficulty"]) ?? String.Empty),

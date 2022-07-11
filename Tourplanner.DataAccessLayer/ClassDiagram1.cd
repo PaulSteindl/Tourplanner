@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tourplanner.DataAccessLayer.FileDAO" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAQAAABAACAAAAAAAAAAAAAAAAAAEAAAAQABA=</HashCode>
+      <FileName>File\FileDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.DataAccessLayer.LogDAO" BaseTypeListCollapsed="true">
+    <Position X="17" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAIAAABoACAAAACAEAAIAAAAAAAAAAAAEAAAAAAAAg=</HashCode>
+      <FileName>Log\LogDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.346" />
+  </Class>
+  <Class Name="Tourplanner.DataAccessLayer.TourDAO" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAApAAAAAAAAQACAAAAIgBACBAABAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Tour\TourDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tourplanner.DataAccessLayer.DataAccessFailedException" Collapsed="true">
+    <Position X="18.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccessFailedException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tourplanner.DataAccessLayer.DatabaseManager" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAACBAAAAAAAIASAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DatabaseManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Tourplanner.DataAccessLayer.IFileDAO">
+    <Position X="13.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAABAAAAAAAAAAAAAAAAAAAAAEAAAAQABA=</HashCode>
+      <FileName>File\IFileDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.DataAccessLayer.ILogDAO">
+    <Position X="17" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAABAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Log\ILogDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.DataAccessLayer.ITourDAO">
+    <Position X="11.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAJAAAAAAAAAAAAAAAAABACBAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tour\ITourDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.DataAccessLayer.IDatabaseManager">
+    <Position X="15.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDatabaseManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tourplanner.DataAccessLayer.IPostgreSqlDAOConfiguration">
+    <Position X="18.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>IPostgreSqlDAOConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
