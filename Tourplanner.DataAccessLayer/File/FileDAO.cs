@@ -17,7 +17,7 @@ namespace Tourplanner.DataAccessLayer
         public string SaveImage(byte[] mapArray, Guid tourId)
         {
             Directory.CreateDirectory(picDirPath);
-            var path = $"{picDirPath}\\{tourId}.png";
+            var path = $"{picDirPath}\\{tourId}_{DateTime.Now.Second}.png";
             var fs = File.Create(path);
             fs.Write(mapArray);
             fs.Close();

@@ -232,7 +232,7 @@ namespace Tourplanner.ViewModels
                         thisTour = await _tourManager.UpdateTour(Name, Description, StartLocation, EndLocation, SelectedMyEnumType, thisTour);
                         if (thisTour is not null)
                         {
-                            if(thisTour.ErrorMessages.Count() == 0)
+                            if(thisTour.ErrorMessages == null || thisTour.ErrorMessages.Count() == 0)
                                 OnTourUpdated(oldTour, thisTour);
                             else
                             {

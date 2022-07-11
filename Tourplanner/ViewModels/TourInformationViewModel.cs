@@ -249,13 +249,18 @@ namespace Tourplanner.ViewModels
 
         private void OnTourChanged()
         {
-            var getAllLogsFromTour = _logManager.GetAllLogsByTourId(Tour.Id);
-            AllLogs.Clear();
-            getAllLogsFromTour.ToList().ForEach(l => AllLogs.Add(l));
-            if (Log is not null)
+            if (Tour != null)
             {
-                Log = null;
+                var getAllLogsFromTour = _logManager.GetAllLogsByTourId(Tour.Id);
+                AllLogs.Clear();
+                getAllLogsFromTour.ToList().ForEach(l => AllLogs.Add(l));
+                if (Log is not null)
+                {
+                    Log = null;
+                }
             }
+            else
+                AllLogs.Clear();
         }
 
         public ICommand LogSaveButtonCommand { get; init; }
