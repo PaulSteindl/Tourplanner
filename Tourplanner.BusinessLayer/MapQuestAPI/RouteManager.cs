@@ -28,7 +28,7 @@ namespace Tourplanner.BusinessLayer
 
             if(mapArray != null && routeInfo.Route != null && !String.IsNullOrEmpty(routeInfo.Route.SessionId))
             {
-                fileDAO.DeleteImage(tourId);
+                //fileDAO.DeleteImage(tourId);
                 routeInfo.Route.PicPath = fileDAO.SaveImage(mapArray, tourId);
             }
 
